@@ -239,3 +239,41 @@ begin
 exception when others then
   raise notice '자동 백업 예약을 건너뜀 (pg_cron 사용 불가). 앱의 "지금 백업" 버튼은 그대로 쓸 수 있어요.';
 end $$;
+
+-- 8) 호스트 여러 명 — 호스트가 다른 사람의 이메일을 호스트로 추가/삭제
+create or replace function stay_add_admin(p_email text) returns boolean
+language plpgsql security definer set search_path = public, auth as $$
+declare v uuid;
+begin
+  if not stay_is_admin() then raise exception 'not_admin'; end if;
+  select id into v from auth.users where lower(email) = lower(trim(p_email));
+  if v is null then raise exception 'no_user'; end if;
+  insert into stay_admins (user_id) values (v) on conflict do nothing;
+  return true;
+end $$;
+
+create or replace function stay_list_admins() returns table (email text, me boolean)
+language sql stable security definer set search_path = public, auth as $$
+  select u.email::text, u.id = auth.uid()
+  from stay_admins a join auth.users u on u.id = a.user_id
+  where stay_is_admin()
+  order by a.created_at
+$$;
+
+create or replace function stay_remove_admin(p_email text) returns boolean
+language plpgsql security definer set search_path = public, auth as $$
+declare v uuid;
+begin
+  if not stay_is_admin() then raise exception 'not_admin'; end if;
+  select id into v from auth.users where lower(email) = lower(trim(p_email));
+  if v is null or v = auth.uid() then raise exception 'cannot_remove'; end if;
+  delete from stay_admins where user_id = v;
+  return true;
+end $$;
+
+revoke execute on function stay_add_admin(text) from public, anon;
+revoke execute on function stay_list_admins() from public, anon;
+revoke execute on function stay_remove_admin(text) from public, anon;
+grant execute on function stay_add_admin(text) to authenticated;
+grant execute on function stay_list_admins() to authenticated;
+grant execute on function stay_remove_admin(text) to authenticated;
