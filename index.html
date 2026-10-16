@@ -1,0 +1,1763 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#E0952A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="남위례역 도보 2분, 햇살 가득한 15층 오피스텔 단기 숙박 예약">
+<meta name="robots" content="noindex">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>남위례 햇살집</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: forest header band, cream ground, white cards; mint = action, copper = rare accent (ConvoTrans system) */
+:root{
+  /* ConvoTrans brand anchors */
+  --brand-cream:#EEE8B2; --brand-copper:#C18D52; --brand-ink:#081B1B;
+  --brand-forest:#203B37; --brand-sage:#5A8F76; --brand-mint:#96CDB0;
+  /* ramps */
+  --mint-50:#EEF8F2; --mint-100:#DDF0E5; --mint-300:#96CDB0; --mint-500:#5A8F76; --mint-700:#3E6E59; --mint-900:#173A2E;
+  --forest-50:#EEF3F1; --forest-100:#DCE6E3; --forest-300:#8FA8A2; --forest-400:#5B6F6A; --forest-500:#3B5F58;
+  --forest-700:#203B37; --forest-800:#0F2826; --forest-900:#081B1B;
+  --cream-50:#FBF9EE; --cream-100:#F6F2D6; --cream-200:#E7E4CC; --cream-300:#EEE8B2;
+  --copper-100:#F4E7D6; --copper-500:#C18D52; --copper-700:#8E6232;
+  --white:#FFFFFF; --red-500:#B3433A; --red-100:#F7E0DC;
+
+  /* semantic (light) */
+  --bg:var(--cream-50); --surface:var(--white); --ink:var(--brand-ink); --muted:var(--forest-400); --line:var(--cream-200);
+  --sun:var(--brand-mint); --sun-ink:var(--brand-ink); --sun-soft:var(--mint-100);
+  --pine:var(--mint-700); --pine-soft:var(--mint-100);
+  --pend:var(--copper-500); --pend-soft:var(--copper-100); --pend-ink:var(--copper-700);
+  --rose:var(--red-500); --rose-soft:var(--red-100);
+  --hdr:var(--brand-forest); --hdr-ink:var(--cream-100); --hdr-muted:var(--forest-300);
+  --sel-bg:var(--brand-forest); --sel-ink:var(--cream-100);
+  --accent:var(--brand-copper);
+  --sky1:var(--cream-100); --sky2:var(--brand-cream); --ridge1:var(--brand-sage); --ridge2:var(--brand-forest);
+
+  --display:"Chakra Petch","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:16px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:var(--forest-900); --surface:var(--forest-800); --ink:var(--cream-100); --muted:var(--forest-300); --line:var(--forest-700);
+  --sun:var(--brand-mint); --sun-ink:var(--brand-ink); --sun-soft:var(--mint-900);
+  --pine:var(--mint-300); --pine-soft:var(--mint-900);
+  --pend:var(--copper-500); --pend-soft:#3A2C1C; --pend-ink:var(--copper-500);
+  --rose:#E98A7F; --rose-soft:#3A2321;
+  --hdr:var(--forest-800); --hdr-ink:var(--cream-100); --hdr-muted:var(--forest-300);
+  --sel-bg:var(--brand-mint); --sel-ink:var(--brand-ink);
+  --sky1:var(--forest-800); --sky2:var(--forest-700); --ridge1:var(--forest-500); --ridge2:var(--forest-900); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:var(--forest-900); --surface:var(--forest-800); --ink:var(--cream-100); --muted:var(--forest-300); --line:var(--forest-700);
+  --sun:var(--brand-mint); --sun-ink:var(--brand-ink); --sun-soft:var(--mint-900);
+  --pine:var(--mint-300); --pine-soft:var(--mint-900);
+  --pend:var(--copper-500); --pend-soft:#3A2C1C; --pend-ink:var(--copper-500);
+  --rose:#E98A7F; --rose-soft:#3A2321;
+  --hdr:var(--forest-800); --hdr-ink:var(--cream-100); --hdr-muted:var(--forest-300);
+  --sel-bg:var(--brand-mint); --sel-ink:var(--brand-ink);
+  --sky1:var(--forest-800); --sky2:var(--forest-700); --ridge1:var(--forest-500); --ridge2:var(--forest-900); color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit}
+.wrap{max-width:680px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.3;text-wrap:balance;margin:0}
+h2{font-size:1.3rem}
+h3{font-size:1.05rem}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:.85rem}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.grow{flex:1;min-width:0}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{height:104px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.brand{display:flex;align-items:center;gap:10px;height:32px}
+.brand b{font-family:var(--display);font-size:1.15rem}
+.plaque{font-family:var(--mono);font-size:.7rem;border:1.5px solid var(--ink);border-radius:4px;padding:1px 5px;letter-spacing:.06em}
+.brand .host-chip{margin-left:auto}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;height:44px}
+.tabs button{border:0;background:transparent;border-radius:10px;font-weight:500;color:var(--muted);cursor:pointer;position:relative}
+.tabs button[aria-current="page"]{color:var(--ink);background:var(--bg)}
+.tabs .dot{position:absolute;top:6px;right:12%;width:7px;height:7px;border-radius:50%;background:var(--sun)}
+
+main{padding-block:20px 40px}
+section{display:flex;flex-direction:column;gap:12px}
+.sections{display:flex;flex-direction:column;gap:34px}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;color:var(--muted);font-weight:600}
+
+/* hero */
+.hero{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;max-width:100%;background:linear-gradient(180deg,var(--sky1),var(--sky2))}
+.hero img{width:100%;height:100%;object-fit:cover;display:block}
+.hero svg{position:absolute;inset:auto 0 0 0;width:100%;height:62%}
+.hero .sun{position:absolute;width:22%;aspect-ratio:1;border-radius:50%;right:16%;top:14%;background:radial-gradient(circle,var(--sun) 0 45%,transparent 70%);opacity:.9}
+.hero .frame{position:absolute;inset:0;border:10px solid var(--surface);border-radius:var(--r);pointer-events:none;opacity:.55}
+.hero .mullion{position:absolute;top:0;bottom:0;left:50%;width:6px;background:var(--surface);opacity:.55}
+.hero .floor{position:absolute;left:14px;bottom:14px;background:var(--surface);color:var(--ink);font-family:var(--mono);font-size:.78rem;padding:4px 8px;border-radius:6px}
+.snow{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.snow i{position:absolute;top:-6px;width:4px;height:4px;border-radius:50%;background:#fff;opacity:.85;animation:fall linear infinite}
+@keyframes fall{to{top:104%}}
+@media (prefers-reduced-motion:reduce){.snow{display:none}}
+.title-block{display:flex;flex-direction:column;gap:6px}
+.title-block h1{font-size:1.75rem}
+.facts{display:flex;flex-wrap:wrap;gap:6px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:.84rem}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-weight:600;cursor:pointer;text-decoration:none;text-align:center}
+.btn.primary{background:var(--sun);border-color:var(--sun);color:var(--sun-ink)}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.btn.danger{color:var(--rose);border-color:var(--rose)}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
+.btn.sm{min-height:36px;padding:0 12px;font-size:.88rem;border-radius:10px}
+.btn.block{width:100%}
+.btn:disabled{opacity:.5;cursor:default}
+.btn:focus-visible,.tabs button:focus-visible,.cal button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
+
+/* surfaces */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:10px}
+.notice{border-left:3px solid var(--sun);background:var(--surface);border-radius:6px var(--r) var(--r) 6px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+dl.kv{display:grid;grid-template-columns:7.5em 1fr;gap:10px 14px;margin:0}
+dl.kv dt{color:var(--muted);font-size:.88rem}
+dl.kv dd{margin:0;min-width:0}
+ul.plain{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:6px}
+.gallery{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
+.gallery figure{margin:0;flex:0 0 78%;scroll-snap-align:start;display:flex;flex-direction:column;gap:4px}
+.gallery button{padding:0;border:0;background:none;cursor:zoom-in;border-radius:10px;overflow:hidden;aspect-ratio:4/3;max-width:100%}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery figcaption{font-size:.84rem;color:var(--muted)}
+
+/* calendar */
+.cal-head{display:flex;align-items:center;justify-content:space-between}
+.cal-head b{font-family:var(--display);font-size:1.15rem}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal .wd{text-align:center;font-size:.75rem;color:var(--muted);padding-bottom:2px}
+.cal .wd:first-child{color:var(--rose)}
+.cal button{aspect-ratio:1;max-width:100%;border:1px solid transparent;border-radius:10px;background:var(--surface);cursor:pointer;font-variant-numeric:tabular-nums;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:0;font-size:.95rem;position:relative}
+.cal button small{font-size:.6rem;line-height:1;color:var(--muted)}
+.cal .empty{visibility:hidden}
+.cal button.past{background:transparent;color:var(--muted);opacity:.45;cursor:default}
+.cal button.booked{background:repeating-linear-gradient(135deg,var(--line) 0 3px,transparent 3px 7px);color:var(--muted);text-decoration:line-through}
+.cal button.pending{border:1.5px dashed var(--sun);color:var(--muted)}
+.cal button.inrange{background:var(--sun-soft);border-radius:4px}
+.cal button.sel{background:var(--sun);color:var(--sun-ink);font-weight:700;text-decoration:none}
+.cal button.sel small{color:var(--sun-ink)}
+.cal button.today{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.cal .bars{position:absolute;left:4px;right:4px;bottom:4px;display:flex;flex-direction:column;gap:2px}
+.cal .bars i{height:4px;border-radius:2px;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:4px;display:inline-block;border:1px solid var(--line);background:var(--surface)}
+.sw.b{background:repeating-linear-gradient(135deg,var(--line) 0 3px,transparent 3px 7px)}
+.sw.p{border:1.5px dashed var(--sun)}
+.sw.s{background:var(--sun);border-color:var(--sun)}
+.selbar{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.selbar .grow b{font-variant-numeric:tabular-nums}
+
+/* forms */
+label.f{display:flex;flex-direction:column;gap:5px;font-size:.88rem;font-weight:500}
+label.f span.opt{color:var(--muted);font-weight:400}
+input[type=text],input[type=tel],input[type=email],input[type=password],input[type=number],input[type=url],input[type=date],select,textarea{width:100%;min-height:46px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:16px}
+textarea{min-height:90px;resize:vertical}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;cursor:pointer}
+.check input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--pine)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+details.privacy{font-size:.84rem;color:var(--muted)}
+details.privacy summary{cursor:pointer}
+.callout{background:var(--pine-soft);color:var(--ink);border-radius:12px;padding:12px 14px;font-size:.9rem}
+.callout.warn{background:var(--sun-soft)}
+
+/* status */
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pill.pending{background:var(--sun-soft);color:var(--ink)}
+.pill.confirmed{background:var(--pine-soft);color:var(--pine)}
+.pill.declined,.pill.cancelled{background:var(--rose-soft);color:var(--rose)}
+.pill.blocked{background:var(--line);color:var(--ink)}
+.code-big{font-family:var(--mono);font-size:2rem;letter-spacing:.14em;text-align:center;padding:10px;background:var(--bg);border-radius:12px}
+.secret{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:var(--bg);border-radius:12px;padding:12px 14px}
+.secret b{font-family:var(--mono);font-size:1.4rem;letter-spacing:.1em;word-break:break-all}
+.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:28px 1fr;gap:10px;counter-increment:s}
+.steps li::before{content:counter(s);width:28px;height:28px;border-radius:50%;background:var(--sun-soft);display:grid;place-items:center;font-weight:600;font-size:.85rem}
+
+/* checklist */
+.checklist{display:flex;flex-direction:column;gap:2px}
+.checklist label{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.checklist input{width:22px;height:22px;flex:none;accent-color:var(--pine);margin-top:1px}
+.checklist input:checked + span{color:var(--muted);text-decoration:line-through}
+
+/* admin */
+.admin-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.admin-tabs button{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:500;cursor:pointer;font-size:.9rem}
+.admin-tabs button[aria-current="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.stat b{display:block;font-size:1.4rem;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+.stat span{font-size:.78rem;color:var(--muted)}
+.bk{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:8px}
+.bk.st-pending{border-left:4px solid var(--sun)}
+.bk.st-confirmed{border-left:4px solid var(--pine)}
+.bk.st-blocked{border-left:4px solid var(--muted)}
+.bk .head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.bk .when{font-weight:600;font-variant-numeric:tabular-nums}
+.bk .meta{font-size:.86rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px}
+.bk .msg{font-size:.9rem;background:var(--bg);border-radius:8px;padding:8px 10px;white-space:pre-wrap}
+.ed-sec{display:flex;flex-direction:column;gap:10px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.ed-item{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start}
+.ed-item .fields{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ed-item .ops{display:flex;flex-direction:column;gap:4px}
+.ed-item .ops button{width:36px;height:34px;border:1px solid var(--line);background:var(--surface);border-radius:8px;cursor:pointer}
+.photo-ed{display:grid;grid-template-columns:84px 1fr auto;gap:10px;align-items:center}
+.photo-ed img{width:84px;height:64px;object-fit:cover;border-radius:8px;display:block}
+.savebar{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding-block:10px calc(10px + env(safe-area-inset-bottom,0px));margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));display:flex;gap:10px;align-items:center;z-index:5}
+pre.sql{max-height:220px;overflow:auto;background:var(--bg);border-radius:10px;padding:10px;font-size:.72rem;margin:0;white-space:pre}
+.demo{background:var(--sun-soft);font-size:.82rem;text-align:center;padding-block:6px}
+
+/* overlays */
+.overlay{position:fixed;inset:0;background:rgba(10,15,20,.55);z-index:50;display:flex;align-items:flex-end;justify-content:center;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.dialog{background:var(--surface);border-radius:18px;padding:20px;width:100%;max-width:420px;display:flex;flex-direction:column;gap:14px}
+@media (min-width:640px){.overlay{align-items:center}}
+.lightbox{position:fixed;inset:0;background:rgba(5,8,12,.94);z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px))}
+.lightbox img{max-height:72vh;max-width:100%;border-radius:8px}
+.lightbox p{color:#e6e9ec;font-size:.9rem}
+.lightbox .row .btn{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.25)}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:12px;z-index:70;font-size:.9rem;max-width:calc(100% - 32px);text-align:center}
+
+footer{padding-block:24px 36px;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
+footer .row{justify-content:space-between}
+footer button{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:6px 0;font-size:.8rem}
+.skeleton{height:200px;border-radius:var(--r);background:var(--surface)}
+/* ===== ConvoTrans restyle ===== */
+body{font-size:15px;letter-spacing:-.005em}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.01em}
+h1{font-size:1.9rem;font-weight:700}
+h2{font-size:1.25rem;font-weight:700}
+.eyebrow{font-family:var(--display);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.sec-head{display:flex;flex-direction:column;gap:2px}
+body::before{background:var(--hdr)}
+.top{background:var(--hdr);border-bottom:0;color:var(--hdr-ink)}
+.brand b{font-family:var(--display);font-size:1.12rem;letter-spacing:.01em}
+.plaque{border-color:var(--accent);color:var(--accent);font-family:var(--display);font-weight:600}
+.tabs button{color:var(--hdr-muted);border-radius:0;font-family:var(--body)}
+.tabs button[aria-current="page"]{color:var(--hdr-ink);background:transparent;box-shadow:inset 0 -3px 0 var(--brand-mint)}
+.tabs .dot{background:var(--accent)}
+.brand .host-chip{color:var(--hdr-muted)}
+.demo{background:var(--copper-100);color:var(--forest-900)}
+.hero{border-radius:20px}
+.hero .sun{background:radial-gradient(circle,var(--brand-copper) 0 42%,transparent 70%)}
+.hero .floor{font-family:var(--display);background:var(--hdr);color:var(--hdr-ink)}
+.fact{border-color:var(--line);font-weight:500}
+.btn{font-family:var(--body);font-weight:600;border-radius:14px}
+.btn.primary{box-shadow:0 1px 0 rgba(8,27,27,.08)}
+.btn.dark{background:var(--brand-forest);border-color:var(--brand-forest);color:var(--cream-100)}
+.btn:focus-visible,.tabs button:focus-visible,.cal button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline-color:var(--brand-sage)}
+.card{border-radius:var(--r)}
+.notice{border-left-color:var(--accent)}
+dl.kv{grid-template-columns:7.5em 1fr;gap:12px 14px}
+dl.kv dt{font-weight:500}
+.cal-head b{font-family:var(--display);font-weight:600}
+.cal button{font-family:var(--display);font-weight:500;border-radius:12px}
+.cal button.pending{border-color:var(--pend)}
+.cal button.sel{background:var(--sel-bg);color:var(--sel-ink)}
+.cal button.sel small{color:var(--sel-ink)}
+.cal button.inrange{background:var(--sun-soft)}
+.cal button.today{box-shadow:inset 0 0 0 1.5px var(--brand-sage)}
+.sw.p{border-color:var(--pend)}
+.sw.s{background:var(--sel-bg);border-color:var(--sel-bg)}
+.pill.pending{background:var(--pend-soft);color:var(--pend-ink)}
+.pill.confirmed{background:var(--pine-soft);color:var(--pine)}
+.bk.st-pending{border-left-color:var(--pend)}
+.bk.st-confirmed{border-left-color:var(--brand-sage)}
+.callout.warn{background:var(--pend-soft)}
+.code-big,.secret b,.mono{font-family:var(--mono)}
+.admin-tabs button[aria-current="true"]{background:var(--brand-forest);color:var(--cream-100);border-color:var(--brand-forest)}
+.stat b{font-family:var(--display)}
+#toast{background:var(--brand-forest);color:var(--cream-100)}
+.furn{display:flex;flex-direction:column;gap:0}
+.furn li{display:flex;flex-direction:column;gap:2px;padding:12px 0;border-bottom:1px solid var(--line)}
+.furn li:last-child{border-bottom:0}
+.furn small{color:var(--muted);font-size:.84rem;line-height:1.5}
+ul.furn{list-style:none;margin:0;padding:0}
+
+.head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.ck-count{flex:none;font-size:.8rem;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--pend-soft);color:var(--pend-ink);font-variant-numeric:tabular-nums;margin-bottom:4px}
+.ck-count.all{background:var(--pine-soft);color:var(--pine)}
+.wait{border:1.5px dashed var(--pend);background:var(--pend-soft);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+/* must-read before booking */
+.ck-note{display:block;margin-top:4px;font-size:.82rem;color:var(--muted);text-decoration:none}
+.checklist input:checked + span .ck-note{text-decoration:none}
+.must{background:var(--surface);border:1.5px solid var(--brand-copper);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.must-list{margin:0 0 4px;padding-left:1.25em;display:flex;flex-direction:column;gap:6px;font-size:.9rem}
+.must-list li::marker{color:var(--accent);font-weight:600}
+
+/* home info panels */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px 16px;gap:14px}
+.panel .sec-head{padding-bottom:12px;border-bottom:2px solid var(--brand-sage)}
+.panel dl.kv{gap:0}
+.panel dl.kv dd{padding-left:14px}
+.panel dl.kv dt,.panel dl.kv dd{padding-block:11px;border-top:1px solid var(--line)}
+.panel dl.kv dt:first-of-type,.panel dl.kv dt:first-of-type + dd{border-top:0;padding-top:2px}
+.panel .am{background:var(--bg);border-color:transparent}
+.panel .am-group.bring .am{background:transparent;border-color:var(--line)}
+.panel .am-group + .am-group{padding-top:14px;border-top:1px solid var(--line)}
+.sections > .panel + .panel{margin-top:-14px}
+
+/* icons, process, amenities, checklist link */
+.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.proc{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.proc li{display:grid;grid-template-columns:40px 1fr;gap:12px;position:relative;padding-bottom:16px}
+.proc li:last-child{padding-bottom:0}
+.proc li:not(:last-child)::after{content:"";position:absolute;left:19px;top:40px;bottom:2px;width:2px;background:var(--line)}
+.proc .ic{width:40px;height:40px;padding:9px;border-radius:50%;background:var(--sun-soft);color:var(--pine);stroke-width:1.5}
+.proc li:nth-child(4) .ic{background:var(--pend-soft);color:var(--pend-ink)}
+.proc b{font-family:var(--display);font-size:1rem}
+.proc p{font-size:.9rem;color:var(--muted);margin-top:2px}
+.am-group{display:flex;flex-direction:column;gap:10px}
+.am-group h3{font-size:.85rem;color:var(--muted);font-family:var(--body);font-weight:600}
+.am-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.am{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px;min-width:0}
+.am .ic{color:var(--pine)}
+.am span{display:flex;flex-direction:column;font-size:.9rem;font-weight:500;line-height:1.35;min-width:0}
+.am small{font-size:.74rem;color:var(--muted);font-weight:400}
+.am-group.bring .am{background:transparent;border-style:dashed}
+.am-group.bring .ic{color:var(--pend-ink)}
+.am-prev{display:inline-flex;width:36px;height:36px;align-items:center;justify-content:center;border-radius:50%;background:var(--sun-soft);color:var(--pine)}
+.linked{display:flex;gap:10px;align-items:flex-start;background:var(--pine-soft);border-radius:12px;padding:10px 12px;font-size:.88rem}
+.linked .ic{color:var(--pine)}
+.chk{border-radius:10px;padding:10px 12px;background:var(--bg);display:flex;flex-direction:column;gap:6px}
+.chk.warn{background:var(--pend-soft)}
+.chk.ok{background:var(--pine-soft)}
+@media (max-width:360px){.am-grid{grid-template-columns:1fr 1fr}}
+
+/* my booking: ticket + progress */
+.ticket{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.ticket-top{background:var(--hdr);color:var(--hdr-ink);padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.ticket-top .row{justify-content:space-between}
+.ticket-dates{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:8px}
+.ticket-dates .lbl{font-size:.72rem;color:var(--hdr-muted);letter-spacing:.08em}
+.ticket-dates b{display:block;font-family:var(--display);font-size:1.5rem;font-weight:600;line-height:1.15}
+.ticket-dates .nights{font-family:var(--display);font-size:.85rem;color:var(--brand-mint);text-align:center;padding-bottom:4px}
+.ticket-dates .out{text-align:right}
+.ticket-body{padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.dday{font-family:var(--display);font-weight:700;color:var(--accent)}
+.progress{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.progress li{display:flex;flex-direction:column;gap:6px;font-size:.74rem;color:var(--muted);text-align:center;line-height:1.3}
+.progress li::before{content:"";height:5px;border-radius:3px;background:var(--line)}
+.progress li.done::before{background:var(--brand-sage)}
+.progress li.now::before{background:var(--brand-copper)}
+.progress li.done,.progress li.now{color:var(--ink);font-weight:600}
+.next{background:var(--bg);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.next .eyebrow{color:var(--muted)}
+.saved-list{display:flex;flex-direction:column;gap:8px}
+.saved-item{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;text-align:left;width:100%}
+.saved-item b{font-family:var(--mono);letter-spacing:.06em}
+.saved-item .arrow{margin-left:auto;color:var(--muted)}
+.ticket .pill{background:rgba(150,205,176,.18);color:var(--brand-mint)}
+.ticket .pill.pending{background:rgba(193,141,82,.22);color:var(--cream-300)}
+.ticket .pill.declined,.ticket .pill.cancelled{background:rgba(233,138,127,.2);color:#F3B7AE}
+</style>
+
+</head>
+<body>
+<div id="app"><div class="wrap" style="padding-block:40px"><div class="skeleton"></div></div></div>
+<div id="toast" hidden></div>
+
+<script>
+/* ===== 서버 연결 정보 =====
+   Supabase의 Project URL과 anon(public) key를 따옴표 안에 붙여넣으세요.
+   비워두면 '데모 모드'로 동작합니다. */
+const CONFIG = {
+  SUPABASE_URL: "https://gdjxgdwhjynmszxvlbsr.supabase.co",
+  SUPABASE_KEY: "sb_publishable_kXXWn3-KZU-AQnGzPLNVUg_90RTqHT_"
+};
+</script>
+
+<script>
+(function(){
+"use strict";
+const VERSION = "1.7.0";
+const BUILD_DATE = "2026-10-16";
+const TZ = "Asia/Seoul";
+const SETUP_SQL = "-- 남위례 햇살집 · 서버 설정 SQL (Supabase → SQL Editor에 통째로 붙여넣고 Run)\n-- 여러 번 실행해도 안전합니다.\n\n-- 1) 관리자\ncreate table if not exists stay_admins (\n  user_id uuid primary key references auth.users on delete cascade,\n  created_at timestamptz default now()\n);\nalter table stay_admins enable row level security;\n\ncreate or replace function stay_is_admin() returns boolean\nlanguage sql stable security definer set search_path = public as $$\n  select exists (select 1 from stay_admins where user_id = auth.uid())\n$$;\n\n-- 처음 로그인한 한 사람만 관리자가 됩니다\ncreate or replace function stay_claim_admin() returns boolean\nlanguage plpgsql security definer set search_path = public as $$\nbegin\n  if auth.uid() is null then return false; end if;\n  if exists (select 1 from stay_admins) then\n    return exists (select 1 from stay_admins where user_id = auth.uid());\n  end if;\n  insert into stay_admins (user_id) values (auth.uid());\n  return true;\nend $$;\n\n-- 2) 공개 내용 (소개, 공지, 사진 등) — 누구나 읽기, 관리자만 수정\ncreate table if not exists stay_content (\n  id int primary key default 1 check (id = 1),\n  data jsonb not null default '{}'::jsonb,\n  updated_at timestamptz default now()\n);\ninsert into stay_content (id) values (1) on conflict do nothing;\nalter table stay_content enable row level security;\ndrop policy if exists \"stay content read\" on stay_content;\ncreate policy \"stay content read\" on stay_content for select using (true);\ndrop policy if exists \"stay content write\" on stay_content;\ncreate policy \"stay content write\" on stay_content for update using (stay_is_admin()) with check (stay_is_admin());\n\n-- 3) 예약 — 개인정보라서 관리자만 볼 수 있음. 날짜 겹침은 서버가 막음\ncreate table if not exists stay_bookings (\n  id uuid primary key default gen_random_uuid(),\n  code text unique not null,\n  name text not null,\n  phone text not null default '',\n  kakao text not null default '',\n  guests int not null default 1,\n  check_in date not null,\n  check_out date not null,\n  message text not null default '',\n  status text not null default 'pending'\n    check (status in ('pending','confirmed','declined','cancelled','blocked')),\n  admin_note text not null default '',\n  created_at timestamptz default now(),\n  updated_at timestamptz default now(),\n  check (check_out > check_in)\n);\n-- 확정·호스트 사용 날짜만 서로 겹칠 수 없음 (신청 중인 날짜는 대기 신청 가능)\nalter table stay_bookings drop constraint if exists stay_no_overlap;\nalter table stay_bookings add constraint stay_no_overlap exclude using gist (daterange(check_in, check_out) with &&)\n  where (status in ('confirmed','blocked'));\nalter table stay_bookings add column if not exists checks jsonb not null default '{}'::jsonb;\nalter table stay_bookings add column if not exists checks_at timestamptz;\nalter table stay_bookings enable row level security;\ndrop policy if exists \"stay bookings admin\" on stay_bookings;\ncreate policy \"stay bookings admin\" on stay_bookings for all using (stay_is_admin()) with check (stay_is_admin());\n\n-- 4) 비밀 정보 (출입 비번, 와이파이, 호수) — 관리자만\ncreate table if not exists stay_secret (\n  id int primary key default 1 check (id = 1),\n  door_code text not null default '',\n  wifi_name text not null default '',\n  wifi_pw text not null default '',\n  private_guide text not null default '',\n  show_in_app boolean not null default false,\n  updated_at timestamptz default now()\n);\ninsert into stay_secret (id) values (1) on conflict do nothing;\nalter table stay_secret enable row level security;\ndrop policy if exists \"stay secret admin\" on stay_secret;\ncreate policy \"stay secret admin\" on stay_secret for all using (stay_is_admin()) with check (stay_is_admin());\n\n-- 5) 손님용 기능 (이름·연락처는 절대 내보내지 않음)\ncreate or replace function stay_busy_dates()\nreturns table (check_in date, check_out date, status text)\nlanguage sql stable security definer set search_path = public as $$\n  select b.check_in, b.check_out,\n         case when b.status = 'pending' then 'pending' else 'booked' end\n  from stay_bookings b\n  where b.status in ('pending','confirmed','blocked')\n    and b.check_out >= (now() at time zone 'Asia/Seoul')::date - 1\n$$;\n\ncreate or replace function stay_request(\n  p_name text, p_phone text, p_kakao text, p_guests int,\n  p_in date, p_out date, p_message text)\nreturns json language plpgsql security definer set search_path = public as $$\ndeclare\n  v_today date := (now() at time zone 'Asia/Seoul')::date;\n  v_max int; v_maxn int; v_minn int; v_digits text; v_code text := '';\n  v_abc text := 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; i int; v_q int;\nbegin\n  select coalesce((data->>'maxGuests')::int, 2), coalesce((data->>'maxNights')::int, 90),\n         coalesce((data->>'minNights')::int, 1)\n    into v_max, v_maxn, v_minn from stay_content where id = 1;\n  v_digits := regexp_replace(coalesce(p_phone, ''), '\\D', '', 'g');\n  if length(trim(coalesce(p_name, ''))) < 1 or length(p_name) > 40 then raise exception 'bad_name'; end if;\n  if length(v_digits) < 9 or length(v_digits) > 13 then raise exception 'bad_phone'; end if;\n  if p_in < v_today or p_out <= p_in or p_in > v_today + 400\n     or (p_out - p_in) > v_maxn or (p_out - p_in) < v_minn then raise exception 'bad_dates'; end if;\n  if p_guests < 1 or p_guests > v_max then raise exception 'bad_guests'; end if;\n  if (select count(*) from stay_bookings where phone = v_digits and status = 'pending') >= 3 then\n    raise exception 'too_many';\n  end if;\n  if exists (select 1 from stay_bookings where status in ('confirmed','blocked')\n             and daterange(check_in, check_out) && daterange(p_in, p_out)) then\n    raise exception 'overlap';\n  end if;\n  select 1 + count(*) into v_q from stay_bookings\n   where status = 'pending' and daterange(check_in, check_out) && daterange(p_in, p_out);\n  for i in 1..8 loop\n    v_code := v_code || substr(v_abc, 1 + floor(random() * length(v_abc))::int, 1);\n  end loop;\n  begin\n    insert into stay_bookings (code, name, phone, kakao, guests, check_in, check_out, message)\n    values (v_code, trim(p_name), v_digits, left(coalesce(p_kakao, ''), 40), p_guests,\n            p_in, p_out, left(coalesce(p_message, ''), 500));\n  exception when exclusion_violation then\n    raise exception 'overlap';\n  end;\n  return json_build_object('code', v_code, 'check_in', p_in, 'check_out', p_out, 'status', 'pending', 'queue', v_q);\nend $$;\n\n-- 예약코드 + 휴대폰 뒤 4자리로 조회. '앱에서 보여주기'가 켜져 있으면 확정 + 입실 전날~퇴실 날에만 비번 공개\ncreate or replace function stay_lookup(p_code text, p_last4 text)\nreturns json language plpgsql security definer set search_path = public as $$\ndeclare\n  v_today date := (now() at time zone 'Asia/Seoul')::date;\n  b stay_bookings%rowtype; s stay_secret%rowtype; r jsonb;\nbegin\n  select * into b from stay_bookings\n   where code = upper(trim(p_code)) and right(phone, 4) = trim(p_last4) and status <> 'blocked';\n  if not found then return null; end if;\n  r := jsonb_build_object('code', b.code, 'name', b.name, 'guests', b.guests,\n        'check_in', b.check_in, 'check_out', b.check_out, 'status', b.status, 'checks', b.checks);\n  if b.status = 'pending' then\n    r := r || jsonb_build_object('queue', 1 + (select count(*) from stay_bookings x\n      where x.status = 'pending' and x.id <> b.id and x.created_at < b.created_at\n        and daterange(x.check_in, x.check_out) && daterange(b.check_in, b.check_out)));\n  end if;\n  if b.status = 'confirmed' then\n    select * into s from stay_secret where id = 1;\n    if not coalesce(s.show_in_app, false) then\n      r := r || jsonb_build_object('reveal_by_host', true);\n    elsif v_today between b.check_in - 1 and b.check_out then\n      r := r || jsonb_build_object('door_code', s.door_code, 'wifi_name', s.wifi_name,\n             'wifi_pw', s.wifi_pw, 'private_guide', s.private_guide);\n    end if;\n  end if;\n  return r::json;\nend $$;\n\ncreate or replace function stay_cancel(p_code text, p_last4 text)\nreturns boolean language plpgsql security definer set search_path = public as $$\ndeclare v_today date := (now() at time zone 'Asia/Seoul')::date; n int;\nbegin\n  update stay_bookings set status = 'cancelled', updated_at = now()\n   where code = upper(trim(p_code)) and right(phone, 4) = trim(p_last4)\n     and status in ('pending','confirmed') and check_in > v_today;\n  get diagnostics n = row_count;\n  return n > 0;\nend $$;\n\n-- 퇴실 체크리스트 저장 (확정된 본인 예약만)\ncreate or replace function stay_save_checks(p_code text, p_last4 text, p_checks jsonb)\nreturns boolean language plpgsql security definer set search_path = public as $$\ndeclare n int;\nbegin\n  if pg_column_size(p_checks) > 2000 then return false; end if;\n  update stay_bookings set checks = coalesce(p_checks, '{}'::jsonb), checks_at = now()\n   where code = upper(trim(p_code)) and right(phone, 4) = trim(p_last4) and status = 'confirmed';\n  get diagnostics n = row_count;\n  return n > 0;\nend $$;\n\ngrant execute on function stay_save_checks(text,text,jsonb) to anon, authenticated;\ngrant execute on function stay_busy_dates() to anon, authenticated;\ngrant execute on function stay_request(text,text,text,int,date,date,text) to anon, authenticated;\ngrant execute on function stay_lookup(text,text) to anon, authenticated;\ngrant execute on function stay_cancel(text,text) to anon, authenticated;\ngrant execute on function stay_claim_admin() to authenticated;\ngrant execute on function stay_is_admin() to anon, authenticated;\n\n-- 6) 사진 저장소 (누구나 보기, 관리자만 올리기/지우기)\ninsert into storage.buckets (id, name, public) values ('stay-photos', 'stay-photos', true)\non conflict (id) do nothing;\ndrop policy if exists \"stay photos insert\" on storage.objects;\ncreate policy \"stay photos insert\" on storage.objects for insert to authenticated\n  with check (bucket_id = 'stay-photos' and public.stay_is_admin());\ndrop policy if exists \"stay photos update\" on storage.objects;\ncreate policy \"stay photos update\" on storage.objects for update to authenticated\n  using (bucket_id = 'stay-photos' and public.stay_is_admin());\ndrop policy if exists \"stay photos delete\" on storage.objects;\ncreate policy \"stay photos delete\" on storage.objects for delete to authenticated\n  using (bucket_id = 'stay-photos' and public.stay_is_admin());\n\n-- 7) 자동 백업 — 매일 새벽 3시(한국 시간)에 내용과 예약을 복사해 30일 보관 (비밀번호 정보는 제외)\ncreate table if not exists stay_backups (\n  id bigint generated always as identity primary key,\n  created_at timestamptz default now(),\n  data jsonb not null\n);\nalter table stay_backups enable row level security;\ndrop policy if exists \"stay backups admin\" on stay_backups;\ncreate policy \"stay backups admin\" on stay_backups for select using (stay_is_admin());\n\ncreate or replace function stay_backup_now() returns bigint\nlanguage plpgsql security definer set search_path = public as $$\ndeclare v_id bigint;\nbegin\n  if auth.uid() is not null and not stay_is_admin() then raise exception 'not_admin'; end if;\n  insert into stay_backups (data)\n  select jsonb_build_object(\n    'content', (select data from stay_content where id = 1),\n    'bookings', coalesce((select jsonb_agg(to_jsonb(b) order by b.check_in) from stay_bookings b), '[]'::jsonb))\n  returning id into v_id;\n  delete from stay_backups where created_at < now() - interval '30 days';\n  return v_id;\nend $$;\nrevoke execute on function stay_backup_now() from public, anon;\ngrant execute on function stay_backup_now() to authenticated;\n\ndo $$\nbegin\n  create extension if not exists pg_cron;\n  perform cron.unschedule('stay-daily-backup') where exists (select 1 from cron.job where jobname = 'stay-daily-backup');\n  perform cron.schedule('stay-daily-backup', '0 18 * * *', 'select public.stay_backup_now()');\nexception when others then\n  raise notice '자동 백업 예약을 건너뜀 (pg_cron 사용 불가). 앱의 \"지금 백업\" 버튼은 그대로 쓸 수 있어요.';\nend $$;\n";
+
+/* ---------- utils ---------- */
+const LS = {
+  get(k,d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } },
+  del(k){ try{ localStorage.removeItem(k); }catch(e){} }
+};
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const nl = s => esc(s).replace(/\n/g,"<br>");
+const clone = o => JSON.parse(JSON.stringify(o));
+function todayStr(){ return new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()); }
+function addDays(s,n){ const d = new Date(s+"T00:00:00Z"); d.setUTCDate(d.getUTCDate()+n); return d.toISOString().slice(0,10); }
+function diffDays(a,b){ return Math.round((Date.parse(b+"T00:00:00Z") - Date.parse(a+"T00:00:00Z"))/864e5); }
+const WD = "일월화수목금토";
+function fmtD(s){ if(!s) return ""; const d = new Date(s+"T00:00:00Z"); return `${d.getUTCMonth()+1}.${d.getUTCDate()}(${WD[d.getUTCDay()]})`; }
+function fmtDY(s){ const d = new Date(s+"T00:00:00Z"); return `${d.getUTCFullYear()}.${d.getUTCMonth()+1}.${d.getUTCDate()}(${WD[d.getUTCDay()]})`; }
+function fmtPhone(p){ const d = String(p||"").replace(/\D/g,""); if(d.length===11) return d.replace(/(\d{3})(\d{4})(\d{4})/,"$1-$2-$3"); if(d.length===10) return d.replace(/(\d{3})(\d{3})(\d{4})/,"$1-$2-$3"); return d; }
+function shiftMonth(ym,n){ const [y,m] = ym.split("-").map(Number); return new Date(Date.UTC(y,m-1+n,1)).toISOString().slice(0,7); }
+function monthCells(ym){
+  const [y,m] = ym.split("-").map(Number);
+  const start = new Date(Date.UTC(y,m-1,1)).getUTCDay();
+  const days = new Date(Date.UTC(y,m,0)).getUTCDate();
+  const cells = [];
+  for(let i=0;i<start;i++) cells.push(null);
+  for(let d=1; d<=days; d++) cells.push(`${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`);
+  while(cells.length % 7) cells.push(null);
+  return cells;
+}
+function getPath(o,p){ return p.split(".").reduce((a,k)=> a==null ? a : a[k], o); }
+function setPath(o,p,v){ const ks = p.split("."); const last = ks.pop(); const t = ks.reduce((a,k)=> a[k], o); t[last] = v; }
+function uid(){ return Math.random().toString(36).slice(2,9); }
+function appUrl(){ try{ return location.href.split("#")[0].split("?")[0]; }catch(e){ return ""; } }
+
+let toastTimer;
+function toast(msg){ const t = document.getElementById("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(()=> t.hidden = true, 2600); }
+async function copy(text, done="복사했어요"){
+  try{ await navigator.clipboard.writeText(text); toast(done); }
+  catch(e){ S.dialog = { title:"아래 내용을 길게 눌러 복사하세요", copyText:text, okLabel:"닫기", noCancel:true }; render(); }
+}
+
+const ERR = {
+  overlap:"방금 다른 신청과 날짜가 겹쳤어요. 달력을 새로 불러왔으니 다시 골라 주세요.",
+  bad_dates:"날짜를 다시 확인해 주세요. 최소·최대 숙박 일수를 벗어났을 수 있어요.",
+  bad_phone:"휴대폰 번호를 숫자로 정확히 입력해 주세요.",
+  bad_name:"이름을 입력해 주세요.",
+  bad_guests:"인원을 확인해 주세요.",
+  too_many:"확인 대기 중인 신청이 이미 여러 건 있어요. 호스트에게 직접 연락해 주세요."
+};
+function errMsg(e){
+  const m = String((e && e.message) || e);
+  for(const k in ERR) if(m.includes(k)) return ERR[k];
+  if(/Failed to fetch|NetworkError|Load failed/i.test(m)) return "인터넷 연결을 확인해 주세요.";
+  if(/stay_no_overlap|exclusion/i.test(m)) return "이미 확정된 예약과 날짜가 겹쳐요.";
+  if(/Invalid login/i.test(m)) return "이메일 또는 비밀번호가 맞지 않아요.";
+  if(/already registered/i.test(m)) return "이미 있는 계정이에요. 로그인해 주세요.";
+  if(/Password should be/i.test(m)) return "비밀번호는 6자 이상으로 해 주세요.";
+  return m;
+}
+
+/* ---------- default content (from Jenny) ---------- */
+function defaultContent(){
+  return {
+    name:"남위례 햇살집",
+    tagline:"햇살 가득한 15층, 남한산성 능선이 보이는 작은 집",
+    intro:"아주 깨끗하고 상태 좋은 집이에요. 햇살이 많이 들어와서 겨울에도 따뜻하고, 눈이 내리면 창밖이 정말 멋져요. 가까운 지인분들께만 단기로 열어두는 공간이에요. 친구 집에 머물다 가듯 편하게 지내다 가세요.",
+    facts:["남위례역 도보 2분","약 17평 · 15층","무료 주차 1대","어른 2인 기준"],
+    process:[
+      {step:"apply", title:"예약 신청", body:"집 소개와 이용 조건, 퇴실 전 지켜주셔야 할 일(세탁·청소·비밀번호)을 꼼꼼히 읽어 보시고, 동의하시면 머무실 날짜를 신청해 주세요."},
+      {step:"confirm", title:"예약 확정", body:"호스트가 카톡으로 신분 확인과 입금을 안내드려요. 입금이 확인되면 예약이 확정돼요. 같은 날짜에 신청이 여러 건이면 신청 순서대로 안내드리고, 앞 분의 예약이 취소되면 다음 순서로 이용하실 수 있어요."},
+      {step:"checkin", title:"입실", body:"입실 전날 카톡으로 출입문 비밀번호를 보내드려요. 들어오신 뒤에는 집 안 안내문에 따라 비밀번호를 바꿔 주세요."},
+      {step:"checkout", title:"퇴실", body:"퇴실하실 때는 사용하시던 비밀번호를 호스트에게 꼭 알려 주세요. 비밀번호를 공유하기 어려우시면, 처음 카톡으로 받으신 비밀번호로 다시 설정해 두고 퇴실해 주세요. 잊으시면 집주인도 들어갈 수 없게 돼요."},
+      {step:"change", title:"예약 변경", body:"일정 변경은 입실 한 달 전까지 알려 주세요. 이웃에게 불편을 드리지 않도록 정해진 일정을 꼭 지켜 주세요."}
+    ],
+    amenityNote:"친구 집의 가구와 주방용품을 함께 쓴다고 생각해 주세요.",
+    amenities:[
+      {group:"공간", icon:"area", label:"약 17평"},
+      {group:"공간", icon:"bed", label:"침대방"},
+      {group:"공간", icon:"sofa", label:"거실"},
+      {group:"공간", icon:"kitchen", label:"부엌"},
+      {group:"공간", icon:"toilet", label:"화장실"},
+      {group:"공간", icon:"closet", label:"클로젯"},
+      {group:"공간", icon:"cabinet", label:"수납장"},
+      {group:"기본 제공", icon:"parking", label:"무료 주차 1대"},
+      {group:"기본 제공", icon:"wifi", label:"무료 와이파이", note:"집 안 · 1층 라운지"},
+      {group:"기본 제공", icon:"tv", label:"스마트 TV", note:"뉴스·유튜브·무료 예능·개인 OTT (지상파 본방송은 안 나와요)"},
+      {group:"기본 제공", icon:"sink", label:"싱크대"},
+      {group:"기본 제공", icon:"gasrange", label:"가스레인지"},
+      {group:"기본 제공", icon:"induction", label:"인덕션"},
+      {group:"추가 시설", icon:"doorlock", label:"도어락"},
+      {group:"추가 시설", icon:"cctv", label:"CCTV", note:"건물 공용 공간"},
+      {group:"추가 시설", icon:"office", label:"관리실"},
+      {group:"추가 시설", icon:"shoes", label:"신발장"},
+      {group:"추가 시설", icon:"bath", label:"욕조"},
+      {group:"추가 시설", icon:"bidet", label:"비데"},
+      {group:"추가 시설", icon:"closet", label:"드레스룸"},
+      {group:"추가 시설", icon:"tv", label:"케이블 TV"},
+      {group:"가전·생활", icon:"fridge", label:"냉장고"},
+      {group:"가전·생활", icon:"washer", label:"세탁기"},
+      {group:"가전·생활", icon:"aircon", label:"에어컨", note:"FCU 방식"},
+      {group:"가전·생활", icon:"styler", label:"스타일러"},
+      {group:"가전·생활", icon:"microwave", label:"전자레인지"},
+      {group:"가전·생활", icon:"ricecooker", label:"밥솥"},
+      {group:"가전·생활", icon:"airfryer", label:"에어프라이어"},
+      {group:"가전·생활", icon:"dishes", label:"주방용품·식기", note:"기본 구성"},
+      {group:"가전·생활", icon:"iron", label:"다리미 세트"},
+      {group:"가전·생활", icon:"rack", label:"빨래 건조대"},
+      {group:"가전·생활", icon:"towel", label:"수건"},
+      {group:"가구", icon:"bed", label:"2인용 침대", note:"여분의 가벼운 침구 약간"},
+      {group:"가구", icon:"table", label:"2인용 식탁"},
+      {group:"가구", icon:"stool", label:"원형 스툴 2개"},
+      {group:"가구", icon:"chair", label:"1인용 체어"},
+      {group:"준비해 오세요", icon:"toiletries", label:"개인 세면도구"},
+      {group:"준비해 오세요", icon:"hairdryer", label:"헤어드라이어"}
+    ],
+    conditions:[
+      {label:"체크인", value:"당일 편하신 시간에 자유롭게 입실하세요."},
+      {label:"체크아웃", value:"당일 편하신 시간에 자유롭게 퇴실하세요."},
+      {label:"인원", value:"침실은 어른 2명 기준이에요. 자녀와 함께 오시면 침구가 부족할 수 있으니 따로 문의해 주세요."},
+      {label:"반려동물", value:"강아지, 고양이 등 반려동물은 함께 머물 수 없어요."},
+      {label:"금연", value:"집 안 전체 금연이에요. 화장실·창가를 포함한 실내 어디에서도 담배와 전자담배를 피우실 수 없어요."},
+      {label:"숙박", value:"기본 한 달 단위로 정산해요."},
+      {label:"이용료", value:"월 120만 원\n두 달 이상 머무시면 첫 달 120만 원, 둘째 달부터 월 110만 원"}
+    ],
+    maxGuests:2, minNights:1, maxNights:90,
+    info:[
+      {label:"사이즈", value:"약 17평"},
+      {label:"구조", value:"침대방, 거실, 부엌, 화장실, 클로젯, 수납장"},
+      {label:"인테리어", value:"모던한 아파트형 구조, ㄷ자형 주방"},
+      {label:"수납", value:"세련된 디자인의 넉넉한 수납공간"},
+      {label:"전망", value:"15층, 남한산성 산맥과 도시가 어우러진 탁 트인 전망"},
+      {label:"채광", value:"4겹 통유리창으로 햇살이 가득 들어와 하루 종일 밝아요"},
+      {label:"건물 연식", value:"지은 지 6~7년 된, 상태 좋은 오피스텔"}
+    ],
+    furniture:[
+      "퀸사이즈 침대 — 2인용, 깨끗하게 관리하고 있어요",
+      "2인용 작은 식탁 + 원형 보조의자 2개",
+      "1인용 체어",
+      "스마트 TV — 와이파이로 연합뉴스·YTN 등 실시간 뉴스, 유튜브, 24시간 무료 예능 채널, 개인 OTT를 바로 볼 수 있어요. KBS·MBC 같은 지상파 본방송은 나오지 않아요."
+    ],
+    location:[
+      {label:"건물명", value:"엘포트 한라 비발디"},
+      {label:"위치", value:"8호선 남위례역 도보 2분"},
+      {label:"강남까지 거리", value:"지하철 약 25~30분 · 차량 약 30~40분"},
+      {label:"판교까지 거리", value:"지하철 약 25분 · 차량 약 30~40분"}
+    ],
+    building:[
+      {label:"공용 공간", value:"작지만 호텔처럼 깔끔하고 쾌적하게 관리돼요"},
+      {label:"비즈니스 라운지", value:"1층 · 와이파이, 컴퓨터·프린터 무료 이용"},
+      {label:"건물 안", value:"편의점, 약국, 여러 진료과목 병원, 카페, 음식점"},
+      {label:"주변", value:"먹거리 골목, 탄천 산책길, 카페거리"}
+    ],
+    stayIntro:"관리업체 없이 운영해서, 친구 집을 쓰다 가는 것처럼 약간의 수고를 부탁드려요. 공간이 작아서 부담은 크지 않아요.",
+    checklist:[
+      "사용한 침대 시트·베개 커버·수건을 세탁기로 빨아서 빨래대에 널어 주세요 — 참고: 입실하시면 전 투숙객이 세탁해 둔 깨끗한 침구와 수건을 사용하시면 돼요.",
+      "화장실, 부엌을 포함해 기본 청소를 해 주시고, 모든 물건은 제자리에 정리해 주세요 (쓰기 편한 청소기와 로봇청소기가 있어요)",
+      "창문을 닫고 전등과 가전 전원을 꺼 주세요",
+      "난방을 사용하셨다면 온도를 22도로 맞춰 두시고, 에어컨을 사용하셨다면 반드시 끄고 퇴실해 주세요",
+      "출입문 비밀번호: 퇴실하실 때는 사용하시던 비밀번호를 호스트에게 꼭 알려 주세요. 비밀번호를 공유하기 어려우시면, 처음 카톡으로 받으신 비밀번호로 다시 설정해 두고 퇴실해 주세요."
+    ],
+    guideItems:[
+      {title:"세탁", body:"집 안에 세탁기가 있어서 편리해요. 집 앞에 코인 세탁소도 많아서, 이불처럼 빨래가 많을 때 이용하기 좋아요."},
+      {title:"청소", body:"청소기와 로봇청소기를 자유롭게 쓰세요."},
+      {title:"비즈니스 라운지", body:"1층 비즈니스 라운지는 와이파이, 컴퓨터, 프린터를 무료로 쓸 수 있어서 조용히 일하기 좋아요."}
+    ],
+    notices:[
+      {id:"n1", title:"운영 안내", body:"사업으로 운영하는 곳은 아니에요. 가까운 지인들과 좋은 공간을 나누고 싶은 마음으로 2027년 말까지 열어 두려고 해요. 그 이후는 하나님이 허락하시는 대로 그때 결정하려고요 ^^\n\n그래서 입금과 신분 확인은 앱이 아닌 카톡이나 이메일로 개별 안내드릴게요.", date:"2026-10-16", pinned:true}
+    ],
+    photos:[],
+    contact:{kakaoUrl:"", kakaoId:"", email:""}
+  };
+}
+function mergeContent(saved){
+  const d = defaultContent();
+  if(!saved || typeof saved !== "object") return d;
+  const out = Object.assign(d, saved);
+  out.contact = Object.assign(defaultContent().contact, saved.contact || {});
+  return out;
+}
+
+/* ---------- data layer ---------- */
+const LIVE = !!(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_KEY);
+
+function liveApi(){
+  const U = CONFIG.SUPABASE_URL.trim().replace(/\/$/,""), K = CONFIG.SUPABASE_KEY.trim();
+  let sess = LS.get("stay_session", null);
+  function setSess(j){
+    sess = (j && j.access_token) ? {
+      access_token:j.access_token, refresh_token:j.refresh_token,
+      expires_at: j.expires_at || Math.floor(Date.now()/1000) + (j.expires_in || 3600),
+      email: (j.user && j.user.email) || (sess && sess.email) || ""
+    } : null;
+    sess ? LS.set("stay_session", sess) : LS.del("stay_session");
+  }
+  async function refresh(){
+    try{
+      const r = await fetch(U+"/auth/v1/token?grant_type=refresh_token",{method:"POST",headers:{apikey:K,"Content-Type":"application/json"},body:JSON.stringify({refresh_token:sess.refresh_token})});
+      if(!r.ok) throw new Error("refresh");
+      setSess(await r.json());
+    }catch(e){ setSess(null); }
+  }
+  async function token(){
+    if(!sess) return K;
+    if(Date.now()/1000 > sess.expires_at - 60) await refresh();
+    return sess ? sess.access_token : K;
+  }
+  async function req(path, {method="GET", body, headers={}} = {}){
+    const t = await token();
+    const isRaw = body instanceof Blob || typeof body === "string";
+    const auth = /^eyJ/.test(t) ? {Authorization:"Bearer "+t} : {};
+    const r = await fetch(U+path, {method, headers:{apikey:K, ...auth, "Content-Type":"application/json", ...headers},
+      body: body === undefined ? undefined : (isRaw ? body : JSON.stringify(body))});
+    const txt = await r.text(); let j = null;
+    try{ j = txt ? JSON.parse(txt) : null; }catch(e){ j = txt; }
+    if(!r.ok){ const m = (j && (j.message || j.msg || j.error_description || j.error)) || ("HTTP "+r.status); const err = new Error(m); err.status = r.status; throw err; }
+    return j;
+  }
+  const rpc = (fn, args) => req("/rest/v1/rpc/"+fn, {method:"POST", body:args || {}});
+  return {
+    live:true,
+    async getContent(){ const r = await req("/rest/v1/stay_content?id=eq.1&select=data"); return mergeContent(r && r[0] && r[0].data); },
+    async saveContent(data){ await req("/rest/v1/stay_content?id=eq.1",{method:"PATCH",body:{data, updated_at:new Date().toISOString()},headers:{Prefer:"return=minimal"}}); },
+    async busy(){ return await rpc("stay_busy_dates") || []; },
+    async request(f){ return await rpc("stay_request",{p_name:f.name,p_phone:f.phone,p_kakao:f.kakao,p_guests:f.guests,p_in:f.check_in,p_out:f.check_out,p_message:f.message}); },
+    async lookup(code,last4){ return await rpc("stay_lookup",{p_code:code,p_last4:last4}); },
+    async cancel(code,last4){ return await rpc("stay_cancel",{p_code:code,p_last4:last4}); },
+    async saveChecks(code,last4,checks){ return await rpc("stay_save_checks",{p_code:code,p_last4:last4,p_checks:checks}); },
+    session(){ return sess; },
+    async login(email,pw){
+      const r = await fetch(U+"/auth/v1/token?grant_type=password",{method:"POST",headers:{apikey:K,"Content-Type":"application/json"},body:JSON.stringify({email,password:pw})});
+      const j = await r.json(); if(!r.ok) throw new Error(j.error_description || j.msg || j.message || "로그인 실패");
+      setSess(j); return await rpc("stay_claim_admin");
+    },
+    async signup(email,pw){
+      const r = await fetch(U+"/auth/v1/signup",{method:"POST",headers:{apikey:K,"Content-Type":"application/json"},body:JSON.stringify({email,password:pw})});
+      const j = await r.json(); if(!r.ok) throw new Error(j.msg || j.message || j.error_description || "가입 실패");
+      if(!j.access_token) throw new Error("가입은 됐지만 이메일 인증이 켜져 있어요. Supabase에서 Authentication → Sign In / Providers → 'Confirm email'을 끄고 다시 로그인하세요.");
+      setSess(j); return await rpc("stay_claim_admin");
+    },
+    async checkAdmin(){ if(!sess) return false; try{ return await rpc("stay_claim_admin"); }catch(e){ return false; } },
+    logout(){ setSess(null); },
+    async listBookings(){ return await req("/rest/v1/stay_bookings?select=*&order=check_in.asc"); },
+    async updateBooking(id,patch){ patch.updated_at = new Date().toISOString(); await req("/rest/v1/stay_bookings?id=eq."+id,{method:"PATCH",body:patch,headers:{Prefer:"return=minimal"}}); },
+    async block(ci,co,note){
+      try{ await req("/rest/v1/stay_bookings",{method:"POST",body:{code:"BLK"+uid().toUpperCase(),name:"호스트 사용",phone:"",check_in:ci,check_out:co,status:"blocked",admin_note:note||""},headers:{Prefer:"return=minimal"}}); }
+      catch(e){ if(/stay_no_overlap|conflicting key/i.test(e.message)) throw new Error("overlap"); throw e; }
+    },
+    async deleteBooking(id){ await req("/rest/v1/stay_bookings?id=eq."+id,{method:"DELETE"}); },
+    async getSecret(){ const r = await req("/rest/v1/stay_secret?id=eq.1&select=*"); return r && r[0] || {}; },
+    async saveSecret(s){ await req("/rest/v1/stay_secret?id=eq.1",{method:"PATCH",body:{door_code:s.door_code,wifi_name:s.wifi_name,wifi_pw:s.wifi_pw,private_guide:s.private_guide,show_in_app:!!s.show_in_app,updated_at:new Date().toISOString()},headers:{Prefer:"return=minimal"}}); },
+    async listBackups(){ return await req("/rest/v1/stay_backups?select=id,created_at&order=created_at.desc&limit=30") || []; },
+    async getBackup(id){ const r = await req("/rest/v1/stay_backups?select=data&id=eq."+id); return r && r[0] && r[0].data; },
+    async backupNow(){ return await rpc("stay_backup_now"); },
+    async uploadPhoto(blob){
+      const name = Date.now()+"-"+uid()+".jpg";
+      await req("/storage/v1/object/stay-photos/"+name,{method:"POST",body:blob,headers:{"Content-Type":"image/jpeg","x-upsert":"true"}});
+      return U+"/storage/v1/object/public/stay-photos/"+name;
+    }
+  };
+}
+
+function demoApi(){
+  const KEY = "stay_demo_v3";
+  function seed(){
+    const t = todayStr();
+    return {
+      content: {},
+      secret:{door_code:"*1507#", wifi_name:"Haetsal_15F", wifi_pw:"sunny-window", private_guide:"(예시) 15층 1507호 · 1층 공동현관 → 엘리베이터 15층", show_in_app:false},
+      bookings:[
+        {id:"d1",code:"DEMO2026",name:"김민지 (예시)",phone:"01012341234",kakao:"minji_k",guests:2,check_in:addDays(t,-30),check_out:t,message:"한 달 머물게요.",status:"confirmed",admin_note:"",checks:{"0":true,"2":true},created_at:new Date().toISOString()},
+        {id:"d2",code:"DEMO7777",name:"박서준 (예시)",phone:"01077775678",kakao:"",guests:1,check_in:addDays(t,9),check_out:addDays(t,12),message:"",status:"pending",admin_note:"",created_at:new Date().toISOString()},
+        {id:"d4",code:"DEMO8888",name:"이하늘 (예시)",phone:"01088889999",kakao:"",guests:2,check_in:addDays(t,10),check_out:addDays(t,14),message:"앞 분이 안 하시면 꼭 머물고 싶어요!",status:"pending",admin_note:"",created_at:new Date(Date.now()+1000).toISOString()},
+        {id:"d3",code:"BLKDEMO",name:"호스트 사용",phone:"",kakao:"",guests:1,check_in:addDays(t,20),check_out:addDays(t,23),message:"",status:"blocked",admin_note:"한국 방문",created_at:new Date().toISOString()}
+      ]
+    };
+  }
+  let db = LS.get(KEY, null) || seed();
+  const save = () => LS.set(KEY, db);
+  const wait = v => new Promise(r => setTimeout(()=> r(clone(v)), 120));
+  const active = b => ["pending","confirmed","blocked"].includes(b.status);
+  const hard = b => ["confirmed","blocked"].includes(b.status);
+  const overlaps = (a,b,skip) => db.bookings.some(x => x.id !== skip && hard(x) && a < x.check_out && x.check_in < b);
+  const queueOf = (bk) => 1 + db.bookings.filter(x => x.id !== bk.id && x.status === "pending" && (x.created_at||"") < (bk.created_at||"~") && bk.check_in < x.check_out && x.check_in < bk.check_out).length;
+  let authed = !!LS.get("stay_demo_auth", false);
+  return {
+    live:false,
+    async getContent(){ return wait(mergeContent(db.content)); },
+    async saveContent(data){ db.content = clone(data); if(!save()) throw new Error("이 브라우저 저장 공간이 가득 찼어요 (데모 모드). 사진을 줄여 주세요."); return wait(true); },
+    async busy(){ const y = addDays(todayStr(),-1); return wait(db.bookings.filter(b => active(b) && b.check_out >= y).map(b => ({check_in:b.check_in,check_out:b.check_out,status:b.status==="pending"?"pending":"booked"}))); },
+    async request(f){
+      const c = mergeContent(db.content), t = todayStr(), n = diffDays(f.check_in,f.check_out), digits = String(f.phone).replace(/\D/g,"");
+      if(!f.name.trim()) throw new Error("bad_name");
+      if(digits.length < 9) throw new Error("bad_phone");
+      if(f.check_in < t || n < c.minNights || n > c.maxNights) throw new Error("bad_dates");
+      if(overlaps(f.check_in,f.check_out)) throw new Error("overlap");
+      const abc = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"; let code = ""; for(let i=0;i<8;i++) code += abc[Math.floor(Math.random()*abc.length)];
+      const nb = {id:uid(),code,name:f.name.trim(),phone:digits,kakao:f.kakao||"",guests:f.guests,check_in:f.check_in,check_out:f.check_out,message:f.message||"",status:"pending",admin_note:"",created_at:new Date().toISOString()};
+      const queue = queueOf(nb); db.bookings.push(nb);
+      save(); return wait({code,check_in:f.check_in,check_out:f.check_out,status:"pending",queue});
+    },
+    async lookup(code,last4){
+      const b = db.bookings.find(x => x.code === code.trim().toUpperCase() && x.phone.slice(-4) === last4.trim() && x.status !== "blocked");
+      if(!b) return wait(null);
+      const r = {code:b.code,name:b.name,guests:b.guests,check_in:b.check_in,check_out:b.check_out,status:b.status,checks:b.checks||{}};
+      const t = todayStr();
+      if(b.status === "pending") r.queue = queueOf(b);
+      if(b.status === "confirmed"){
+        if(!db.secret.show_in_app) r.reveal_by_host = true;
+        else if(t >= addDays(b.check_in,-1) && t <= b.check_out) Object.assign(r,{door_code:db.secret.door_code,wifi_name:db.secret.wifi_name,wifi_pw:db.secret.wifi_pw,private_guide:db.secret.private_guide});
+      }
+      return wait(r);
+    },
+    async cancel(code,last4){
+      const b = db.bookings.find(x => x.code === code.trim().toUpperCase() && x.phone.slice(-4) === last4.trim());
+      if(!b || !["pending","confirmed"].includes(b.status) || b.check_in <= todayStr()) return wait(false);
+      b.status = "cancelled"; save(); return wait(true);
+    },
+    async saveChecks(code,last4,checks){
+      const b = db.bookings.find(x => x.code === code.trim().toUpperCase() && x.phone.slice(-4) === last4.trim() && x.status === "confirmed");
+      if(!b) return wait(false);
+      b.checks = clone(checks); b.checks_at = new Date().toISOString(); save(); return wait(true);
+    },
+    session(){ return authed ? {email:"demo@host"} : null; },
+    async login(){ authed = true; LS.set("stay_demo_auth", true); return wait(true); },
+    async signup(){ authed = true; LS.set("stay_demo_auth", true); return wait(true); },
+    async checkAdmin(){ return wait(authed); },
+    logout(){ authed = false; LS.del("stay_demo_auth"); },
+    async listBookings(){ return wait(db.bookings.slice().sort((a,b)=> a.check_in < b.check_in ? -1 : 1)); },
+    async updateBooking(id,patch){
+      const b = db.bookings.find(x => x.id === id); if(!b) throw new Error("없는 예약이에요");
+      if(patch.status && ["confirmed","blocked"].includes(patch.status) && !hard(b) && overlaps(b.check_in,b.check_out,id)) throw new Error("overlap");
+      Object.assign(b, patch); save(); return wait(true);
+    },
+    async block(ci,co,note){ if(overlaps(ci,co)) throw new Error("overlap"); db.bookings.push({id:uid(),code:"BLK"+uid(),name:"호스트 사용",phone:"",kakao:"",guests:1,check_in:ci,check_out:co,message:"",status:"blocked",admin_note:note||"",created_at:new Date().toISOString()}); save(); return wait(true); },
+    async deleteBooking(id){ db.bookings = db.bookings.filter(x => x.id !== id); save(); return wait(true); },
+    async getSecret(){ return wait(db.secret); },
+    async saveSecret(s){ db.secret = clone(s); save(); return wait(true); },
+    async uploadPhoto(blob){ return new Promise((res,rej)=>{ const fr = new FileReader(); fr.onload = ()=> res(fr.result); fr.onerror = rej; fr.readAsDataURL(blob); }); },
+    async listBackups(){ return wait((db.backups||[]).map(b=>({id:b.id,created_at:b.created_at})).reverse()); },
+    async getBackup(id){ const b = (db.backups||[]).find(x=>x.id===id); return wait(b && b.data); },
+    async backupNow(){ db.backups = db.backups || []; const id = Date.now(); db.backups.push({id, created_at:new Date().toISOString(), data:{content:db.content, bookings:db.bookings}}); db.backups = db.backups.slice(-30); save(); return wait(id); },
+    reset(){ db = seed(); save(); }
+  };
+}
+
+const api = LIVE ? liveApi() : demoApi();
+
+/* ---------- state ---------- */
+const VIEWS = ["home","book","guide","my","host"];
+function viewFromHash(){ const h = (location.hash||"").replace("#",""); return VIEWS.includes(h) ? h : "home"; }
+const S = {
+  view: viewFromHash(),
+  content: null, loadErr: null,
+  busy: [], busyMap: {},
+  month: todayStr().slice(0,7),
+  sel: {in:null, out:null},
+  sending:false, submitted:null,
+  my: Object.assign({code:"", last4:"", result:null, loading:false, notFound:false}, (LS.get("stay_my", [])[0] || {})),
+  checks: LS.get("stay_checks", {}), linked: null,
+  dialog:null, lightbox:null, f:{},
+  admin:{ authed:false, checked:false, tab:"bookings", bookings:[], filter:"active", secret:null, draft:null, dirty:false, month:todayStr().slice(0,7), sel:{in:null,out:null}, mode:"login", busy:false, lastPending:null, notify:LS.get("stay_notify",false) }
+};
+S.my.result = null;
+
+function setBusy(list){
+  S.busy = list || [];
+  const m = {}, q = {};
+  for(const r of S.busy){ for(let d = r.check_in; d < r.check_out; d = addDays(d,1)){ if(r.status === "pending") q[d] = (q[d]||0) + 1; else m[d] = "booked"; } }
+  S.busyMap = m; S.pendMap = q;
+}
+function pendingIn(a,b){ let n = 0; for(let d=a; d<b; d=addDays(d,1)) n = Math.max(n, (S.pendMap||{})[d] || 0); return n; }
+function rangeFree(a,b,map){ for(let d=a; d<b; d=addDays(d,1)) if(map[d]) return false; return true; }
+
+/* ---------- render ---------- */
+const app = document.getElementById("app");
+function render(){
+  const y = window.scrollY;
+  app.innerHTML = layout();
+  window.scrollTo(0,y);
+}
+function go(v){
+  if(S.view === "host" && v !== "host" && S.admin.dirty){ S.dialog = {title:"저장하지 않은 수정이 있어요", body:"나가면 수정한 내용이 사라져요.", okLabel:"나가기", danger:true, onOk:()=>{ S.admin.dirty = false; S.admin.draft = null; go(v); }}; render(); return; }
+  S.view = v;
+  try{ history.replaceState(null,"","#"+v); }catch(e){}
+  if(v === "book") loadBusy();
+  if(v === "host") enterHost();
+  render(); window.scrollTo(0,0);
+  if(v === "my") autoMy();
+  if(v === "guide") autoLink();
+}
+
+function layout(){
+  const c = S.content;
+  const pendingDot = S.admin.authed && S.admin.bookings.some(b => b.status === "pending");
+  let body;
+  if(!c) body = S.loadErr ? `<div class="card"><b>내용을 불러오지 못했어요</b><p class="muted">${esc(S.loadErr)}</p><button class="btn" data-a="reload">다시 시도</button></div>` : `<div class="skeleton"></div>`;
+  else body = ({home:viewHome, book:viewBook, guide:viewGuide, my:viewMy, host:viewHost}[S.view])();
+  return `
+  ${LIVE ? "" : `<div class="demo">데모 모드 · 서버 연결 전이라 이 기기에만 저장돼요</div>`}
+  <header class="top"><div class="wrap">
+    <div class="brand"><span class="plaque">15F</span><b>${esc(c ? c.name : "")}</b>
+      ${S.view === "host" ? `<button class="btn sm ghost host-chip" data-a="go" data-v="home">손님 화면</button>` : ""}
+    </div>
+    <nav class="tabs" aria-label="메뉴">
+      ${[["home","소개"],["book","예약"],["guide","이용안내"],["my","내 예약"]].map(([v,l]) => `<button data-a="go" data-v="${v}" ${S.view===v?'aria-current="page"':""}>${l}</button>`).join("")}
+    </nav>
+  </div></header>
+  <main class="wrap">${body}</main>
+  <footer class="wrap"><div class="row">
+    <span>© 2026 Jenny Ryu · v${VERSION}</span>
+    <span class="row"><button data-a="hardRefresh">새로고침</button><button data-a="go" data-v="host">호스트${pendingDot ? " •" : ""}</button></span>
+  </div></footer>
+  ${S.dialog ? viewDialog() : ""}
+  ${S.lightbox !== null && c && c.photos[S.lightbox] ? viewLightbox() : ""}`;
+}
+
+/* ---------- guest: home ---------- */
+function heroArt(){
+  const flakes = Array.from({length:18},(_,i)=>`<i style="left:${(i*53)%100}%;animation-duration:${6+(i%5)*1.7}s;animation-delay:-${(i*1.3)%9}s;opacity:${.4+(i%4)*.15}"></i>`).join("");
+  return `<div class="sun"></div>
+  <svg viewBox="0 0 400 180" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 110 L40 80 L70 95 L110 55 L150 85 L190 60 L230 90 L270 50 L310 78 L350 62 L400 88 L400 180 L0 180 Z" fill="var(--ridge1)"/>
+    <path d="M0 140 L50 118 L95 132 L140 104 L190 126 L240 110 L290 130 L340 112 L400 128 L400 180 L0 180 Z" fill="var(--ridge2)"/>
+    <g fill="var(--surface)" opacity=".7"><rect x="20" y="146" width="18" height="34"/><rect x="44" y="138" width="14" height="42"/><rect x="300" y="142" width="20" height="38"/><rect x="326" y="134" width="16" height="46"/><rect x="350" y="150" width="22" height="30"/></g>
+  </svg>
+  <div class="snow" aria-hidden="true">${flakes}</div>
+  <div class="mullion"></div><div class="frame"></div>`;
+}
+function viewHome(){
+  const c = S.content, t = todayStr();
+  const pinned = c.notices.filter(n => n.pinned);
+  const hero = c.photos[0] ? `<img src="${esc(c.photos[0].url)}" alt="${esc(c.photos[0].caption || c.name)}">` : heroArt();
+  return `<div class="sections">
+    <section>
+      <div class="hero">${hero}<span class="floor">15F · 남한산성 view</span></div>
+      <div class="title-block">
+        <h1>${esc(c.name)}</h1>
+        <p class="muted">${esc(c.tagline)}</p>
+      </div>
+      <div class="facts">${c.facts.map(f => `<span class="fact">${esc(f)}</span>`).join("")}</div>
+      <button class="btn primary block" data-a="go" data-v="book">빈 날짜 보고 예약하기</button>
+    </section>
+    <section class="card">${sh("How it works","예약은 이렇게 진행돼요")}${processBlock(c)}</section>
+    ${pinned.length ? `<section>${pinned.map(n => `<div class="notice"><b>${esc(n.title)}</b><p class="small">${nl(n.body)}</p></div>`).join("")}</section>` : ""}
+    <section><p>${nl(c.intro)}</p></section>
+    ${c.photos.length ? `<section class="panel">${sh("Photos","사진")}<div class="gallery">${c.photos.map((p,i) => `<figure><button data-a="lightbox" data-i="${i}" aria-label="사진 크게 보기"><img src="${esc(p.url)}" alt="${esc(p.caption||"집 사진")}" loading="lazy"></button>${p.caption?`<figcaption>${esc(p.caption)}</figcaption>`:""}</figure>`).join("")}</div></section>` : ""}
+    <section class="panel">${sh("Location","위치와 교통")}${kv(c.location)}</section>
+    <section class="panel">${sh("Space","공간")}${kv(c.info)}</section>
+    <section class="panel">${sh("Neighborhood","건물과 동네")}${kv(c.building)}</section>
+    <section class="panel">${sh("Amenities","편의시설")}${c.amenityNote?`<p class="small muted">${esc(c.amenityNote)}</p>`:""}${amenitiesBlock(c)}</section>
+    <section class="card"><h3>친구 집처럼 머물러 주세요</h3><p class="small">${nl(c.stayIntro)}</p><button class="btn sm" data-a="go" data-v="guide">객실 이용 안내 및 준수사항</button></section>
+  </div>`;
+}
+function fv(form,name){ return esc(S.f[form+"."+name] ?? ""); }
+const ICONS = {
+  area:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h6V3M15 21v-6h6"/>',
+  bed:'<path d="M3 19V6M3 15h18M21 19v-6a2 2 0 0 0-2-2h-8v4"/><circle cx="7" cy="12" r="2"/>',
+  sofa:'<path d="M4 11V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"/><path d="M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v5H2z"/><path d="M5 18v2M19 18v2"/>',
+  kitchen:'<path d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M2 10h2M20 10h2M9 7c0-1 1-1 1-2M14 7c0-1 1-1 1-2"/>',
+  bath:'<path d="M3 12h18v2a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z"/><path d="M6 12V5a2 2 0 0 1 4 0M7 19l-1 2M17 19l1 2"/>',
+  closet:'<path d="M12 7a2 2 0 1 1 2-2M12 7v2l8.5 5.7A1 1 0 0 1 20 16.5H4a1 1 0 0 1-.5-1.8L12 9"/>',
+  cabinet:'<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M4 12h16M10 7.5h4M10 16.5h4"/>',
+  parking:'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/>',
+  wifi:'<path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/>',
+  tv:'<rect x="2" y="5" width="20" height="13" rx="2"/><path d="M8 21h8M12 18v3"/>',
+  fridge:'<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M5 10h14M9 6v1M9 13v3"/>',
+  washer:'<rect x="3" y="2" width="18" height="20" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M7 6h.01M10 6h.01"/>',
+  aircon:'<rect x="2" y="4" width="20" height="8" rx="2"/><path d="M6 9h12M8 15c0 2-2 2-2 4M12 15v4M16 15c0 2 2 2 2 4"/>',
+  styler:'<path d="M8 3 3 6l2 4 3-1v12h8V9l3 1 2-4-5-3a4 4 0 0 1-8 0z"/>',
+  microwave:'<rect x="2" y="5" width="20" height="14" rx="2"/><rect x="5" y="8" width="10" height="8" rx="1"/><path d="M18 9v.01M18 12v.01M18 15v.01"/>',
+  ricecooker:'<path d="M5 11a7 4 0 0 1 14 0"/><path d="M4 11h16v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M12 5v2"/>',
+  airfryer:'<path d="M6 3h12l2 18H4z"/><path d="M7 12h10"/><circle cx="12" cy="7" r="1.5"/>',
+  dishes:'<path d="M7 3v8a2 2 0 0 0 2 2v8M11 3v8a2 2 0 0 1-2 2M17 21V3c-2 0-3 3-3 7h3"/>',
+  iron:'<path d="M3 17h18v-2a6 6 0 0 0-6-6H7l-4 8z"/><path d="M9 9V6h8"/>',
+  rack:'<path d="M3 6h18M6 6v14M18 6v14M6 11h12M3 20h6M15 20h6"/>',
+  towel:'<path d="M6 3h12v18H6zM6 8h12M9 15h6"/>',
+  table:'<path d="M3 8h18M6 8v12M18 8v12M6 14h12"/>',
+  stool:'<ellipse cx="12" cy="6" rx="7" ry="2.5"/><path d="M7 8 5 21M17 8l2 13M12 8.5V21"/>',
+  chair:'<path d="M7 3h10v9H7zM5 12h14v3H5zM7 15v6M17 15v6"/>',
+  toiletries:'<path d="M9 8h6v13H9zM10 8V5h4v3M12 2v3"/>',
+  hairdryer:'<path d="M3 9a5 5 0 0 1 5-5h6a5 5 0 0 1 0 10h-3l1 7H8l-1-7"/><circle cx="8" cy="9" r="1.5"/>',
+  apply:'<rect x="4" y="4" width="16" height="17" rx="2"/><path d="M4 9h16M9 2v4M15 2v4M8 14h5"/>',
+  confirm:'<path d="M21 12a9 9 0 1 1-9-9"/><path d="m8 12 3 3 9-9"/>',
+  checkin:'<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M14 9l2 2"/>',
+  checkout:'<path d="M14 4h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-5M3 12h11M10 8l4 4-4 4"/>',
+  change:'<path d="M4 7h13l-3-3M20 17H7l3 3"/>',
+  sink:'<path d="M3 13h18v2a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5zM12 13V6a2 2 0 0 1 4 0M16 8h2"/>',
+  gasrange:'<rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="8.5" cy="11" r="2.5"/><circle cx="15.5" cy="11" r="2.5"/><path d="M7 17h.01M12 17h.01M17 17h.01"/>',
+  induction:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1.5"/>',
+  doorlock:'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M9 6h.01M12 6h.01M15 6h.01M9 9h.01M12 9h.01M15 9h.01"/><path d="M10 15h4v3h-4z"/>',
+  cctv:'<path d="M3 7l13-3 2 6-13 3z"/><path d="M6 12l1 3h4M11 15v4H4"/><circle cx="16" cy="7" r=".5"/>',
+  office:'<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h3M13 7h3M8 11h3M13 11h3M10 21v-5h4v5"/>',
+  shoes:'<path d="M3 15V8h5l2 3c3 0 7 1 10 3v3H3z"/><path d="M3 17h17"/>',
+  toilet:'<path d="M6 3h6v7H6zM4 10h12a4 4 0 0 1-4 5h-2l1 6H7l1-6a4 4 0 0 1-4-5"/>',
+  bidet:'<path d="M5 11h14a6 6 0 0 1-6 6h-2a6 6 0 0 1-6-6zM10 17l-1 4h6l-1-4M15 6c1 1 2 2 2 3M12 5c0 2 1 3 1 4"/>',
+  dot:'<circle cx="12" cy="12" r="3"/>'
+};
+function icon(k){ return `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[k] || ICONS.dot}</svg>`; }
+const AM_GROUPS = ["공간","기본 제공","추가 시설","가전·생활","가구","준비해 오세요"];
+function amenitiesBlock(c){
+  const groups = AM_GROUPS.map(g => [g, c.amenities.filter(a => a.group === g)]).filter(([,l]) => l.length);
+  return groups.map(([g,list]) => `<div class="am-group${g==="준비해 오세요"?" bring":""}"><h3>${esc(g)}</h3><div class="am-grid">${list.map(a => `<div class="am">${icon(a.icon)}<span>${esc(a.label)}${a.note?`<small>${esc(a.note)}</small>`:""}</span></div>`).join("")}</div></div>`).join("");
+}
+function processBlock(c){
+  return `<ol class="proc">${c.process.map(p => `<li>${icon(p.step)}<div><b>${esc(p.title)}</b><p>${nl(p.body)}</p></div></li>`).join("")}</ol>`;
+}
+function sh(en,ko){ return `<div class="sec-head"><span class="eyebrow">${esc(en)}</span><h2>${esc(ko)}</h2></div>`; }
+function kv(list){ return `<dl class="kv">${list.map(x => `<dt>${esc(x.label)}</dt><dd>${nl(x.value)}</dd>`).join("")}</dl>`; }
+
+/* ---------- guest: book ---------- */
+function calendar(ym, opts){
+  const t = todayStr(), cells = monthCells(ym), [y,m] = ym.split("-").map(Number);
+  const canPrev = opts.allowPast || ym > t.slice(0,7);
+  return `<div class="stack">
+    <div class="cal-head">
+      <button class="btn sm" data-a="${opts.navAction}" data-n="-1" ${canPrev?"":"disabled"} aria-label="이전 달">‹</button>
+      <b>${y}년 ${m}월</b>
+      <button class="btn sm" data-a="${opts.navAction}" data-n="1" aria-label="다음 달">›</button>
+    </div>
+    <div class="cal" role="grid">
+      ${[...WD].map(w => `<div class="wd">${w}</div>`).join("")}
+      ${cells.map(d => d ? opts.cell(d,t) : `<span class="empty"></span>`).join("")}
+    </div>
+  </div>`;
+}
+function guestCell(d,t){
+  const {in:ci, out:co} = S.sel, st = S.busyMap[d], pq = (S.pendMap||{})[d] || 0;
+  const cls = [];
+  let sub = "";
+  if(d < t) cls.push("past");
+  else if(st) cls.push("booked");
+  else if(pq) cls.push("pending");
+  if(d === t) cls.push("today");
+  if(ci && d === ci){ cls.push("sel"); sub = "체크인"; }
+  else if(co && d === co){ cls.push("sel"); sub = "체크아웃"; }
+  else if(ci && co && d > ci && d < co) cls.push("inrange");
+  if(!sub && st && d >= t) sub = "확정";
+  else if(!sub && pq && d >= t) sub = `대기 ${pq}`;
+  const dd = Number(d.slice(8));
+  return `<button class="${cls.join(" ")}" data-a="pick" data-d="${d}" aria-label="${fmtD(d)}${st?" 예약 확정":pq?` 신청 ${pq}건`:""}">${dd}${sub?`<small>${sub}</small>`:""}</button>`;
+}
+function viewBook(){
+  const c = S.content;
+  if(S.submitted) return viewSubmitted();
+  const {in:ci, out:co} = S.sel, n = ci && co ? diffDays(ci,co) : 0;
+  return `<div class="sections">
+    <section>
+      ${sh("Calendar","날짜 고르기")}
+      <p class="small muted">체크인 날짜를 누르고, 이어서 체크아웃 날짜를 누르세요. 신청 중인 날짜도 대기 신청할 수 있어요.</p>
+      <div class="legend"><span><i class="sw"></i>가능</span><span><i class="sw p"></i>신청 중 · 대기 가능</span><span><i class="sw b"></i>예약 확정</span><span><i class="sw s"></i>선택</span></div>
+      ${calendar(S.month,{navAction:"month",cell:guestCell})}
+      <div class="selbar">
+        <div class="grow">${ci ? `<b>${fmtD(ci)}</b> → <b>${co ? fmtD(co) : "체크아웃 선택"}</b>${n?` · ${n}박`:""}` : `<span class="muted">아직 고른 날짜가 없어요</span>`}</div>
+        ${ci ? `<button class="btn sm ghost" data-a="clearSel">다시 고르기</button>` : ""}
+      </div>
+    </section>
+    <section class="card">
+      <span class="eyebrow">Terms</span><h3>이용 조건</h3>
+      ${kv(c.conditions)}
+    </section>
+    ${ci && co ? bookForm(n) : ""}
+  </div>`;
+}
+function bookForm(n){
+  const c = S.content;
+  return `<section id="bookform">
+    ${sh("Request","신청 정보")}
+    ${(()=>{ const q = pendingIn(S.sel.in,S.sel.out); return q ? `<div class="wait"><b>먼저 신청하신 분이 ${q}명 있어요</b><p class="small">지금 신청하시면 대기 ${q+1}순위가 돼요. 앞 분의 예약이 취소되면 다음 순서로 이용하실 수 있어요. 진행 상황은 '내 예약'에서 볼 수 있어요.</p></div>` : ""; })()}
+    ${mustRead()}
+    <div class="callout warn">신분증, 계좌, 결제 정보는 여기에 적지 마세요. 확인이 필요하면 호스트가 카톡이나 이메일로 따로 연락드려요.</div>
+    <form class="stack" data-form="book" novalidate>
+      <label class="f">이름<input type="text" id="bf-name" name="name" autocomplete="name" maxlength="40" value="${fv("book","name")}" required></label>
+      <label class="f">휴대폰 번호<input type="tel" id="bf-phone" name="phone" inputmode="numeric" autocomplete="tel" placeholder="010-0000-0000" value="${fv("book","phone")}" required></label>
+      <label class="f">카카오톡 ID <span class="opt">(선택)</span><input type="text" id="bf-kakao" name="kakao" maxlength="40" value="${fv("book","kakao")}"></label>
+      <label class="f">인원<select id="bf-guests" name="guests">${Array.from({length:c.maxGuests},(_,i)=>`<option value="${i+1}" ${fv("book","guests")==String(i+1)?"selected":""}>${i+1}명</option>`).join("")}</select></label>
+      <label class="f">남길 말 <span class="opt">(선택 · 방문 목적, 도착 예정 시간 등)</span><textarea id="bf-msg" name="message" maxlength="500">${fv("book","message")}</textarea></label>
+      <div class="hp" aria-hidden="true"><label>웹사이트<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <label class="check"><input type="checkbox" id="bf-rules" name="rules" ${S.f["book.rules"]?"checked":""}><span>위 '이용 안내 및 퇴실 전 지켜주셔야 할 사항'을 읽었고, 퇴실 전 세탁·청소·비밀번호 안내를 지키는 데 동의해요 (필수)</span></label>
+      <label class="check"><input type="checkbox" id="bf-agree" name="agree" ${S.f["book.agree"]?"checked":""}><span>개인정보 수집·이용에 동의해요 (필수)</span></label>
+      <details class="privacy"><summary>자세히 보기</summary>
+        <p>수집 항목: 이름, 휴대폰 번호, 카카오톡 ID(선택)<br>이용 목적: 예약 확인과 연락<br>공개 범위: 호스트만 볼 수 있고, 다른 손님에게는 날짜만 표시돼요<br>보관: 이용이 끝나면 호스트가 정리해요</p>
+      </details>
+      <button class="btn primary block" type="submit" ${S.sending?"disabled":""}>${S.sending ? "보내는 중…" : pendingIn(S.sel.in,S.sel.out) ? `${n}박 대기 신청하기` : `${n}박 예약 신청하기`}</button>
+    </form>
+  </section>`;
+}
+function ckItem(x){ const [m,...n] = String(x).split(" — "); return `${esc(m)}${n.length?`<small class="ck-note">${esc(n.join(" — "))}</small>`:""}`; }
+function ckMain(x){ return String(x).split(" — ")[0]; }
+function mustRead(){
+  const c = S.content;
+  const pet = c.conditions.find(x => /반려|펫/.test(x.label));
+  const smoke = c.conditions.find(x => /금연|흡연/.test(x.label));
+  const change = c.process.find(x => x.step === "change");
+  return `<div class="must" id="must">
+    <span class="eyebrow">Before you book</span>
+    <h3>이용 안내 및 퇴실 전 지켜주셔야 할 사항</h3>
+    <p class="small">관리업체 없이, 친구 집처럼 함께 쓰는 공간이에요. 아래 안내를 읽어 보시고, <b>준수해야 할 사항에 동의하시면</b> 예약을 진행해 주세요.</p>
+    <b class="small">퇴실 전 지켜주셔야 할 일</b>
+    <ol class="must-list">${c.checklist.map(x => `<li>${ckItem(x)}</li>`).join("")}</ol>
+    ${pet || smoke || change ? `<b class="small">함께 지켜주세요</b><ul class="must-list">${smoke?`<li><b>${esc(smoke.value)}</b></li>`:""}${pet?`<li>${esc(pet.value)}</li>`:""}${change?`<li>${esc(change.body)}</li>`:""}</ul>` : ""}
+  </div>`;
+}
+function hostContactBlock(){
+  const ct = S.content.contact;
+  if(!ct.kakaoUrl && !ct.kakaoId && !ct.email) return "";
+  return `<div class="stack small">
+    ${ct.kakaoUrl ? `<a class="btn block" href="${esc(ct.kakaoUrl)}" target="_blank" rel="noopener">카카오톡으로 호스트에게 연락</a>` : ""}
+    ${ct.kakaoId ? `<div class="row"><span class="muted">카카오톡 ID</span><b class="grow">${esc(ct.kakaoId)}</b><button class="btn sm" data-a="copy" data-t="${esc(ct.kakaoId)}">복사</button></div>` : ""}
+    ${ct.email ? `<div class="row"><span class="muted">이메일</span><b class="grow" style="word-break:break-all">${esc(ct.email)}</b><button class="btn sm" data-a="copy" data-t="${esc(ct.email)}">복사</button></div>` : ""}
+  </div>`;
+}
+function gcalUrl(b){
+  const c = S.content;
+  const p = new URLSearchParams({action:"TEMPLATE", text:`${c.name} 숙박`, dates:`${b.check_in.replace(/-/g,"")}/${b.check_out.replace(/-/g,"")}`,
+    details:`예약코드 ${b.code}\n${appUrl()}`, location:"남위례역"});
+  return "https://calendar.google.com/calendar/render?"+p.toString();
+}
+function viewSubmitted(){
+  const b = S.submitted, n = diffDays(b.check_in,b.check_out);
+  return `<div class="sections"><section class="card">
+    <span class="pill pending">${b.queue>1?`대기 ${b.queue}순위`:"확인 대기"}</span>
+    <h2>${b.queue>1?"대기 신청을 보냈어요":"신청을 보냈어요"}</h2>
+    ${b.queue>1?`<p class="small">먼저 신청하신 분이 ${b.queue-1}명 있어요. 앞 분의 예약이 취소되면 다음 순서로 이용하실 수 있어요.</p>`:""}
+    <p>${fmtD(b.check_in)} → ${fmtD(b.check_out)} · ${n}박</p>
+    <p class="small muted">예약코드를 꼭 저장해 두세요. 이 기기에도 기억해 둘게요.</p>
+    <div class="code-big">${esc(b.code)}</div>
+    <button class="btn" data-a="copy" data-t="${esc(b.code)}">예약코드 복사</button>
+  </section>
+  <section><h3>다음 단계</h3>
+    <ol class="steps">
+      <li><span>신청 순서대로 호스트가 카톡으로 금액과 입금 계좌를 안내드려요. <b>입금이 확인되면 예약이 확정돼요.</b></span></li>
+      <li><span>확정되면 <b>내 예약</b>에서 상태가 '확정'으로 바뀌어요.</span></li>
+      <li><span>입실 전날 카톡으로 출입문 비밀번호를 보내드려요. 진행 상황은 언제든 <b>내 예약</b>에서 볼 수 있어요.</span></li>
+    </ol>
+  </section>
+  <section class="stack">
+    ${S.content.contact.kakaoUrl ? `<a class="btn primary block" data-a="notifyHost" href="${esc(S.content.contact.kakaoUrl)}" target="_blank" rel="noopener">호스트에게 카톡으로 알리기</a><p class="small muted">누르면 신청 내용이 복사돼요. 카톡 창에 붙여넣어 보내 주세요.</p>` : hostContactBlock()}
+    <a class="btn block" href="${gcalUrl(b)}" target="_blank" rel="noopener">구글 캘린더에 일정 넣기</a>
+    <button class="btn block" data-a="ics" data-code="${esc(b.code)}" data-in="${b.check_in}" data-out="${b.check_out}">휴대폰 캘린더에 넣기 (알림 포함)</button>
+    <button class="btn ghost block" data-a="newBooking">다른 날짜 신청하기</button>
+  </section></div>`;
+}
+
+/* ---------- guest: guide ---------- */
+function viewGuide(){
+  const c = S.content;
+  const notices = c.notices.slice().sort((a,b)=> (b.pinned?1:0)-(a.pinned?1:0) || (b.date||"").localeCompare(a.date||""));
+  const lk = S.linked, checks = lk ? (lk.checks || {}) : S.checks;
+  const done = c.checklist.filter((_,i)=> checks[i]).length;
+  return `<div class="sections">
+    <section>
+      ${sh("Guide","이용 안내 사항")}
+      ${kv(c.conditions)}
+      <div class="callout">출입문 비밀번호는 <b>입실 전날 카톡으로</b> 보내드려요. 들어오신 뒤에는 집 안 안내문에 따라 바꿔 주세요.</div>
+      <button class="btn" data-a="go" data-v="my">내 예약 열기</button>
+    </section>
+    <section>
+      <div class="head-row">${sh("Before you leave","퇴실 전 지켜주셔야 할 일")}<span class="ck-count ${done===c.checklist.length && c.checklist.length ? "all" : ""}">${done===c.checklist.length && c.checklist.length ? "✓ 모두 확인" : `확인 ${done}/${c.checklist.length}`}</span></div>
+      <p class="small muted">${nl(c.stayIntro)}</p>
+      ${lk ? `<div class="linked">${icon("confirm")}<span>${esc(lk.name)}님 예약(${fmtD(lk.check_in)} → ${fmtD(lk.check_out)})과 연결됐어요. 체크하면 호스트에게도 바로 전달돼요.</span></div>` : ""}
+      <div class="checklist">${c.checklist.map((x,i)=> `<label><input type="checkbox" id="ck-${i}" data-check="${i}" ${checks[i]?"checked":""}><span>${ckItem(x)}</span></label>`).join("")}</div>
+      ${lk ? "" : `<p class="small muted">예약이 확정된 분은 '내 예약'에서 예약을 한 번 불러오시면, 체크한 내용이 호스트에게도 전달돼요.</p>`}
+    </section>
+    ${c.guideItems.length ? `<section>${sh("Good to know","알아두면 좋은 것")}${c.guideItems.map(g=> `<div class="stack" style="gap:2px"><h3>${esc(g.title)}</h3><p class="small">${nl(g.body)}</p></div>`).join("")}</section>` : ""}
+    <section>${sh("Notice","공지사항")}${notices.length ? notices.map(n=> `<div class="notice"><div class="row"><b class="grow">${esc(n.title)}</b><span class="small muted">${n.date?esc(n.date.replace(/-/g,".")):""}</span></div><p class="small">${nl(n.body)}</p></div>`).join("") : `<p class="muted small">아직 공지가 없어요.</p>`}</section>
+    <section>${sh("Contact","호스트 연락처")}${hostContactBlock() || `<p class="small muted">예약 후 카톡으로 연락드려요.</p>`}</section>
+  </div>`;
+}
+
+/* ---------- guest: my booking ---------- */
+const ST_LABEL = {pending:"확인 대기", confirmed:"확정", declined:"거절됨", cancelled:"취소됨", blocked:"호스트 사용"};
+function viewMy(){
+  const m = S.my, r = m.result;
+  if(r) return `<div class="sections">${myResult(r)}<button class="btn ghost block" data-a="myReset">다른 예약 찾기</button></div>`;
+  const saved = LS.get("stay_my", []);
+  return `<div class="sections">
+    <section>
+      ${sh("My stay","내 예약")}
+      <p class="small muted">진행 상황, 남은 날짜, 출입 비밀번호를 한곳에서 확인해요.</p>
+    </section>
+    ${saved.length ? `<section>
+      <h3>이 휴대폰에서 신청한 예약</h3>
+      <div class="saved-list">${saved.map(x => `<button class="saved-item" data-a="openSaved" data-code="${esc(x.code)}" data-l4="${esc(x.last4)}"><span class="small muted">예약코드</span><b>${esc(x.code)}</b><span class="arrow">열기 ›</span></button>`).join("")}</div>
+    </section>` : ""}
+    <section class="card">
+      <h3>${saved.length ? "다른 예약 찾기" : "예약코드로 찾기"}</h3>
+      <p class="small muted">신청을 마치면 나오는 8자리 코드예요. 카톡 확정 안내에도 적혀 있어요.</p>
+      <form class="stack" data-form="lookup">
+        <label class="f">예약코드<input type="text" id="my-code" name="code" value="${esc(m.code)}" autocapitalize="characters" autocomplete="off" placeholder="예: ABCD2345"></label>
+        <label class="f">신청할 때 적은 휴대폰 번호 뒤 4자리<input type="tel" id="my-last4" name="last4" value="${esc(m.last4)}" inputmode="numeric" maxlength="4" autocomplete="off"></label>
+        <button class="btn dark block" type="submit" ${m.loading?"disabled":""}>${m.loading?"찾는 중…":"내 예약 보기"}</button>
+      </form>
+      ${LIVE ? "" : `<p class="small muted">데모: 코드 DEMO2026 · 뒤 4자리 1234</p>`}
+      ${m.notFound ? `<div class="callout warn">일치하는 예약이 없어요. 코드와 번호를 다시 확인해 주세요.</div>` : ""}
+    </section>
+    <section>
+      <h3>예약은 이렇게 진행돼요</h3>
+      <ol class="steps">
+        <li><span><b>신청</b> · 날짜를 골라 신청하면 예약코드가 나와요</span></li>
+        <li><span><b>확정</b> · 카톡으로 입금 안내를 드리고, 입금이 확인되면 확정돼요</span></li>
+        <li><span><b>입실</b> · 입실 전날 카톡으로 출입문 비밀번호를 보내드려요</span></li>
+        <li><span><b>퇴실</b> · '이용안내'의 퇴실 체크리스트를 체크하고, 비밀번호를 알려 주시거나 처음 비밀번호로 다시 설정해 두고 나가요</span></li>
+      </ol>
+    </section>
+  </div>`;
+}
+function bigDate(s){ const d = new Date(s+"T00:00:00Z"); return `<b>${d.getUTCMonth()+1}.${d.getUTCDate()}</b><span class="lbl">${WD[d.getUTCDay()]}요일 · ${d.getUTCFullYear()}</span>`; }
+function myResult(r){
+  const n = diffDays(r.check_in,r.check_out), t = todayStr(), reveal = addDays(r.check_in,-1);
+  const canCancel = ["pending","confirmed"].includes(r.status) && r.check_in > t;
+  const active = ["pending","confirmed"].includes(r.status);
+  // progress: 0 신청, 1 확정, 2 출입 정보, 3 체크아웃
+  let done = -1, now = -1;
+  if(r.status === "pending"){ done = 0; now = 1; }
+  else if(r.status === "confirmed"){
+    if(t < reveal){ done = 1; now = 2; }
+    else if(t <= r.check_out){ done = 2; now = 3; }
+    else done = 3;
+  }
+  const steps = ["신청","확정","입실","퇴실"];
+  const progress = active ? `<ol class="progress">${steps.map((x,i)=> `<li class="${i<=done?"done":i===now?"now":""}">${x}</li>`).join("")}</ol>` : "";
+  let dday = "";
+  if(active && t < r.check_in) dday = `체크인까지 D-${diffDays(t,r.check_in)}`;
+  else if(r.status === "confirmed" && t <= r.check_out) dday = t === r.check_out ? "오늘 체크아웃이에요" : `머무는 중 · 체크아웃까지 D-${diffDays(t,r.check_out)}`;
+  let next = "", extra = "";
+  if(r.status === "pending") next = (r.queue||1) > 1
+    ? `<b>대기 ${r.queue}순위</b>예요. 먼저 신청하신 분이 ${r.queue-1}명 있어요. 앞 분의 예약이 취소되면 다음 순서로 이용하실 수 있어요.`
+    : "<b>1순위</b>예요. 호스트가 카톡으로 금액과 입금 계좌를 안내드려요. 입금이 확인되면 예약이 확정돼요.";
+  else if(r.status === "confirmed"){
+    if(r.door_code !== undefined && !r.reveal_by_host){
+      next = "출입 정보가 열렸어요. 편한 시간에 입실하세요.";
+      extra = `<div class="stack">
+        <div class="secret"><div><span class="small muted">출입 비밀번호</span><br><b>${esc(r.door_code||"호스트에게 문의")}</b></div>${r.door_code?`<button class="btn sm" data-a="copy" data-t="${esc(r.door_code)}">복사</button>`:""}</div>
+        <div class="secret"><div><span class="small muted">와이파이 · ${esc(r.wifi_name||"-")}</span><br><b>${esc(r.wifi_pw||"-")}</b></div>${r.wifi_pw?`<button class="btn sm" data-a="copy" data-t="${esc(r.wifi_pw)}">복사</button>`:""}</div>
+        ${r.private_guide ? `<div class="callout">${nl(r.private_guide)}</div>` : ""}
+      </div>`;
+    }
+    else if(r.reveal_by_host){
+      if(t < reveal) next = `확정됐어요. 입실 전날(<b>${fmtD(reveal)}</b>) 카톡으로 출입문 비밀번호를 보내드려요.`;
+      else if(t <= r.check_out) next = "출입문 비밀번호는 카톡으로 보내드렸어요. 들어오신 뒤 안내문에 따라 바꿔 주시고, 퇴실하실 때는 비밀번호를 꼭 알려 주시거나, 처음 비밀번호로 다시 설정해 두고 나가 주세요.";
+      else next = "이용이 끝난 예약이에요. 머물러 주셔서 고마워요.";
+    }
+    else if(t < reveal) next = `확정됐어요. 출입 비밀번호와 와이파이는 <b>${fmtD(reveal)}</b>부터 여기서 열려요.`;
+    else next = "이용이 끝난 예약이에요. 머물러 주셔서 고마워요.";
+  }
+  else if(r.status === "declined") next = "이번 날짜는 마감됐어요. 먼저 신청하신 분으로 확정됐을 수 있어요. 다른 날짜로 다시 신청해 주세요.";
+  else if(r.status === "cancelled") next = "취소된 예약이에요.";
+  return `<article class="ticket">
+    <div class="ticket-top">
+      <div class="row"><span>${esc(r.name)}님 · ${r.guests}명</span><span class="pill ${r.status}">${r.status==="pending"&&(r.queue||1)>1?`대기 ${r.queue}순위`:ST_LABEL[r.status]}</span></div>
+      <div class="ticket-dates">
+        <div><span class="lbl">체크인</span>${bigDate(r.check_in)}</div>
+        <div class="nights">${n}박 →</div>
+        <div class="out"><span class="lbl">체크아웃</span>${bigDate(r.check_out)}</div>
+      </div>
+      <span class="small mono" style="color:var(--hdr-muted)">${esc(r.code)}</span>
+    </div>
+    <div class="ticket-body">
+      ${progress}
+      ${dday ? `<span class="dday">${dday}</span>` : ""}
+      <div class="next"><span class="eyebrow">Next</span><p>${next}</p></div>
+      ${extra}
+      ${active && r.check_out >= t ? `<div class="row"><a class="btn sm" href="${gcalUrl(r)}" target="_blank" rel="noopener">구글 캘린더에 넣기</a><button class="btn sm" data-a="ics" data-code="${esc(r.code)}" data-in="${r.check_in}" data-out="${r.check_out}">휴대폰 캘린더</button></div>` : ""}
+      ${r.status === "confirmed" && r.check_out >= t ? `<button class="btn sm" data-a="go" data-v="guide">퇴실 체크리스트 (${S.content.checklist.filter((_,i)=>(r.checks||{})[i]).length}/${S.content.checklist.length})</button>` : ""}
+      ${canCancel ? `<button class="btn sm ghost" data-a="askCancel" style="color:var(--rose)">예약 취소하기</button>` : ""}
+    </div>
+  </article>`;
+}
+async function doLookup(code,last4){
+  S.my.code = code; S.my.last4 = last4; S.my.loading = true; S.my.notFound = false; render();
+  try{ const r = await api.lookup(code,last4); S.my.result = r; S.my.notFound = !r; if(r){ rememberMy(code,last4); setLinked(r,last4); } }
+  catch(err){ toast(errMsg(err)); }
+  S.my.loading = false; render();
+}
+
+/* ---------- host ---------- */
+async function enterHost(){
+  const a = S.admin;
+  if(!a.checked){
+    a.checked = true;
+    if(api.session()){ a.authed = await api.checkAdmin(); }
+    render();
+  }
+  if(a.authed) loadAdmin();
+}
+async function loadAdmin(silent){
+  const a = S.admin;
+  try{
+    const list = await api.listBookings();
+    const pend = list.filter(b => b.status === "pending").length;
+    if(a.lastPending !== null && pend > a.lastPending){ toast("새 예약 신청이 들어왔어요"); notifyNew(); }
+    a.lastPending = pend;
+    const alerts = list.filter(needsCheckAlert).length;
+    if(a.lastAlerts !== undefined && alerts > a.lastAlerts){ toast("퇴실 체크가 덜 된 예약이 있어요"); try{ if(a.notify && "Notification" in window && Notification.permission === "granted") new Notification(S.content.name,{body:"퇴실 체크가 덜 된 예약이 있어요"}); }catch(e){} }
+    a.lastAlerts = alerts;
+    a.bookings = list;
+    if(!a.secret) a.secret = await api.getSecret();
+    if(!silent || (S.view === "host" && a.tab === "bookings")) render();
+  }catch(e){
+    if(e.status === 401){ api.logout(); a.authed = false; render(); toast("다시 로그인해 주세요"); }
+    else if(!silent) toast(errMsg(e));
+  }
+}
+function notifyNew(){
+  try{ if(S.admin.notify && "Notification" in window && Notification.permission === "granted") new Notification(S.content.name, {body:"새 예약 신청이 들어왔어요"}); }catch(e){}
+}
+function viewHost(){
+  const a = S.admin;
+  if(!a.checked) return `<div class="skeleton"></div>`;
+  if(!a.authed) return hostLogin();
+  const tabs = [["bookings","예약"],["calendar","달력"],["content","내용 편집"],["secret","비번·와이파이"],["settings","설정"]];
+  const inner = {bookings:hostBookings, calendar:hostCalendar, content:hostContent, secret:hostSecret, settings:hostSettings}[a.tab]();
+  return `<div class="stack" style="gap:18px">
+    <div class="row"><h2 class="grow">호스트</h2><span class="small muted">${esc((api.session()||{}).email||"")}</span></div>
+    <div class="admin-tabs">${tabs.map(([k,l]) => `<button data-a="htab" data-t="${k}" aria-current="${a.tab===k}">${l}${k==="bookings"&&a.bookings.some(b=>b.status==="pending"||needsCheckAlert(b))?" •":""}</button>`).join("")}</div>
+    ${inner}
+  </div>`;
+}
+function hostLogin(){
+  const a = S.admin, signup = a.mode === "signup";
+  return `<div class="sections"><section class="card">
+    <h2>${signup ? "호스트 계정 만들기" : "호스트 로그인"}</h2>
+    ${signup ? `<p class="small muted">처음 한 번만 해요. 가장 먼저 만든 계정 하나만 호스트가 돼요.</p>` : ""}
+    ${LIVE ? "" : `<p class="small muted">데모 모드에서는 아무 이메일·비밀번호로 들어갈 수 있어요.</p>`}
+    <form class="stack" data-form="${signup?"signup":"login"}">
+      <label class="f">이메일<input type="email" id="hl-email" name="email" autocomplete="username" value="${fv(signup?"signup":"login","email")}" required></label>
+      <label class="f">비밀번호<input type="password" id="hl-pw" name="pw" autocomplete="${signup?"new-password":"current-password"}" required></label>
+      <button class="btn dark block" type="submit" ${a.busy?"disabled":""}>${a.busy ? "확인 중…" : (signup ? "계정 만들기" : "로그인")}</button>
+    </form>
+    <button class="btn ghost sm" data-a="hmode">${signup ? "이미 계정이 있어요" : "처음이에요 · 계정 만들기"}</button>
+  </section></div>`;
+}
+function checkState(b){
+  const list = S.content.checklist, ch = b.checks || {};
+  const missing = list.filter((_,i)=> !ch[i]);
+  return {done: list.length - missing.length, total: list.length, missing};
+}
+function needsCheckAlert(b){
+  const t = todayStr();
+  return b.status === "confirmed" && b.check_out <= t && b.check_out >= addDays(t,-7) && checkState(b).missing.length > 0;
+}
+function remindMsg(b){
+  const st = checkState(b);
+  return `[${S.content.name}] 퇴실 체크 부탁드려요\n${b.name}님, 머물러 주셔서 고마워요!\n아래 항목이 아직 체크되지 않았어요. 확인 부탁드려요.\n\n${st.missing.map(x=>"· "+ckMain(x)).join("\n")}\n\n앱 '이용안내'에서 체크할 수 있어요.\n${appUrl()}`;
+}
+function overlap(a,b){ return a.check_in < b.check_out && b.check_in < a.check_out; }
+function adminQueue(b){ return 1 + S.admin.bookings.filter(x => x.id !== b.id && x.status === "pending" && (x.created_at||"") < (b.created_at||"~") && overlap(x,b)).length; }
+function isClosed(b){ return b.status === "declined" && /다른 예약 확정/.test(b.admin_note||""); }
+function closedMsg(b){ return `[${S.content.name}] 예약 안내\n${b.name}님, 신청해 주신 ${fmtD(b.check_in)} → ${fmtD(b.check_out)} 일정은 먼저 신청하신 분으로 예약이 확정되어 마감됐어요.\n아쉽지만 다른 날짜로 다시 신청해 주시면 반갑게 안내드릴게요.\n${appUrl()}`; }
+function bookingCard(b){
+  const n = diffDays(b.check_in,b.check_out), t = todayStr();
+  const past = b.check_out < t;
+  let acts = [];
+  if(b.status === "pending"){ acts.push(`<button class="btn sm primary" data-a="setStatus" data-id="${b.id}" data-s="confirmed">입금 확인 · 확정</button>`, `<button class="btn sm" data-a="setStatus" data-id="${b.id}" data-s="declined">거절</button>`); }
+  if(b.status === "confirmed"){ acts.push(`<button class="btn sm" data-a="msgConfirm" data-id="${b.id}">확정 안내 복사</button>`, `<button class="btn sm" data-a="msgEntry" data-id="${b.id}">출입 정보 복사</button>`); if(!past) acts.push(`<button class="btn sm danger" data-a="setStatus" data-id="${b.id}" data-s="cancelled">취소</button>`); }
+  if(isClosed(b)) acts.push(`<button class="btn sm" data-a="msgClosed" data-id="${b.id}">마감 안내 복사</button>`);
+  if(b.status === "blocked") acts.push(`<button class="btn sm" data-a="delBooking" data-id="${b.id}">막은 날짜 풀기</button>`);
+  if(["declined","cancelled"].includes(b.status) || (past && b.status === "confirmed")) acts.push(`<button class="btn sm ghost" data-a="delBooking" data-id="${b.id}">기록·개인정보 삭제</button>`);
+  if(b.status !== "blocked") acts.push(`<button class="btn sm ghost" data-a="editNote" data-id="${b.id}">메모</button>`);
+  return `<article class="bk st-${b.status}">
+    <div class="head"><div><b>${esc(b.name)}</b> ${b.status!=="blocked"?`<span class="small muted">${b.guests}명</span>`:""}<div class="when">${fmtD(b.check_in)} → ${fmtD(b.check_out)} · ${n}박</div></div><span class="pill ${b.status}">${b.status==="pending" && S.admin.bookings.some(x=>x.id!==b.id&&x.status==="pending"&&overlap(x,b)) ? `대기 ${adminQueue(b)}순위` : isClosed(b) ? "마감" : ST_LABEL[b.status]}</span></div>
+    ${b.status !== "blocked" ? `<div class="meta">
+      <span>${b.phone ? `<a href="tel:${esc(b.phone)}">${esc(fmtPhone(b.phone))}</a>` : ""}</span>
+      ${b.kakao ? `<span>카톡 ${esc(b.kakao)}</span>` : ""}
+      <span class="mono">${esc(b.code)}</span>
+      ${b.created_at ? `<span>신청 ${esc(new Date(b.created_at).toLocaleDateString("ko-KR",{timeZone:TZ,month:"numeric",day:"numeric"}))}</span>` : ""}
+    </div>` : ""}
+    ${b.message ? `<div class="msg">${esc(b.message)}</div>` : ""}
+    ${b.admin_note ? `<div class="small"><span class="muted">메모</span> ${esc(b.admin_note)}</div>` : ""}
+    ${b.status === "confirmed" && b.check_in <= t ? (()=>{ const st = checkState(b), alert = needsCheckAlert(b);
+      return `<div class="chk ${alert?"warn":st.missing.length?"":"ok"}"><div class="row"><b class="grow">퇴실 체크 ${st.done}/${st.total}</b>${b.checks_at?`<span class="small muted">${esc(new Date(b.checks_at).toLocaleString("ko-KR",{timeZone:TZ,month:"numeric",day:"numeric",hour:"numeric",minute:"2-digit"}))}</span>`:""}</div>
+        ${st.missing.length ? `<ul class="plain small">${st.missing.map(x=>`<li>${esc(ckMain(x))}</li>`).join("")}</ul>${alert?`<button class="btn sm" data-a="msgRemind" data-id="${b.id}">확인 요청 카톡 문구 복사</button>`:""}` : `<span class="small">모두 체크했어요</span>`}</div>`; })() : ""}
+    <div class="row">${acts.join("")}${b.phone?`<button class="btn sm ghost" data-a="copy" data-t="${esc(fmtPhone(b.phone))}">번호 복사</button>`:""}</div>
+  </article>`;
+}
+function hostBookings(){
+  const a = S.admin, t = todayStr(), list = a.bookings;
+  const pending = list.filter(b => b.status === "pending");
+  const upcoming = list.filter(b => b.status === "confirmed" && b.check_out >= t);
+  const staying = upcoming.filter(b => b.check_in <= t);
+  const filters = [["active","진행 중"],["pending","확인 대기"],["past","지난 기록"],["all","전체"]];
+  let shown;
+  if(a.filter === "pending") shown = pending;
+  else if(a.filter === "past") shown = list.filter(b => b.check_out < t || ["declined","cancelled"].includes(b.status)).reverse();
+  else if(a.filter === "all") shown = list;
+  else shown = list.filter(b => (["pending","confirmed","blocked"].includes(b.status) && b.check_out >= t) || needsCheckAlert(b));
+  return `<div class="stack">
+    ${(()=>{ const le = lastExport(); const days = le ? diffDays(le, todayStr()) : null; return (days === null || days >= 30) && list.length ? `<div class="callout"><b>${days === null ? "아직 백업 파일을 받은 적이 없어요." : `백업 파일을 받은 지 ${days}일 지났어요.`}</b> 서버 자동 백업과 별개로, 휴대폰에도 한 부 보관해 두세요. <button class="btn sm" data-a="exportJson" style="margin-top:6px">백업 파일 받기</button></div>` : ""; })()}
+    ${list.filter(needsCheckAlert).length ? `<div class="callout warn"><b>퇴실 체크가 덜 된 예약이 ${list.filter(needsCheckAlert).length}건 있어요.</b> 아래 카드에서 빠진 항목을 확인하고 손님에게 카톡으로 알려 주세요.</div>` : ""}
+    <div class="stats">
+      <div class="stat"><b>${pending.length}</b><span>대기 신청</span></div>
+      <div class="stat"><b>${staying.length}</b><span>지금 머무는 중</span></div>
+      <div class="stat"><b>${upcoming.length - staying.length}</b><span>다가오는 확정</span></div>
+    </div>
+    <div class="row">${filters.map(([k,l]) => `<button class="btn sm ${a.filter===k?"dark":""}" data-a="hfilter" data-f="${k}">${l}</button>`).join("")}<button class="btn sm ghost" data-a="reloadAdmin">↻</button></div>
+    ${shown.length ? shown.map(bookingCard).join("") : `<p class="muted">해당하는 예약이 없어요.</p>`}
+  </div>`;
+}
+function adminMap(){
+  const m = {};
+  for(const b of S.admin.bookings){ if(!["pending","confirmed","blocked"].includes(b.status)) continue; for(let d=b.check_in; d<b.check_out; d=addDays(d,1)) (m[d] = m[d] || []).push(b); }
+  return m;
+}
+function hostCalendar(){
+  const a = S.admin, map = adminMap(), {in:ci,out:co} = a.sel;
+  const col = {pending:"var(--sun)", confirmed:"var(--pine)", blocked:"var(--muted)"};
+  const cell = (d,t) => {
+    const items = map[d] || [], cls = [];
+    if(d < t) cls.push("past");
+    if(d === t) cls.push("today");
+    if(ci && d === ci) cls.push("sel"); else if(co && d === co) cls.push("sel"); else if(ci && co && d > ci && d < co) cls.push("inrange");
+    return `<button class="${cls.join(" ")}" data-a="hpick" data-d="${d}" style="justify-content:flex-start;padding-top:6px">${Number(d.slice(8))}<span class="bars">${items.slice(0,2).map(b=>`<i style="background:${col[b.status]}"></i>`).join("")}</span></button>`;
+  };
+  const ym = a.month, monthEnd = addDays(shiftMonth(ym,1)+"-01",-1);
+  const inMonth = a.bookings.filter(b => ["pending","confirmed","blocked"].includes(b.status) && b.check_in <= monthEnd && b.check_out > ym+"-01");
+  const free = ci && co && rangeFree(ci,co,Object.fromEntries(Object.keys(map).map(k=>[k,1])));
+  return `<div class="stack">
+    <div class="legend"><span><i class="sw" style="background:var(--sun)"></i>확인 대기</span><span><i class="sw" style="background:var(--pine)"></i>확정</span><span><i class="sw" style="background:var(--muted)"></i>호스트 사용</span></div>
+    ${calendar(ym,{navAction:"hmonth",cell,allowPast:true})}
+    <div class="card">
+      <h3>날짜 막기</h3>
+      <p class="small muted">본인이 쓰거나 손님을 받지 않을 날을 막아요. 첫날과 나가는 날을 차례로 누르세요.</p>
+      <p>${ci ? `<b>${fmtD(ci)}</b> → <b>${co?fmtD(co):"끝 날짜 선택"}</b>${ci&&co?` · ${diffDays(ci,co)}박`:""}` : `<span class="muted">선택 없음</span>`}</p>
+      ${ci && co ? (free ? `<label class="f">메모 <span class="opt">(선택)</span><input type="text" id="blk-note" maxlength="60"></label><div class="row"><button class="btn dark" data-a="doBlock">이 날짜 막기</button><button class="btn ghost" data-a="hclear">취소</button></div>` : `<div class="callout warn">이미 예약이 있는 날이 포함돼 있어요.</div><button class="btn ghost" data-a="hclear">다시 고르기</button>`) : ""}
+    </div>
+    <h3>이번 달 일정</h3>
+    ${inMonth.length ? inMonth.map(bookingCard).join("") : `<p class="muted small">이번 달 일정이 없어요.</p>`}
+  </div>`;
+}
+
+/* content editor */
+function ensureDraft(){ if(!S.admin.draft){ S.admin.draft = clone(S.content); S.admin.dirty = false; } return S.admin.draft; }
+function inp(path,label,{type="text",area=false,opt=""}={}){
+  const v = getPath(S.admin.draft,path), id = "ed-"+path.replace(/\./g,"-");
+  return area
+    ? `<label class="f">${label}${opt?` <span class="opt">${opt}</span>`:""}<textarea id="${id}" data-bind="${path}">${esc(v)}</textarea></label>`
+    : `<label class="f">${label}${opt?` <span class="opt">${opt}</span>`:""}<input type="${type}" id="${id}" data-bind="${path}" ${type==="number"?'data-num="1" inputmode="numeric"':""} value="${esc(v)}"></label>`;
+}
+function ops(path,i,len){
+  return `<div class="ops"><button data-a="lmove" data-p="${path}" data-i="${i}" data-n="-1" ${i===0?"disabled":""} aria-label="위로">↑</button><button data-a="lmove" data-p="${path}" data-i="${i}" data-n="1" ${i===len-1?"disabled":""} aria-label="아래로">↓</button><button data-a="ldel" data-p="${path}" data-i="${i}" aria-label="삭제">✕</button></div>`;
+}
+function listEd(path,kind,addLabel){
+  const arr = getPath(S.admin.draft,path);
+  const item = (x,i) => {
+    const p = `${path}.${i}`, id = "ed-"+p.replace(/\./g,"-");
+    let f;
+    if(kind === "str") f = `<input type="text" id="${id}" data-bind="${p}" value="${esc(x)}">`;
+    else if(kind === "lv") f = `<input type="text" id="${id}-l" data-bind="${p}.label" value="${esc(x.label)}" placeholder="항목"><textarea id="${id}-v" data-bind="${p}.value" style="min-height:60px" placeholder="내용">${esc(x.value)}</textarea>`;
+    else if(kind === "tb") f = `<input type="text" id="${id}-t" data-bind="${p}.title" value="${esc(x.title)}" placeholder="제목"><textarea id="${id}-b" data-bind="${p}.body" placeholder="내용">${esc(x.body)}</textarea>`;
+    else if(kind === "proc") f = `<div class="row"><select id="${id}-s" data-bind="${p}.step" style="width:auto">${["apply","confirm","checkin","checkout","change","dot"].map(k=>`<option value="${k}" ${x.step===k?"selected":""}>${{apply:"신청",confirm:"확정",checkin:"입실",checkout:"퇴실",change:"변경",dot:"기타"}[k]} 아이콘</option>`).join("")}</select></div><input type="text" id="${id}-t" data-bind="${p}.title" value="${esc(x.title)}" placeholder="단계 이름"><textarea id="${id}-b" data-bind="${p}.body" placeholder="설명">${esc(x.body)}</textarea>`;
+    else if(kind === "am") f = `<div class="row"><span class="am-prev">${icon(x.icon)}</span><select id="${id}-i" data-bind="${p}.icon" data-rerender="1" style="width:auto;flex:1">${Object.keys(ICONS).filter(k=>!["apply","confirm","checkin","checkout","change"].includes(k)).map(k=>`<option value="${k}" ${x.icon===k?"selected":""}>${k}</option>`).join("")}</select><select id="${id}-g" data-bind="${p}.group" style="width:auto;flex:1">${AM_GROUPS.map(g=>`<option ${x.group===g?"selected":""}>${g}</option>`).join("")}</select></div><input type="text" id="${id}-l" data-bind="${p}.label" value="${esc(x.label)}" placeholder="이름"><input type="text" id="${id}-n" data-bind="${p}.note" value="${esc(x.note||"")}" placeholder="작은 설명 (선택)">`;
+    else if(kind === "notice") f = `<input type="text" id="${id}-t" data-bind="${p}.title" value="${esc(x.title)}" placeholder="제목"><textarea id="${id}-b" data-bind="${p}.body" placeholder="내용">${esc(x.body)}</textarea><div class="row"><input type="date" id="${id}-d" data-bind="${p}.date" value="${esc(x.date)}" style="width:auto"><label class="check"><input type="checkbox" id="${id}-p" data-bind="${p}.pinned" ${x.pinned?"checked":""}><span>소개 화면 위에 고정</span></label></div>`;
+    return `<div class="ed-item"><div class="fields">${f}</div>${ops(path,i,arr.length)}</div>`;
+  };
+  return `${arr.map(item).join("")}<button class="btn sm" data-a="ladd" data-p="${path}" data-k="${kind}">+ ${addLabel}</button>`;
+}
+function hostContent(){
+  const d = ensureDraft();
+  return `<div class="stack" style="gap:22px">
+    <div class="ed-sec"><h3>기본 정보</h3>${inp("name","집 이름")}${inp("tagline","한 줄 소개")}${inp("intro","소개글",{area:true})}<b class="small">핵심 특징 (소개 화면 칩)</b>${listEd("facts","str","특징 추가")}</div>
+    <div class="ed-sec"><h3>이용 조건</h3><p class="small muted">예약 화면과 이용안내에 그대로 보여요.</p>${listEd("conditions","lv","조건 추가")}
+      <b class="small">신청 제한 (달력에서 자동 확인)</b>
+      <div class="row"><div class="grow">${inp("maxGuests","최대 인원",{type:"number"})}</div><div class="grow">${inp("minNights","최소 박수",{type:"number"})}</div><div class="grow">${inp("maxNights","최대 박수",{type:"number"})}</div></div></div>
+    <div class="ed-sec"><h3>사진</h3><p class="small muted">첫 번째 사진이 소개 화면 맨 위에 크게 나와요.</p>
+      ${d.photos.map((p,i)=> `<div class="photo-ed"><img src="${esc(p.url)}" alt=""><input type="text" id="ed-ph-${i}" data-bind="photos.${i}.caption" value="${esc(p.caption||"")}" placeholder="사진 설명">${ops("photos",i,d.photos.length)}</div>`).join("")}
+      <label class="btn sm" style="cursor:pointer">${S.admin.busy?"올리는 중…":"+ 사진 올리기"}<input type="file" id="ph-up" accept="image/*" multiple hidden></label></div>
+    <div class="ed-sec"><h3>예약은 이렇게 진행돼요</h3>${listEd("process","proc","단계 추가")}</div>
+    <div class="ed-sec"><h3>공지사항</h3>${listEd("notices","notice","공지 추가")}</div>
+    <div class="ed-sec"><h3>공간 정보</h3>${listEd("info","lv","항목 추가")}</div>
+    <div class="ed-sec"><h3>편의시설 (아이콘)</h3>${inp("amenityNote","안내 문구")}${listEd("amenities","am","항목 추가")}</div>
+    <div class="ed-sec"><h3>위치와 교통</h3>${listEd("location","lv","항목 추가")}</div>
+    <div class="ed-sec"><h3>건물과 동네</h3>${listEd("building","lv","항목 추가")}</div>
+    <div class="ed-sec"><h3>퇴실 전 지켜주셔야 할 일</h3>${inp("stayIntro","안내 문구",{area:true})}${listEd("checklist","str","할 일 추가")}</div>
+    <div class="ed-sec"><h3>알아두면 좋은 것</h3>${listEd("guideItems","tb","안내 추가")}</div>
+    <div class="ed-sec"><h3>호스트 연락처</h3>${inp("contact.kakaoUrl","카카오톡 링크",{type:"url",opt:"오픈채팅 또는 프로필 링크"})}${inp("contact.kakaoId","카카오톡 ID")}${inp("contact.email","이메일",{type:"email"})}</div>
+    <div class="savebar"><span class="grow small" id="dirty-flag">${S.admin.dirty?"저장하지 않은 수정이 있어요":"저장된 상태예요"}</span><button class="btn ghost sm" data-a="discard" ${S.admin.dirty?"":"disabled"}>되돌리기</button><button class="btn primary" data-a="saveContent" id="save-btn" ${S.admin.dirty?"":"disabled"}>저장</button></div>
+  </div>`;
+}
+function hostSecret(){
+  const s = S.admin.secret || {};
+  return `<div class="stack">
+    <div class="callout">이 정보는 호스트만 볼 수 있어요. 예약 카드의 <b>출입 정보 복사</b>를 누르면 이 내용이 담긴 카톡 문구가 만들어져요.</div>
+    <form class="stack" data-form="secret">
+      <label class="f">출입 비밀번호<input type="text" id="sc-door" name="door_code" value="${esc(s.door_code)}" autocomplete="off"></label>
+      <label class="f">와이파이 이름<input type="text" id="sc-wn" name="wifi_name" value="${esc(s.wifi_name)}" autocomplete="off"></label>
+      <label class="f">와이파이 비밀번호<input type="text" id="sc-wp" name="wifi_pw" value="${esc(s.wifi_pw)}" autocomplete="off"></label>
+      <label class="f">확정 손님에게만 보일 안내 <span class="opt">(호수, 정확한 주소, 출입 방법, 주차 등)</span><textarea id="sc-guide" name="private_guide">${esc(s.private_guide)}</textarea></label>
+      <label class="check"><input type="checkbox" id="sc-show" name="show_in_app" ${s.show_in_app?"checked":""}><span>앱에서도 손님에게 보여주기 (기본: 꺼짐)<br><span class="small muted">꺼 두면 앱에는 "입실 전날 카톡으로 보내드려요"라고만 나와요. 예약 카드의 '출입 정보 복사'로 카톡에 보내세요.</span></span></label>
+      <button class="btn primary" type="submit">저장</button>
+    </form>
+  </div>`;
+}
+function hostSettings(){
+  const a = S.admin;
+  const notifOk = "Notification" in window;
+  return `<div class="stack" style="gap:22px">
+    <div class="ed-sec"><h3>새 예약 알림</h3>
+      <p class="small muted">이 화면이 열려 있는 동안 30초마다 새 신청을 확인해요. 손님이 신청 후 '호스트에게 카톡으로 알리기'를 누르면 카톡으로도 바로 알 수 있어요. 카톡 링크는 '내용 편집 → 호스트 연락처'에 넣어 주세요.</p>
+      ${notifOk ? `<label class="check"><input type="checkbox" id="st-notify" data-a2="toggleNotify" ${a.notify?"checked":""}><span>휴대폰 알림도 띄우기 (이 기기)</span></label>` : `<p class="small muted">이 브라우저는 알림을 지원하지 않아요.</p>`}
+    </div>
+    <div class="ed-sec"><h3>백업</h3>
+      <p class="small muted">예약과 내용은 서버에 저장되고, <b>매일 새벽 3시에 서버가 자동으로 백업</b>해서 30일치를 보관해요. 비밀번호 정보는 백업에 넣지 않아요.</p>
+      ${backupList()}
+      <div class="row"><button class="btn sm dark" data-a="backupNow">지금 백업</button><button class="btn sm" data-a="exportJson">백업 파일 받기</button><button class="btn sm" data-a="copyJson">백업 내용 복사</button></div>
+      <p class="small muted">한 달에 한 번쯤은 '백업 파일 받기'로 휴대폰이나 구글 드라이브에도 보관해 두세요. 마지막으로 받은 날: ${lastExport() ? esc(lastExport()) : "아직 없음"}</p>
+      <label class="f">내용 복원 <span class="opt">(백업 내용을 붙여넣고 복원 — 소개·공지·사진 목록만 되돌려요)</span><textarea id="st-restore" placeholder='{"content": …}'></textarea></label>
+      <button class="btn sm" data-a="restoreJson">복원하기</button>
+    </div>
+    <div class="ed-sec"><h3>서버 연결</h3>
+      <p class="small">${LIVE ? `연결됨 · <span class="mono small">${esc(CONFIG.SUPABASE_URL.replace(/^https?:\/\//,""))}</span>` : "아직 연결 전 (데모 모드)"}</p>
+      <details><summary class="small">설정 SQL 보기</summary><div class="stack" style="margin-top:8px"><button class="btn sm" data-a="copySql">SQL 복사</button><pre class="sql">${esc(SETUP_SQL)}</pre></div></details>
+      ${LIVE ? "" : `<button class="btn sm ghost" data-a="resetDemo">데모 데이터 초기화</button>`}
+    </div>
+    <div class="ed-sec"><h3>앱 정보</h3>
+      <p class="small">버전 v${VERSION} · ${BUILD_DATE}<br>© 2026 Jenny Ryu</p>
+      <div class="row"><button class="btn sm" data-a="hardRefresh">강제 새로고침</button><button class="btn sm" data-a="copy" data-t="${esc(appUrl())}">손님용 링크 복사</button><button class="btn sm danger" data-a="logout">로그아웃</button></div>
+    </div>
+  </div>`;
+}
+
+/* ---------- overlays ---------- */
+function viewDialog(){
+  const d = S.dialog;
+  return `<div class="overlay" data-a="dlgBg"><div class="dialog" role="dialog" aria-modal="true">
+    <h3>${esc(d.title)}</h3>
+    ${d.body ? `<p class="small">${nl(d.body)}</p>` : ""}
+    ${d.copyText !== undefined ? `<textarea id="dlg-copy" readonly style="min-height:160px">${esc(d.copyText)}</textarea>` : ""}
+    ${d.input !== undefined ? `<input type="text" id="dlg-input" value="${esc(d.input)}" maxlength="200">` : ""}
+    <div class="row" style="justify-content:flex-end">
+      ${d.noCancel ? "" : `<button class="btn ghost" data-a="dlgCancel">취소</button>`}
+      <button class="btn ${d.danger?"danger":"dark"}" data-a="dlgOk">${esc(d.okLabel || "확인")}</button>
+    </div>
+  </div></div>`;
+}
+function viewLightbox(){
+  const ph = S.content.photos, i = S.lightbox;
+  return `<div class="lightbox" data-a="lbClose"><img src="${esc(ph[i].url)}" alt="${esc(ph[i].caption||"")}">${ph[i].caption?`<p>${esc(ph[i].caption)}</p>`:""}
+    <div class="row"><button class="btn sm" data-a="lbMove" data-n="-1" ${i===0?"disabled":""}>‹ 이전</button><span style="color:#e6e9ec" class="small">${i+1} / ${ph.length}</span><button class="btn sm" data-a="lbMove" data-n="1" ${i===ph.length-1?"disabled":""}>다음 ›</button><button class="btn sm" data-a="lbClose">닫기</button></div></div>`;
+}
+
+/* ---------- messages ---------- */
+function confirmMsg(b){
+  const c = S.content, n = diffDays(b.check_in,b.check_out);
+  return `[${c.name}] 예약 확정 안내\n${b.name}님, 입금이 확인되어 예약이 확정됐어요.\n\n· 일정: ${fmtD(b.check_in)} 체크인 → ${fmtD(b.check_out)} 체크아웃 (${n}박)\n· 인원: ${b.guests}명\n· 예약코드: ${b.code}\n\n출입문 비밀번호는 입실 전날 카톡으로 보내드릴게요.\n진행 상황과 퇴실 체크리스트는 아래 앱에서 볼 수 있어요. (예약코드 + 휴대폰 뒤 4자리)\n${appUrl()}`;
+}
+function entryMsg(b){
+  const c = S.content, s = S.admin.secret || {};
+  return `[${c.name}] 출입 안내\n${b.name}님, ${fmtD(b.check_in)} 체크인 안내예요.\n\n· 출입 비밀번호: ${s.door_code||"-"}\n· 와이파이: ${s.wifi_name||"-"} / ${s.wifi_pw||"-"}\n${s.private_guide?"\n"+s.private_guide+"\n":""}\n들어오신 뒤에는 집 안 안내문에 따라 비밀번호를 바꿔 주세요. 퇴실하실 때는 사용하시던 비밀번호를 저에게 꼭 알려 주세요. 공유하기 어려우시면 위의 처음 비밀번호로 다시 설정해 두고 퇴실해 주세요.\n체크아웃은 ${fmtD(b.check_out)}이에요. 퇴실 체크리스트는 앱 '이용안내'에 있어요.\n${appUrl()}`;
+}
+function makeIcs(code,ci,co){
+  const c = S.content, f = s => s.replace(/-/g,"");
+  const stamp = new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z";
+  return ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//JennyRyu//Stay//KO","BEGIN:VEVENT",`UID:${code}@stay`,`DTSTAMP:${stamp}`,`DTSTART;VALUE=DATE:${f(ci)}`,`DTEND;VALUE=DATE:${f(co)}`,
+    `SUMMARY:${c.name} 숙박`,`DESCRIPTION:예약코드 ${code}`,`LOCATION:남위례역`,
+    "BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:내일 체크인이에요","TRIGGER:-PT9H","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+}
+function download(name,text,type){
+  try{ const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text],{type})); a.download = name; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },500); }
+  catch(e){ toast("이 화면에서는 파일을 받을 수 없어요"); }
+}
+async function resizeImage(file){
+  const url = URL.createObjectURL(file);
+  try{
+    const img = await new Promise((res,rej)=>{ const i = new Image(); i.onload = ()=>res(i); i.onerror = rej; i.src = url; });
+    const max = LIVE ? 1600 : 900, k = Math.min(1, max / Math.max(img.width,img.height));
+    const cv = document.createElement("canvas"); cv.width = Math.round(img.width*k); cv.height = Math.round(img.height*k);
+    cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);
+    return await new Promise(res => cv.toBlob(res,"image/jpeg",LIVE?.82:.7));
+  } finally { URL.revokeObjectURL(url); }
+}
+
+/* ---------- loading ---------- */
+async function loadContent(){
+  try{ S.content = await api.getContent(); S.loadErr = null; }
+  catch(e){ S.loadErr = errMsg(e); }
+  render();
+}
+async function loadBusy(){
+  try{ setBusy(await api.busy()); if(S.view === "book" && !S.sel.out) render(); }
+  catch(e){ toast("예약 현황을 불러오지 못했어요"); }
+}
+function setLinked(r,last4){
+  if(r && r.status === "confirmed" && r.check_out >= addDays(todayStr(),-3)) S.linked = Object.assign({}, r, {last4, checks: r.checks || {}});
+}
+async function autoLink(){
+  if(S.linked) return;
+  for(const x of LS.get("stay_my", []).slice(0,3)){
+    try{ const r = await api.lookup(x.code, x.last4); if(r && r.status === "confirmed"){ setLinked(r, x.last4); if(S.linked){ if(S.view === "guide") render(); return; } } }catch(e){ return; }
+  }
+}
+function autoMy(){
+  if(S.my.result || S.my.loading) return;
+  const saved = LS.get("stay_my", []);
+  if(saved.length === 1) doLookup(saved[0].code, saved[0].last4);
+}
+function rememberMy(code,last4){
+  const list = LS.get("stay_my",[]).filter(x => x.code !== code);
+  list.unshift({code,last4}); LS.set("stay_my", list.slice(0,5));
+}
+
+/* ---------- actions ---------- */
+const A = {
+  go: el => go(el.dataset.v),
+  reload: () => loadContent(),
+  hardRefresh: async () => {
+    try{ if("caches" in window){ const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); } }catch(e){}
+    try{ location.replace(appUrl()+"?r="+Date.now()+"#"+S.view); }catch(e){ location.reload(); }
+  },
+  copy: el => copy(el.dataset.t),
+  lightbox: el => { S.lightbox = Number(el.dataset.i); render(); },
+  lbMove: (el,e) => { e.stopPropagation(); S.lightbox += Number(el.dataset.n); render(); },
+  lbClose: (el,e) => { if(e.target.closest("img")) return; S.lightbox = null; render(); },
+  month: el => { S.month = shiftMonth(S.month, Number(el.dataset.n)); render(); },
+  pick: el => {
+    const d = el.dataset.d, t = todayStr(), c = S.content, {in:ci, out:co} = S.sel;
+    if(d < t) return;
+    if(ci && !co && d > ci){
+      if(rangeFree(ci,d,S.busyMap)){
+        const n = diffDays(ci,d);
+        if(n < c.minNights){ toast(`최소 ${c.minNights}박부터 신청할 수 있어요`); return; }
+        if(n > c.maxNights){ toast(`최대 ${c.maxNights}박까지 신청할 수 있어요`); return; }
+        S.sel.out = d; render();
+        setTimeout(()=>{ const f = document.getElementById("bookform"); if(f) f.scrollIntoView({behavior:"smooth",block:"start"}); },50);
+        return;
+      }
+      if(S.busyMap[d] === undefined){ S.sel = {in:d,out:null}; render(); toast("사이에 확정된 날이 있어서 체크인을 다시 잡았어요"); return; }
+    }
+    if(S.busyMap[d]){ toast("이미 예약이 확정된 날짜예요"); return; }
+    S.sel = {in:d,out:null}; render();
+  },
+  openSaved: el => { window.scrollTo(0,0); doLookup(el.dataset.code, el.dataset.l4); },
+  myReset: () => { S.my.result = null; S.my.notFound = false; render(); window.scrollTo(0,0); },
+  clearSel: () => { S.sel = {in:null,out:null}; render(); },
+  newBooking: () => { S.submitted = null; S.sel = {in:null,out:null}; loadBusy(); render(); window.scrollTo(0,0); },
+  notifyHost: () => {
+    const b = S.submitted;
+    const text = `[${S.content.name}] 예약 신청했어요\n· ${fmtD(b.check_in)} → ${fmtD(b.check_out)} (${diffDays(b.check_in,b.check_out)}박)\n· 이름: ${b.name}\n· 예약코드: ${b.code}`;
+    try{ navigator.clipboard.writeText(text).then(()=>toast("신청 내용을 복사했어요. 카톡에 붙여넣어 주세요"),()=>{}); }catch(e){}
+  },
+  ics: el => download(`stay-${el.dataset.code}.ics`, makeIcs(el.dataset.code, el.dataset.in, el.dataset.out), "text/calendar"),
+  askCancel: () => {
+    S.dialog = {title:"예약을 취소할까요?", body:"취소하면 되돌릴 수 없어요. 입금하셨다면 호스트에게 카톡으로 알려 주세요.", okLabel:"예약 취소", danger:true, onOk: async () => {
+      try{ const ok = await api.cancel(S.my.code, S.my.last4); if(ok){ toast("취소했어요"); S.my.result = await api.lookup(S.my.code,S.my.last4); } else toast("지금은 앱에서 취소할 수 없어요. 호스트에게 연락해 주세요"); }
+      catch(e){ toast(errMsg(e)); }
+      render();
+    }}; render();
+  },
+  dlgBg: (el,e) => { if(e.target === el && !S.dialog.noCancel){ S.dialog = null; render(); } },
+  dlgCancel: () => { S.dialog = null; render(); },
+  dlgOk: () => { const d = S.dialog; const v = document.getElementById("dlg-input"); S.dialog = null; render(); if(d.onOk) d.onOk(v ? v.value : undefined); },
+
+  /* host */
+  hmode: () => { S.admin.mode = S.admin.mode === "signup" ? "login" : "signup"; render(); },
+  htab: el => {
+    if(S.admin.tab === "content" && el.dataset.t !== "content" && S.admin.dirty){ S.dialog = {title:"저장하지 않은 수정이 있어요", body:"다른 탭으로 가면 수정한 내용이 사라져요.", okLabel:"버리고 이동", danger:true, onOk:()=>{ S.admin.draft = null; S.admin.dirty = false; S.admin.tab = el.dataset.t; render(); }}; render(); return; }
+    S.admin.tab = el.dataset.t; if(el.dataset.t === "settings") loadBackups(); render(); window.scrollTo(0,0);
+  },
+  hfilter: el => { S.admin.filter = el.dataset.f; render(); },
+  reloadAdmin: () => { loadAdmin(); toast("새로 불러왔어요"); },
+  setStatus: el => {
+    const b = S.admin.bookings.find(x => x.id === el.dataset.id), s = el.dataset.s;
+    const doIt = async () => {
+      try{
+        const others = s === "confirmed" ? S.admin.bookings.filter(x => x.id !== b.id && x.status === "pending" && overlap(x,b)) : [];
+        await api.updateBooking(b.id,{status:s});
+        for(const x of others) await api.updateBooking(x.id,{status:"declined", admin_note:("다른 예약 확정으로 마감 " + (x.admin_note||"")).trim()});
+        await loadAdmin(); toast(s==="confirmed"?"확정했어요":"처리했어요");
+        if(s === "confirmed"){ const nb = S.admin.bookings.find(x=>x.id===b.id); S.dialog = {title:"카톡으로 보낼 확정 안내", body: "복사해서 손님에게 보내 주세요." + (others.length ? `\n\n같은 날짜의 대기 신청 ${others.length}건(${others.map(x=>x.name).join(", ")})은 마감 처리했어요. 예약 카드의 '마감 안내 복사'로 알려 주세요.` : ""), copyText:confirmMsg(nb||b), okLabel:"복사하고 닫기", onOk:()=>copy(confirmMsg(nb||b))}; render(); }
+      }catch(e){ toast(errMsg(e)); }
+    };
+    if(s === "confirmed"){
+      const q = adminQueue(b);
+      if(q > 1){ S.dialog = {title:"대기 순번이 뒤인 신청이에요", body:`${b.name}님은 대기 ${q}순위예요. 앞 순위 신청이 아직 남아 있어요.\n입금을 확인하셨다면 확정해도 돼요. 앞 순위 신청은 마감 처리돼요.`, okLabel:"입금 확인 · 확정", onOk:doIt}; render(); }
+      else doIt();
+    }
+    else { S.dialog = {title: s==="declined" ? "이 신청을 거절할까요?" : "이 예약을 취소할까요?", body:`${b.name} · ${fmtD(b.check_in)} → ${fmtD(b.check_out)}\n날짜가 다시 열려요. 손님에게는 카톡으로 알려 주세요.`, okLabel: s==="declined"?"거절":"예약 취소", danger:true, onOk:doIt}; render(); }
+  },
+  msgConfirm: el => { const b = S.admin.bookings.find(x => x.id === el.dataset.id); copy(confirmMsg(b), "확정 안내를 복사했어요"); },
+  msgRemind: el => { const b = S.admin.bookings.find(x => x.id === el.dataset.id); copy(remindMsg(b), "확인 요청 문구를 복사했어요"); },
+  msgClosed: el => { const b = S.admin.bookings.find(x => x.id === el.dataset.id); copy(closedMsg(b), "마감 안내를 복사했어요"); },
+  msgEntry: el => { const b = S.admin.bookings.find(x => x.id === el.dataset.id); copy(entryMsg(b), "출입 정보를 복사했어요"); },
+  delBooking: el => {
+    const b = S.admin.bookings.find(x => x.id === el.dataset.id);
+    S.dialog = {title: b.status==="blocked" ? "막은 날짜를 풀까요?" : "기록을 지울까요?", body: b.status==="blocked" ? `${fmtD(b.check_in)} → ${fmtD(b.check_out)}` : `${b.name}님의 이름·연락처가 완전히 지워져요. 되돌릴 수 없어요.`, okLabel: b.status==="blocked"?"풀기":"삭제", danger:true, onOk: async () => {
+      try{ await api.deleteBooking(b.id); await loadAdmin(); toast("처리했어요"); }catch(e){ toast(errMsg(e)); }
+    }}; render();
+  },
+  editNote: el => {
+    const b = S.admin.bookings.find(x => x.id === el.dataset.id);
+    S.dialog = {title:"메모 (호스트만 보여요)", input:b.admin_note||"", okLabel:"저장", onOk: async v => { try{ await api.updateBooking(b.id,{admin_note:v||""}); await loadAdmin(); toast("저장했어요"); }catch(e){ toast(errMsg(e)); } }}; render();
+  },
+  hmonth: el => { S.admin.month = shiftMonth(S.admin.month, Number(el.dataset.n)); render(); },
+  hpick: el => {
+    const d = el.dataset.d, s = S.admin.sel;
+    if(s.in && !s.out && d > s.in) s.out = d; else S.admin.sel = {in:d,out:null};
+    render();
+  },
+  hclear: () => { S.admin.sel = {in:null,out:null}; render(); },
+  doBlock: async () => {
+    const s = S.admin.sel, note = (document.getElementById("blk-note")||{}).value || "";
+    try{ await api.block(s.in, s.out, note); S.admin.sel = {in:null,out:null}; await loadAdmin(); toast("날짜를 막았어요"); }
+    catch(e){ toast(errMsg(e)); }
+  },
+  ladd: el => {
+    const arr = getPath(ensureDraft(), el.dataset.p), k = el.dataset.k;
+    arr.push(k==="str" ? "" : k==="lv" ? {label:"",value:""} : k==="tb" ? {title:"",body:""} : k==="proc" ? {step:"dot",title:"",body:""} : k==="am" ? {group:"기본 제공",icon:"dot",label:"",note:""} : {id:uid(),title:"",body:"",date:todayStr(),pinned:false});
+    markDirty(); render();
+  },
+  ldel: el => { getPath(S.admin.draft, el.dataset.p).splice(Number(el.dataset.i),1); markDirty(); render(); },
+  lmove: el => { const arr = getPath(S.admin.draft, el.dataset.p), i = Number(el.dataset.i), j = i + Number(el.dataset.n); if(j<0||j>=arr.length) return; [arr[i],arr[j]] = [arr[j],arr[i]]; markDirty(); render(); },
+  discard: () => { S.admin.draft = null; S.admin.dirty = false; render(); },
+  saveContent: async () => {
+    const d = S.admin.draft;
+    ["maxGuests","minNights","maxNights"].forEach(k => d[k] = Math.max(1, parseInt(d[k],10) || 1));
+    if(d.minNights > d.maxNights){ toast("최소 박수가 최대 박수보다 커요"); return; }
+    try{ await api.saveContent(d); S.content = clone(d); S.admin.draft = null; S.admin.dirty = false; render(); toast("저장했어요"); }
+    catch(e){ toast(errMsg(e)); }
+  },
+  logout: () => { api.logout(); S.admin.authed = false; S.admin.bookings = []; S.admin.secret = null; render(); },
+  exportJson: () => { download(`stay-backup-${todayStr()}.json`, backupJson(), "application/json"); markExported(); render(); },
+  copyJson: () => { copy(backupJson(), "백업 내용을 복사했어요"); markExported(); },
+  backupNow: async () => { try{ await api.backupNow(); toast("서버에 백업했어요"); await loadBackups(); }catch(e){ toast("백업하지 못했어요: " + errMsg(e)); } },
+  dlBackup: async el => { try{ const d = await api.getBackup(Number(el.dataset.id)); download(`stay-server-backup-${el.dataset.id}.json`, JSON.stringify(d,null,2), "application/json"); markExported(); }catch(e){ toast(errMsg(e)); } },
+  restoreBackup: async el => {
+    let d; try{ d = await api.getBackup(Number(el.dataset.id)); }catch(e){ toast(errMsg(e)); return; }
+    if(!d || !d.content){ toast("이 백업에는 내용이 없어요"); return; }
+    S.dialog = {title:"이 백업의 내용으로 되돌릴까요?", body:"소개·공지·사진 목록 같은 내용만 그 시점으로 바뀌어요. 예약 기록은 그대로예요.", okLabel:"복원", danger:true, onOk: async () => {
+      try{ const m = mergeContent(d.content); await api.saveContent(m); S.content = m; S.admin.draft = null; S.admin.dirty = false; toast("복원했어요"); render(); }catch(e){ toast(errMsg(e)); }
+    }}; render();
+  },
+  restoreJson: () => {
+    let j; try{ j = JSON.parse((document.getElementById("st-restore")||{}).value || ""); }catch(e){ toast("백업 내용 형식이 맞지 않아요"); return; }
+    const c = j.content || j; if(!c || !c.name){ toast("백업 내용 형식이 맞지 않아요"); return; }
+    S.dialog = {title:"내용을 복원할까요?", body:"지금의 소개·공지·사진 목록이 백업 내용으로 바뀌어요. 예약은 그대로예요.", okLabel:"복원", danger:true, onOk: async () => {
+      try{ const m = mergeContent(c); await api.saveContent(m); S.content = m; S.admin.draft = null; S.admin.dirty = false; toast("복원했어요"); render(); }catch(e){ toast(errMsg(e)); }
+    }}; render();
+  },
+  copySql: () => copy(SETUP_SQL, "SQL을 복사했어요"),
+  resetDemo: () => { S.dialog = {title:"데모 데이터를 처음으로 되돌릴까요?", okLabel:"초기화", danger:true, onOk: async () => { api.reset(); S.admin.secret = null; await loadContent(); await loadAdmin(); toast("초기화했어요"); }}; render(); }
+};
+function lastExport(){ return LS.get("stay_last_export", ""); }
+function markExported(){ LS.set("stay_last_export", todayStr()); }
+function backupList(){
+  const b = S.admin.backups;
+  if(b === undefined) return `<p class="small muted">백업 목록을 불러오는 중…</p>`;
+  if(b === null) return `<p class="small muted">서버 백업 목록을 불러오지 못했어요. 설정 SQL을 최신으로 다시 실행해 주세요.</p>`;
+  if(!b.length) return `<p class="small muted">아직 서버 백업이 없어요. '지금 백업'을 눌러 첫 백업을 만들어 보세요.</p>`;
+  return `<div class="stack" style="gap:6px"><b class="small">서버 백업 ${b.length}개 · 최근 ${esc(new Date(b[0].created_at).toLocaleString("ko-KR",{timeZone:TZ,month:"numeric",day:"numeric",hour:"numeric",minute:"2-digit"}))}</b>
+    ${b.slice(0,5).map(x => `<div class="row small"><span class="grow">${esc(new Date(x.created_at).toLocaleString("ko-KR",{timeZone:TZ,year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"2-digit"}))}</span><button class="btn sm" data-a="dlBackup" data-id="${x.id}">파일로 받기</button><button class="btn sm ghost" data-a="restoreBackup" data-id="${x.id}">내용 복원</button></div>`).join("")}</div>`;
+}
+async function loadBackups(){ try{ S.admin.backups = await api.listBackups(); }catch(e){ S.admin.backups = null; } if(S.admin.tab === "settings") render(); }
+function backupJson(){ return JSON.stringify({app:"stay", version:VERSION, exported:new Date().toISOString(), content:S.content, bookings:S.admin.bookings}, null, 2); }
+function markDirty(){
+  S.admin.dirty = true;
+  const f = document.getElementById("dirty-flag"); if(f) f.textContent = "저장하지 않은 수정이 있어요";
+  const b = document.getElementById("save-btn"); if(b) b.disabled = false;
+  const r = document.querySelector('[data-a="discard"]'); if(r) r.disabled = false;
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-a]");
+  if(!el) return;
+  const fn = A[el.dataset.a];
+  if(!fn) return;
+  if(el.tagName === "BUTTON" || (el.tagName === "DIV" && el.dataset.a !== "dlgBg" && el.dataset.a !== "lbClose")) e.preventDefault();
+  fn(el, e);
+});
+document.addEventListener("input", e => {
+  const el = e.target;
+  if(el.form && el.form.dataset.form && el.name && el.type !== "password") S.f[el.form.dataset.form+"."+el.name] = el.type === "checkbox" ? el.checked : el.value;
+  if(el.dataset.bind && S.admin.draft){
+    let v = el.type === "checkbox" ? el.checked : el.value;
+    if(el.dataset.num) v = v === "" ? "" : Number(v);
+    setPath(S.admin.draft, el.dataset.bind, v); markDirty();
+    if(el.dataset.rerender) render();
+  }
+});
+document.addEventListener("change", async e => {
+  const el = e.target;
+  if(el.dataset.check !== undefined){
+    const k = el.dataset.check, lk = S.linked;
+    if(lk){
+      lk.checks = Object.assign({}, lk.checks, {[k]: el.checked});
+      if(!el.checked) delete lk.checks[k];
+      if(S.my.result && S.my.result.code === lk.code) S.my.result.checks = lk.checks;
+      render();
+      try{ const ok = await api.saveChecks(lk.code, lk.last4, lk.checks); if(ok) toast("호스트에게 전달했어요"); else toast("저장하지 못했어요. 호스트에게 카톡으로 알려 주세요"); }
+      catch(err){ toast(errMsg(err)); }
+    } else { S.checks[k] = el.checked; LS.set("stay_checks", S.checks); render(); }
+    return;
+  }
+  if(el.dataset.a2 === "toggleNotify"){
+    if(el.checked && "Notification" in window){
+      try{ const p = await Notification.requestPermission(); if(p !== "granted"){ el.checked = false; toast("알림이 허용되지 않았어요. 브라우저 설정에서 허용해 주세요"); return; } }
+      catch(err){ el.checked = false; toast("이 화면에서는 알림을 켤 수 없어요"); return; }
+    }
+    S.admin.notify = el.checked; LS.set("stay_notify", el.checked); return;
+  }
+  if(el.id === "ph-up" && el.files && el.files.length){
+    const d = ensureDraft(); S.admin.busy = true; render();
+    try{ for(const f of el.files){ const blob = await resizeImage(f); const url = await api.uploadPhoto(blob); d.photos.push({url, caption:""}); } markDirty(); toast("사진을 올렸어요. 저장을 눌러 주세요"); }
+    catch(err){ toast("사진을 올리지 못했어요: " + errMsg(err)); }
+    S.admin.busy = false; render();
+  }
+});
+document.addEventListener("submit", async e => {
+  const f = e.target; if(!f.dataset.form) return;
+  e.preventDefault();
+  const v = Object.fromEntries(new FormData(f).entries());
+  const kind = f.dataset.form;
+  if(kind === "book"){
+    if(v.website) return;
+    if(!v.name.trim()){ toast("이름을 입력해 주세요"); return; }
+    if(v.phone.replace(/\D/g,"").length < 9){ toast("휴대폰 번호를 확인해 주세요"); return; }
+    if(!f.rules.checked){ toast("'이용 안내 및 퇴실 전 지켜주셔야 할 사항'에 동의해 주세요"); document.getElementById("must")?.scrollIntoView({behavior:"smooth",block:"start"}); return; }
+    if(!f.agree.checked){ toast("개인정보 수집·이용에 동의해 주세요"); return; }
+    S.sending = true; render();
+    try{
+      const r = await api.request({name:v.name.trim(), phone:v.phone, kakao:v.kakao.trim(), guests:Number(v.guests), check_in:S.sel.in, check_out:S.sel.out, message:v.message.trim()});
+      const last4 = v.phone.replace(/\D/g,"").slice(-4);
+      S.submitted = Object.assign({}, r, {name:v.name.trim()});
+      rememberMy(r.code,last4); S.my.code = r.code; S.my.last4 = last4;
+      S.sel = {in:null,out:null}; Object.keys(S.f).forEach(k => { if(k.startsWith("book.")) delete S.f[k]; }); loadBusy(); window.scrollTo(0,0);
+    }catch(err){
+      toast(errMsg(err));
+      if(String(err.message).includes("overlap")){ S.sel = {in:null,out:null}; loadBusy(); }
+    }
+    S.sending = false; render();
+  }
+  if(kind === "lookup"){
+    const code = (v.code||"").trim().toUpperCase(), last4 = (v.last4||"").replace(/\D/g,"");
+    if(!code || last4.length !== 4){ toast("예약코드와 뒤 4자리를 입력해 주세요"); return; }
+    doLookup(code,last4);
+  }
+  if(kind === "login" || kind === "signup"){
+    const a = S.admin; a.busy = true; render();
+    try{
+      const ok = kind === "login" ? await api.login(v.email.trim(), v.pw) : await api.signup(v.email.trim(), v.pw);
+      if(!ok){ api.logout(); toast("이 계정은 호스트 권한이 없어요"); }
+      else { a.authed = true; a.lastPending = null; await loadAdmin(); }
+    }catch(err){ toast(errMsg(err)); }
+    a.busy = false; render();
+  }
+  if(kind === "secret"){
+    const s = {door_code:v.door_code||"", wifi_name:v.wifi_name||"", wifi_pw:v.wifi_pw||"", private_guide:v.private_guide||"", show_in_app:f.show_in_app.checked};
+    try{ await api.saveSecret(s); S.admin.secret = s; toast("저장했어요"); }catch(err){ toast(errMsg(err)); }
+  }
+});
+window.addEventListener("hashchange", () => { const v = viewFromHash(); if(v !== S.view) go(v); });
+window.addEventListener("beforeunload", e => { if(S.admin.dirty){ e.preventDefault(); e.returnValue = ""; } });
+document.addEventListener("keydown", e => {
+  if(S.lightbox !== null){ if(e.key === "Escape"){ S.lightbox = null; render(); } if(e.key === "ArrowRight" && S.lightbox < S.content.photos.length-1){ S.lightbox++; render(); } if(e.key === "ArrowLeft" && S.lightbox > 0){ S.lightbox--; render(); } }
+  else if(S.dialog && e.key === "Escape" && !S.dialog.noCancel){ S.dialog = null; render(); }
+});
+setInterval(() => { if(S.view === "host" && S.admin.authed && !S.dialog) loadAdmin(true); }, 30000);
+setInterval(() => { if(S.view === "book" && !S.submitted && !S.sending) loadBusy(); }, 60000);
+
+/* ---------- boot ---------- */
+(async function boot(){
+  await loadContent();
+  if(S.view === "book") loadBusy();
+  if(S.view === "host") enterHost();
+  if(S.view === "my") autoMy();
+  if(S.view === "guide") autoLink();
+})();
+})();
+</script>
+
+</body>
+</html>
