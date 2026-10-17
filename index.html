@@ -87,7 +87,9 @@ p{margin:0}
 .brand{display:flex;align-items:center;gap:10px;height:32px}
 .brand b{font-family:var(--display);font-size:1.15rem}
 .plaque{font-family:var(--mono);font-size:.7rem;border:1.5px solid var(--ink);border-radius:4px;padding:1px 5px;letter-spacing:.06em}
-.brand .top-actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+.brand .top-actions{margin-left:auto;display:flex;align-items:center;gap:6px;flex:none}
+.brand b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.brand .host-chip{white-space:nowrap}
 .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;height:44px}
 .tabs button{border:0;background:transparent;border-radius:10px;font-weight:500;color:var(--muted);cursor:pointer;position:relative}
 .tabs button[aria-current="page"]{color:var(--ink);background:var(--bg)}
@@ -261,6 +263,14 @@ body::before{background:var(--hdr)}
 .me-btn.on{background:var(--brand-mint);border-color:var(--brand-mint);color:var(--forest-900)}
 .me-btn.has::after{content:"";position:absolute;top:0;right:0;width:9px;height:9px;border-radius:50%;background:var(--accent);border:2px solid var(--hdr)}
 .me-btn:focus-visible{outline:2px solid var(--brand-mint);outline-offset:2px}
+.host-banner{display:flex;align-items:center;gap:12px;width:100%;margin-top:12px;padding:12px 14px;border:0;border-radius:14px;background:var(--copper-100,#f3e3cf);color:var(--forest-900,#081B1B);text-align:left;cursor:pointer;font:inherit;box-shadow:0 0 0 1.5px var(--brand-copper,#C18D52) inset}
+.host-banner .grow{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.host-banner small{font-size:.82rem;opacity:.85}
+.hb-dot{flex:none;display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 6px;border-radius:999px;background:var(--brand-copper,#C18D52);color:#fff;font-weight:700;font-size:.85rem}
+.hb-dot.sm{min-width:18px;height:18px;font-size:.7rem;padding:0 5px;vertical-align:1px}
+.hb-go{flex:none;font-weight:600;font-size:.9rem}
+.new-tag{display:inline-block;margin-right:6px;padding:1px 7px;border-radius:999px;background:var(--brand-copper,#C18D52);color:#fff;font-size:.72rem;font-weight:700;vertical-align:2px}
+.notify-step{background:var(--copper-100,#f3e3cf);border:1.5px solid var(--brand-copper,#C18D52);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px}
 .map-btns{gap:8px;margin-top:10px;flex-wrap:wrap}
 .map-thumb{display:block;position:relative;width:100%;padding:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:zoom-in;background:var(--surface);margin-top:8px}
 .map-thumb img{display:block;width:100%;height:220px;object-fit:cover;object-position:40% 60%}
@@ -417,7 +427,7 @@ const CONFIG = {
 <script>
 (function(){
 "use strict";
-const VERSION = "2.3.3";
+const VERSION = "2.4.0";
 const BUILD_DATE = "2026-10-16";
 const TZ = "Asia/Seoul";
 const SETUP_SQL = "-- 남위례 햇살집 · 서버 설정 SQL (Supabase → SQL Editor에 통째로 붙여넣고 Run)\n-- 여러 번 실행해도 안전합니다.\n\n-- 1) 관리자\ncreate table if not exists stay_admins (\n  user_id uuid primary key references auth.users on delete cascade,\n  created_at timestamptz default now()\n);\nalter table stay_admins enable row level security;\n\ncreate or replace function stay_is_admin() returns boolean\nlanguage sql stable security definer set search_path = public as $$\n  select exists (select 1 from stay_admins where user_id = auth.uid())\n$$;\n\n-- 처음 로그인한 한 사람만 관리자가 됩니다\ncreate or replace function stay_claim_admin() returns boolean\nlanguage plpgsql security definer set search_path = public as $$\nbegin\n  if auth.uid() is null then return false; end if;\n  if exists (select 1 from stay_admins) then\n    return exists (select 1 from stay_admins where user_id = auth.uid());\n  end if;\n  insert into stay_admins (user_id) values (auth.uid());\n  return true;\nend $$;\n\n-- 2) 공개 내용 (소개, 공지, 사진 등) — 누구나 읽기, 관리자만 수정\ncreate table if not exists stay_content (\n  id int primary key default 1 check (id = 1),\n  data jsonb not null default '{}'::jsonb,\n  updated_at timestamptz default now()\n);\ninsert into stay_content (id) values (1) on conflict do nothing;\nalter table stay_content enable row level security;\ndrop policy if exists \"stay content read\" on stay_content;\ncreate policy \"stay content read\" on stay_content for select using (true);\ndrop policy if exists \"stay content write\" on stay_content;\ncreate policy \"stay content write\" on stay_content for update using (stay_is_admin()) with check (stay_is_admin());\n\n-- 3) 예약 — 개인정보라서 관리자만 볼 수 있음. 날짜 겹침은 서버가 막음\ncreate table if not exists stay_bookings (\n  id uuid primary key default gen_random_uuid(),\n  code text unique not null,\n  name text not null,\n  phone text not null default '',\n  kakao text not null default '',\n  guests int not null default 1,\n  check_in date not null,\n  check_out date not null,\n  message text not null default '',\n  status text not null default 'pending'\n    check (status in ('pending','confirmed','declined','cancelled','blocked')),\n  admin_note text not null default '',\n  created_at timestamptz default now(),\n  updated_at timestamptz default now(),\n  check (check_out > check_in)\n);\n-- 확정·호스트 사용 날짜만 서로 겹칠 수 없음 (신청 중인 날짜는 대기 신청 가능)\nalter table stay_bookings drop constraint if exists stay_no_overlap;\nalter table stay_bookings add constraint stay_no_overlap exclude using gist (daterange(check_in, check_out) with &&)\n  where (status in ('confirmed','blocked'));\nalter table stay_bookings add column if not exists checks jsonb not null default '{}'::jsonb;\nalter table stay_bookings add column if not exists checks_at timestamptz;\nalter table stay_bookings enable row level security;\ndrop policy if exists \"stay bookings admin\" on stay_bookings;\ncreate policy \"stay bookings admin\" on stay_bookings for all using (stay_is_admin()) with check (stay_is_admin());\n\n-- 4) 비밀 정보 (출입 비번, 와이파이, 호수) — 관리자만\ncreate table if not exists stay_secret (\n  id int primary key default 1 check (id = 1),\n  door_code text not null default '',\n  wifi_name text not null default '',\n  wifi_pw text not null default '',\n  private_guide text not null default '',\n  show_in_app boolean not null default false,\n  updated_at timestamptz default now()\n);\ninsert into stay_secret (id) values (1) on conflict do nothing;\nalter table stay_secret enable row level security;\ndrop policy if exists \"stay secret admin\" on stay_secret;\ncreate policy \"stay secret admin\" on stay_secret for all using (stay_is_admin()) with check (stay_is_admin());\n\n-- 5) 손님용 기능 (이름·연락처는 절대 내보내지 않음)\ncreate or replace function stay_busy_dates()\nreturns table (check_in date, check_out date, status text)\nlanguage sql stable security definer set search_path = public as $$\n  select b.check_in, b.check_out,\n         case when b.status = 'pending' then 'pending' else 'booked' end\n  from stay_bookings b\n  where b.status in ('pending','confirmed','blocked')\n    and b.check_out >= (now() at time zone 'Asia/Seoul')::date - 1\n$$;\n\ncreate or replace function stay_request(\n  p_name text, p_phone text, p_kakao text, p_guests int,\n  p_in date, p_out date, p_message text)\nreturns json language plpgsql security definer set search_path = public as $$\ndeclare\n  v_today date := (now() at time zone 'Asia/Seoul')::date;\n  v_max int; v_maxn int; v_minn int; v_digits text; v_code text := '';\n  v_abc text := 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; i int; v_q int;\nbegin\n  select coalesce((data->>'maxGuests')::int, 2), coalesce((data->>'maxNights')::int, 90),\n         coalesce((data->>'minNights')::int, 1)\n    into v_max, v_maxn, v_minn from stay_content where id = 1;\n  v_digits := regexp_replace(coalesce(p_phone, ''), '\\D', '', 'g');\n  if length(trim(coalesce(p_name, ''))) < 1 or length(p_name) > 40 then raise exception 'bad_name'; end if;\n  if length(v_digits) < 9 or length(v_digits) > 13 then raise exception 'bad_phone'; end if;\n  if p_in < v_today or p_out <= p_in or p_in > v_today + 400\n     or (p_out - p_in) > v_maxn or (p_out - p_in) < v_minn then raise exception 'bad_dates'; end if;\n  if p_guests < 1 or p_guests > v_max then raise exception 'bad_guests'; end if;\n  if (select count(*) from stay_bookings where phone = v_digits and status = 'pending') >= 3 then\n    raise exception 'too_many';\n  end if;\n  if exists (select 1 from stay_bookings where status in ('confirmed','blocked')\n             and daterange(check_in, check_out) && daterange(p_in, p_out)) then\n    raise exception 'overlap';\n  end if;\n  select 1 + count(*) into v_q from stay_bookings\n   where status = 'pending' and daterange(check_in, check_out) && daterange(p_in, p_out);\n  for i in 1..8 loop\n    v_code := v_code || substr(v_abc, 1 + floor(random() * length(v_abc))::int, 1);\n  end loop;\n  begin\n    insert into stay_bookings (code, name, phone, kakao, guests, check_in, check_out, message)\n    values (v_code, trim(p_name), v_digits, left(coalesce(p_kakao, ''), 40), p_guests,\n            p_in, p_out, left(coalesce(p_message, ''), 500));\n  exception when exclusion_violation then\n    raise exception 'overlap';\n  end;\n  return json_build_object('code', v_code, 'check_in', p_in, 'check_out', p_out, 'status', 'pending', 'queue', v_q);\nend $$;\n\n-- 예약코드 + 휴대폰 뒤 4자리로 조회. '앱에서 보여주기'가 켜져 있으면 확정 + 입실 전날~퇴실 날에만 비번 공개\ncreate or replace function stay_lookup(p_code text, p_last4 text)\nreturns json language plpgsql security definer set search_path = public as $$\ndeclare\n  v_today date := (now() at time zone 'Asia/Seoul')::date;\n  b stay_bookings%rowtype; s stay_secret%rowtype; r jsonb;\nbegin\n  select * into b from stay_bookings\n   where code = upper(trim(p_code)) and right(phone, 4) = trim(p_last4) and status <> 'blocked';\n  if not found then return null; end if;\n  r := jsonb_build_object('code', b.code, 'name', b.name, 'guests', b.guests,\n        'check_in', b.check_in, 'check_out', b.check_out, 'status', b.status, 'checks', b.checks);\n  if b.status = 'pending' then\n    r := r || jsonb_build_object('queue', 1 + (select count(*) from stay_bookings x\n      where x.status = 'pending' and x.id <> b.id and x.created_at < b.created_at\n        and daterange(x.check_in, x.check_out) && daterange(b.check_in, b.check_out)));\n  end if;\n  if b.status = 'confirmed' then\n    select * into s from stay_secret where id = 1;\n    if not coalesce(s.show_in_app, false) then\n      r := r || jsonb_build_object('reveal_by_host', true);\n    elsif v_today between b.check_in - 1 and b.check_out then\n      r := r || jsonb_build_object('door_code', s.door_code, 'wifi_name', s.wifi_name,\n             'wifi_pw', s.wifi_pw, 'private_guide', s.private_guide);\n    end if;\n  end if;\n  return r::json;\nend $$;\n\ncreate or replace function stay_cancel(p_code text, p_last4 text)\nreturns boolean language plpgsql security definer set search_path = public as $$\ndeclare v_today date := (now() at time zone 'Asia/Seoul')::date; n int;\nbegin\n  update stay_bookings set status = 'cancelled', updated_at = now()\n   where code = upper(trim(p_code)) and right(phone, 4) = trim(p_last4)\n     and status in ('pending','confirmed') and check_in > v_today;\n  get diagnostics n = row_count;\n  return n > 0;\nend $$;\n\n-- 퇴실 체크리스트 저장 (확정된 본인 예약만)\ncreate or replace function stay_save_checks(p_code text, p_last4 text, p_checks jsonb)\nreturns boolean language plpgsql security definer set search_path = public as $$\ndeclare n int;\nbegin\n  if pg_column_size(p_checks) > 2000 then return false; end if;\n  update stay_bookings set checks = coalesce(p_checks, '{}'::jsonb), checks_at = now()\n   where code = upper(trim(p_code)) and right(phone, 4) = trim(p_last4) and status = 'confirmed';\n  get diagnostics n = row_count;\n  return n > 0;\nend $$;\n\ngrant execute on function stay_save_checks(text,text,jsonb) to anon, authenticated;\ngrant execute on function stay_busy_dates() to anon, authenticated;\ngrant execute on function stay_request(text,text,text,int,date,date,text) to anon, authenticated;\ngrant execute on function stay_lookup(text,text) to anon, authenticated;\ngrant execute on function stay_cancel(text,text) to anon, authenticated;\ngrant execute on function stay_claim_admin() to authenticated;\ngrant execute on function stay_is_admin() to anon, authenticated;\n\n-- 6) 사진 저장소 (누구나 보기, 관리자만 올리기/지우기)\ninsert into storage.buckets (id, name, public) values ('stay-photos', 'stay-photos', true)\non conflict (id) do nothing;\ndrop policy if exists \"stay photos insert\" on storage.objects;\ncreate policy \"stay photos insert\" on storage.objects for insert to authenticated\n  with check (bucket_id = 'stay-photos' and public.stay_is_admin());\ndrop policy if exists \"stay photos update\" on storage.objects;\ncreate policy \"stay photos update\" on storage.objects for update to authenticated\n  using (bucket_id = 'stay-photos' and public.stay_is_admin());\ndrop policy if exists \"stay photos delete\" on storage.objects;\ncreate policy \"stay photos delete\" on storage.objects for delete to authenticated\n  using (bucket_id = 'stay-photos' and public.stay_is_admin());\n\n-- 7) 자동 백업 — 매일 새벽 3시(한국 시간)에 내용과 예약을 복사해 30일 보관 (비밀번호 정보는 제외)\ncreate table if not exists stay_backups (\n  id bigint generated always as identity primary key,\n  created_at timestamptz default now(),\n  data jsonb not null\n);\nalter table stay_backups enable row level security;\ndrop policy if exists \"stay backups admin\" on stay_backups;\ncreate policy \"stay backups admin\" on stay_backups for select using (stay_is_admin());\n\ncreate or replace function stay_backup_now() returns bigint\nlanguage plpgsql security definer set search_path = public as $$\ndeclare v_id bigint;\nbegin\n  if auth.uid() is not null and not stay_is_admin() then raise exception 'not_admin'; end if;\n  insert into stay_backups (data)\n  select jsonb_build_object(\n    'content', (select data from stay_content where id = 1),\n    'bookings', coalesce((select jsonb_agg(to_jsonb(b) order by b.check_in) from stay_bookings b), '[]'::jsonb))\n  returning id into v_id;\n  delete from stay_backups where created_at < now() - interval '30 days';\n  return v_id;\nend $$;\nrevoke execute on function stay_backup_now() from public, anon;\ngrant execute on function stay_backup_now() to authenticated;\n\ndo $$\nbegin\n  create extension if not exists pg_cron;\n  perform cron.unschedule('stay-daily-backup') where exists (select 1 from cron.job where jobname = 'stay-daily-backup');\n  perform cron.schedule('stay-daily-backup', '0 18 * * *', 'select public.stay_backup_now()');\nexception when others then\n  raise notice '자동 백업 예약을 건너뜀 (pg_cron 사용 불가). 앱의 \"지금 백업\" 버튼은 그대로 쓸 수 있어요.';\nend $$;\n\n-- 8) 호스트 여러 명 — 호스트가 다른 사람의 이메일을 호스트로 추가/삭제\ncreate or replace function stay_add_admin(p_email text) returns boolean\nlanguage plpgsql security definer set search_path = public, auth as $$\ndeclare v uuid;\nbegin\n  if not stay_is_admin() then raise exception 'not_admin'; end if;\n  select id into v from auth.users where lower(email) = lower(trim(p_email));\n  if v is null then raise exception 'no_user'; end if;\n  insert into stay_admins (user_id) values (v) on conflict do nothing;\n  return true;\nend $$;\n\ncreate or replace function stay_list_admins() returns table (email text, me boolean)\nlanguage sql stable security definer set search_path = public, auth as $$\n  select u.email::text, u.id = auth.uid()\n  from stay_admins a join auth.users u on u.id = a.user_id\n  where stay_is_admin()\n  order by a.created_at\n$$;\n\ncreate or replace function stay_remove_admin(p_email text) returns boolean\nlanguage plpgsql security definer set search_path = public, auth as $$\ndeclare v uuid;\nbegin\n  if not stay_is_admin() then raise exception 'not_admin'; end if;\n  select id into v from auth.users where lower(email) = lower(trim(p_email));\n  if v is null or v = auth.uid() then raise exception 'cannot_remove'; end if;\n  delete from stay_admins where user_id = v;\n  return true;\nend $$;\n\nrevoke execute on function stay_add_admin(text) from public, anon;\nrevoke execute on function stay_list_admins() from public, anon;\nrevoke execute on function stay_remove_admin(text) from public, anon;\ngrant execute on function stay_add_admin(text) to authenticated;\ngrant execute on function stay_list_admins() to authenticated;\ngrant execute on function stay_remove_admin(text) to authenticated;\n";
@@ -599,7 +609,7 @@ function defaultContent(){
       {id:"n1", title:"운영 안내", body:"사업으로 운영하는 곳은 아니에요. 가까운 지인들과 좋은 공간을 나누고 싶은 마음으로 2027년 말까지 열어 두려고 해요. 그 이후는 하나님이 허락하시는 대로 그때 결정하려고요 ^^\n\n그래서 입금과 신분 확인은 앱이 아닌 카톡이나 이메일로 개별 안내드릴게요.", date:"2026-10-16", pinned:true}
     ],
     photos:[],
-    contact:{kakaoUrl:"", kakaoId:"", email:""}
+    contact:{kakaoUrl:"", kakaoId:"", email:"", phone:""}
   };
 }
 function mergeContent(saved){
@@ -883,7 +893,7 @@ function layout(){
   <header class="top"><div class="wrap">
     <div class="brand"><span class="plaque">15F</span><b>${esc(c ? c.name : "")}</b>
       <span class="top-actions">
-      ${S.view === "host" ? `<button class="btn sm ghost host-chip" data-a="go" data-v="home">손님 화면</button>` : (S.admin.authed || api.session()) ? `<button class="btn sm ghost host-chip" data-a="go" data-v="host">호스트 화면</button>` : ""}
+      ${S.view === "host" ? `<button class="btn sm ghost host-chip" data-a="go" data-v="home">손님 화면</button>` : (S.admin.authed || api.session()) ? `<button class="btn sm ghost host-chip" data-a="go" data-v="host">호스트${S.admin.bookings.some(b=>b.status==="pending")?` <span class="hb-dot sm">${S.admin.bookings.filter(b=>b.status==="pending").length}</span>`:""}</button>` : ""}
       <button class="me-btn ghost-ic" data-a="hardRefresh" aria-label="새로고침" title="새로고침">${icon("refresh")}</button>
       ${S.view === "host" ? "" : `<button class="me-btn${S.view==="my"?" on":""}${LS.get("stay_my",[]).length?" has":""}" data-a="go" data-v="my" aria-label="내 예약" title="내 예약">${icon("person")}</button>`}
       </span>
@@ -892,6 +902,7 @@ function layout(){
       ${[["home","소개"],["book","예약"],["guide","이용안내"],["info","공지·연락"]].map(([v,l]) => `<button data-a="go" data-v="${v}" ${S.view===v?'aria-current="page"':""}>${l}</button>`).join("")}
     </nav>
   </div></header>
+  ${S.view !== "host" && S.admin.authed ? hostBanner() : ""}
   <main class="wrap">${body}</main>
   <footer class="wrap"><div class="row">
     <span>© 2026 Jenny Ryu · v${VERSION}</span>
@@ -1094,6 +1105,8 @@ function mustRead(){
     ${pet || smoke || change ? `<b class="small">함께 지켜주세요</b><ul class="must-list">${smoke?`<li><b>${esc(smoke.value)}</b></li>`:""}${pet?`<li>${esc(pet.value)}</li>`:""}${change?`<li>${esc(change.body)}</li>`:""}</ul>` : ""}
   </div>`;
 }
+function notifyText(b){ return `[${S.content.name}] 예약 신청했어요\n· ${fmtD(b.check_in)} → ${fmtD(lastDay(b.check_out))} (${diffDays(b.check_in,b.check_out)}일)\n· 이름: ${b.name}\n· 예약코드: ${b.code}`; }
+function smsHref(ph, body){ const n = String(ph).replace(/[^0-9+]/g,""); const sep = /iPhone|iPad|iPod/.test(navigator.userAgent) ? "&" : "?"; return `sms:${n}${sep}body=${encodeURIComponent(body)}`; }
 function hostContactBlock(){
   const ct = S.content.contact;
   if(!ct.kakaoUrl && !ct.kakaoId && !ct.email) return "";
@@ -1120,6 +1133,16 @@ function viewSubmitted(){
     <div class="code-big">${esc(b.code)}</div>
     <button class="btn" data-a="copy" data-t="${esc(b.code)}">예약코드 복사</button>
   </section>
+  <section class="notify-step">
+    <b>🔔 마지막 단계 · 호스트에게 알려 주세요</b>
+    <p class="small">앱은 호스트에게 자동으로 연락하지 않아요. 아래 버튼으로 한 번만 알려 주시면 순서대로 바로 확인해 드려요.</p>
+    <div class="stack">
+      ${S.content.contact.kakaoUrl ? `<a class="btn primary block" data-a="notifyHost" href="${esc(S.content.contact.kakaoUrl)}" target="_blank" rel="noopener">카톡으로 알리기 (내용 자동 복사)</a>` : ""}
+      ${S.content.contact.phone ? `<a class="btn ${S.content.contact.kakaoUrl?"":"primary "}block" href="${smsHref(S.content.contact.phone, notifyText(b))}">문자로 알리기</a>` : ""}
+      <button class="btn block" data-a="notifyHost">신청 내용 복사하기</button>
+      ${S.content.contact.kakaoId ? `<p class="small muted">카톡 ID <b>${esc(S.content.contact.kakaoId)}</b> 로 붙여넣어 보내 주세요.</p>` : ""}
+    </div>
+  </section>
   <section><h3>다음 단계</h3>
     <ol class="steps">
       <li><span>신청 순서대로 호스트가 카톡으로 금액과 입금 계좌를 안내드려요. <b>입금이 확인되면 예약이 확정돼요.</b></span></li>
@@ -1128,7 +1151,6 @@ function viewSubmitted(){
     </ol>
   </section>
   <section class="stack">
-    ${S.content.contact.kakaoUrl ? `<a class="btn primary block" data-a="notifyHost" href="${esc(S.content.contact.kakaoUrl)}" target="_blank" rel="noopener">호스트에게 카톡으로 알리기</a><p class="small muted">누르면 신청 내용이 복사돼요. 카톡 창에 붙여넣어 보내 주세요.</p>` : hostContactBlock()}
     <a class="btn block" href="${gcalUrl(b)}" target="_blank" rel="noopener">구글 캘린더에 일정 넣기</a>
     <button class="btn block" data-a="ics" data-code="${esc(b.code)}" data-in="${b.check_in}" data-out="${b.check_out}">휴대폰 캘린더에 넣기 (알림 포함)</button>
     <button class="btn ghost block" data-a="newBooking">다른 날짜 신청하기</button>
@@ -1310,12 +1332,19 @@ async function loadAdmin(silent){
     a.lastAlerts = alerts;
     a.bookings = list;
     if(!a.secret) a.secret = await api.getSecret();
-    if(!silent || (S.view === "host" && a.tab === "bookings")) render();
+    if(!silent || (S.view === "host" && a.tab === "bookings") || S.view !== "host") render();
   }catch(e){
     if(e.status === 401){ api.logout(); a.authed = false; render(); toast("다시 로그인해 주세요"); }
     else if(!silent) toast(errMsg(e));
   }
 }
+function hostBanner(){
+  const p = S.admin.bookings.filter(b => b.status === "pending").sort((x,y)=>(y.created_at||"").localeCompare(x.created_at||""));
+  if(!p.length) return "";
+  const b = p[0];
+  return `<div class="wrap"><button class="host-banner" data-a="openPending"><span class="hb-dot">${p.length}</span><span class="grow"><b>새 예약 신청 ${p.length}건</b><small>${esc(b.name)} · ${fmtD(b.check_in)} → ${fmtD(lastDay(b.check_out))} · ${weeksLabel(diffDays(b.check_in,b.check_out))}${p.length>1?` 외 ${p.length-1}건`:""}</small></span><span class="hb-go">확인 ›</span></button></div>`;
+}
+function ago(iso){ if(!iso) return ""; const m = Math.round((Date.now() - new Date(iso).getTime())/60000); if(m < 1) return "방금"; if(m < 60) return `${m}분 전`; const h = Math.round(m/60); if(h < 24) return `${h}시간 전`; return `${Math.round(h/24)}일 전`; }
 function notifyNew(){
   try{ if(S.admin.notify && "Notification" in window && Notification.permission === "granted") new Notification(S.content.name, {body:"새 예약 신청이 들어왔어요"}); }catch(e){}
 }
@@ -1374,12 +1403,12 @@ function bookingCard(b){
   if(["declined","cancelled"].includes(b.status) || (past && b.status === "confirmed")) acts.push(`<button class="btn sm ghost" data-a="delBooking" data-id="${b.id}">기록·개인정보 삭제</button>`);
   if(b.status !== "blocked") acts.push(`<button class="btn sm ghost" data-a="editNote" data-id="${b.id}">메모</button>`);
   return `<article class="bk st-${b.status}">
-    <div class="head"><div><b>${esc(b.name)}</b> ${b.status!=="blocked"?`<span class="small muted">${b.guests}명</span>`:""}<div class="when">${fmtD(b.check_in)} → ${fmtD(lastDay(b.check_out))} · ${n}일</div></div><span class="pill ${b.status}">${b.status==="pending" && S.admin.bookings.some(x=>x.id!==b.id&&x.status==="pending"&&overlap(x,b)) ? `대기 ${adminQueue(b)}순위` : isClosed(b) ? "마감" : ST_LABEL[b.status]}</span></div>
+    <div class="head"><div>${b.status==="pending"?`<span class="new-tag">새 신청</span>`:""}<b>${esc(b.name)}</b> ${b.status!=="blocked"?`<span class="small muted">${b.guests}명</span>`:""}<div class="when">${fmtD(b.check_in)} → ${fmtD(lastDay(b.check_out))} · ${n}일</div></div><span class="pill ${b.status}">${b.status==="pending" && S.admin.bookings.some(x=>x.id!==b.id&&x.status==="pending"&&overlap(x,b)) ? `대기 ${adminQueue(b)}순위` : isClosed(b) ? "마감" : ST_LABEL[b.status]}</span></div>
     ${b.status !== "blocked" ? `<div class="meta">
       <span>${b.phone ? `<a href="tel:${esc(b.phone)}">${esc(fmtPhone(b.phone))}</a>` : ""}</span>
       ${b.kakao ? `<span>카톡 ${esc(b.kakao)}</span>` : ""}
       <span class="mono">${esc(b.code)}</span>
-      ${b.created_at ? `<span>신청 ${esc(new Date(b.created_at).toLocaleDateString("ko-KR",{timeZone:TZ,month:"numeric",day:"numeric"}))}</span>` : ""}
+      ${b.created_at ? `<span>신청 ${esc(new Date(b.created_at).toLocaleString("ko-KR",{timeZone:TZ,month:"numeric",day:"numeric",hour:"numeric",minute:"2-digit"}))} (${ago(b.created_at)})</span>` : ""}
     </div>` : ""}
     ${b.message ? `<div class="msg">${esc(b.message)}</div>` : ""}
     ${b.admin_note ? `<div class="small"><span class="muted">메모</span> ${esc(b.admin_note)}</div>` : ""}
@@ -1409,7 +1438,7 @@ function hostBookings(){
       <div class="stat"><b>${upcoming.length - staying.length}</b><span>다가오는 확정</span></div>
     </div>
     <div class="row">${filters.map(([k,l]) => `<button class="btn sm ${a.filter===k?"dark":""}" data-a="hfilter" data-f="${k}">${l}</button>`).join("")}<button class="btn sm ghost" data-a="reloadAdmin">↻</button></div>
-    ${shown.length ? shown.map(bookingCard).join("") : `<p class="muted">해당하는 예약이 없어요.</p>`}
+    ${shown.length ? shown.slice().sort((x,y)=>(y.status==="pending")-(x.status==="pending")).map(bookingCard).join("") : `<p class="muted">해당하는 예약이 없어요.</p>`}
   </div>`;
 }
 function adminMap(){
@@ -1491,7 +1520,7 @@ function hostContent(){
     <div class="ed-sec"><h3>건물과 동네</h3>${listEd("building","lv","항목 추가")}</div>
     <div class="ed-sec"><h3>퇴실 전 지켜주셔야 할 일</h3>${inp("stayIntro","안내 문구",{area:true})}${listEd("checklist","str","할 일 추가")}</div>
     <div class="ed-sec"><h3>알아두면 좋은 것</h3>${listEd("guideItems","tb","안내 추가")}</div>
-    <div class="ed-sec"><h3>호스트 연락처</h3>${inp("contact.kakaoUrl","카카오톡 링크",{type:"url",opt:"오픈채팅 또는 프로필 링크"})}${inp("contact.kakaoId","카카오톡 ID")}${inp("contact.email","이메일",{type:"email"})}</div>
+    <div class="ed-sec"><h3>호스트 연락처</h3>${inp("contact.kakaoUrl","카카오톡 링크",{type:"url",opt:"오픈채팅 또는 프로필 링크"})}${inp("contact.kakaoId","카카오톡 ID")}${inp("contact.email","이메일",{type:"email"})}${inp("contact.phone","신청 알림 받을 휴대폰 번호",{type:"tel",opt:"손님이 신청 후 '문자로 알리기'를 누르면 이 번호로 문자가 가요. 번호는 화면에 보이지 않아요"})}</div>
     <div class="savebar"><span class="grow small" id="dirty-flag">${S.admin.dirty?"저장하지 않은 수정이 있어요":"저장된 상태예요"}</span><button class="btn ghost sm" data-a="discard" ${S.admin.dirty?"":"disabled"}>되돌리기</button><button class="btn primary" data-a="saveContent" id="save-btn" ${S.admin.dirty?"":"disabled"}>저장</button></div>
   </div>`;
 }
@@ -1626,6 +1655,7 @@ function rememberMy(code,last4){
 const A = {
   go: el => go(el.dataset.v),
   reload: () => loadContent(),
+  openPending: () => { S.admin.tab = "bookings"; S.admin.filter = "pending"; go("host"); },
   hardRefresh: async () => {
     try{ if("caches" in window){ const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); } }catch(e){}
     try{ location.replace(appUrl()+"?r="+Date.now()+"#"+S.view); }catch(e){ location.reload(); }
@@ -1662,8 +1692,7 @@ const A = {
   clearSel: () => { S.sel = {in:null,out:null}; render(); },
   newBooking: () => { S.submitted = null; S.sel = {in:null,out:null}; loadBusy(); render(); window.scrollTo(0,0); },
   notifyHost: () => {
-    const b = S.submitted;
-    const text = `[${S.content.name}] 예약 신청했어요\n· ${fmtD(b.check_in)} → ${fmtD(lastDay(b.check_out))} (${diffDays(b.check_in,b.check_out)}일)\n· 이름: ${b.name}\n· 예약코드: ${b.code}`;
+    const text = notifyText(S.submitted);
     try{ navigator.clipboard.writeText(text).then(()=>toast("신청 내용을 복사했어요. 카톡에 붙여넣어 주세요"),()=>{}); }catch(e){}
   },
   ics: el => download(`stay-${el.dataset.code}.ics`, makeIcs(el.dataset.code, el.dataset.in, el.dataset.out), "text/calendar"),
@@ -1893,7 +1922,8 @@ document.addEventListener("keydown", e => {
   if(S.lightbox !== null){ if(e.key === "Escape"){ S.lightbox = null; render(); } if(e.key === "ArrowRight" && S.lightbox < S.content.photos.length-1){ S.lightbox++; render(); } if(e.key === "ArrowLeft" && S.lightbox > 0){ S.lightbox--; render(); } }
   else if(S.dialog && e.key === "Escape" && !S.dialog.noCancel){ S.dialog = null; render(); }
 });
-setInterval(() => { if(S.view === "host" && S.admin.authed && !S.dialog) loadAdmin(true); }, 30000);
+setInterval(() => { if(S.admin.authed && !S.dialog && !S.admin.dirty) loadAdmin(true); }, 30000);
+document.addEventListener("visibilitychange", () => { if(document.visibilityState === "visible" && S.admin.authed) loadAdmin(true); });
 setInterval(() => { if(S.view === "book" && !S.submitted && !S.sending) loadBusy(); }, 60000);
 
 /* ---------- boot ---------- */
@@ -1901,6 +1931,7 @@ setInterval(() => { if(S.view === "book" && !S.submitted && !S.sending) loadBusy
   await loadContent();
   if(S.view === "book") loadBusy();
   if(S.view === "host") enterHost();
+  else if(api.session()) enterHost();
   if(S.view === "my") autoMy();
   if(S.view === "guide") autoLink();
 })();
