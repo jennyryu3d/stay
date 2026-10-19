@@ -62,6 +62,8 @@ alter table stay_bookings add constraint stay_no_overlap exclude using gist (dat
   where (status in ('confirmed','blocked'));
 alter table stay_bookings add column if not exists checks jsonb not null default '{}'::jsonb;
 alter table stay_bookings add column if not exists checks_at timestamptz;
+-- 앞 순위가 확정된 뒤 대기 손님의 선택 ('' = 아직, 'wait' = 계속 기다리기)
+alter table stay_bookings add column if not exists wait_choice text not null default '';
 alter table stay_bookings enable row level security;
 drop policy if exists "stay bookings admin" on stay_bookings;
 create policy "stay bookings admin" on stay_bookings for all using (stay_is_admin()) with check (stay_is_admin());
@@ -147,7 +149,10 @@ begin
   if b.status = 'pending' then
     r := r || jsonb_build_object('queue', 1 + (select count(*) from stay_bookings x
       where x.status = 'pending' and x.id <> b.id and x.created_at < b.created_at
-        and daterange(x.check_in, x.check_out) && daterange(b.check_in, b.check_out)));
+        and daterange(x.check_in, x.check_out) && daterange(b.check_in, b.check_out)),
+      'ahead_confirmed', exists (select 1 from stay_bookings x
+        where x.status in ('confirmed','blocked') and daterange(x.check_in, x.check_out) && daterange(b.check_in, b.check_out)),
+      'wait_choice', b.wait_choice);
   end if;
   if b.status = 'confirmed' then
     select * into s from stay_secret where id = 1;
@@ -172,6 +177,17 @@ begin
   return n > 0;
 end $$;
 
+-- 앞 순위 확정 후 '계속 기다리기' 선택 (신청 중인 본인 예약만)
+create or replace function stay_choose_wait(p_code text, p_last4 text)
+returns boolean language plpgsql security definer set search_path = public as $$
+declare n int;
+begin
+  update stay_bookings set wait_choice = 'wait', updated_at = now()
+   where code = upper(trim(p_code)) and right(phone, 4) = trim(p_last4) and status = 'pending';
+  get diagnostics n = row_count;
+  return n > 0;
+end $$;
+
 -- 퇴실 체크리스트 저장 (확정된 본인 예약만)
 create or replace function stay_save_checks(p_code text, p_last4 text, p_checks jsonb)
 returns boolean language plpgsql security definer set search_path = public as $$
@@ -185,6 +201,7 @@ begin
 end $$;
 
 grant execute on function stay_save_checks(text,text,jsonb) to anon, authenticated;
+grant execute on function stay_choose_wait(text,text) to anon, authenticated;
 grant execute on function stay_busy_dates() to anon, authenticated;
 grant execute on function stay_request(text,text,text,int,date,date,text) to anon, authenticated;
 grant execute on function stay_lookup(text,text) to anon, authenticated;
