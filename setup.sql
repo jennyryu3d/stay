@@ -79,6 +79,7 @@ create table if not exists stay_secret (
   updated_at timestamptz default now()
 );
 insert into stay_secret (id) values (1) on conflict do nothing;
+alter table stay_secret add column if not exists building_code text not null default '';
 alter table stay_secret enable row level security;
 drop policy if exists "stay secret admin" on stay_secret;
 create policy "stay secret admin" on stay_secret for all using (stay_is_admin()) with check (stay_is_admin());
@@ -159,7 +160,7 @@ begin
     if not coalesce(s.show_in_app, false) then
       r := r || jsonb_build_object('reveal_by_host', true);
     elsif v_today between b.check_in - 1 and b.check_out then
-      r := r || jsonb_build_object('door_code', s.door_code, 'wifi_name', s.wifi_name,
+      r := r || jsonb_build_object('door_code', s.door_code, 'building_code', s.building_code, 'wifi_name', s.wifi_name,
              'wifi_pw', s.wifi_pw, 'private_guide', s.private_guide);
     end if;
   end if;
