@@ -80,6 +80,7 @@ create table if not exists stay_secret (
 );
 insert into stay_secret (id) values (1) on conflict do nothing;
 alter table stay_secret add column if not exists building_code text not null default '';
+alter table stay_secret add column if not exists pay jsonb not null default '{}'::jsonb;
 alter table stay_secret enable row level security;
 drop policy if exists "stay secret admin" on stay_secret;
 create policy "stay secret admin" on stay_secret for all using (stay_is_admin()) with check (stay_is_admin());
