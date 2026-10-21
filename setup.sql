@@ -296,3 +296,34 @@ revoke execute on function stay_remove_admin(text) from public, anon;
 grant execute on function stay_add_admin(text) to authenticated;
 grant execute on function stay_list_admins() to authenticated;
 grant execute on function stay_remove_admin(text) to authenticated;
+
+-- 9) 휴대폰 알림 — 새 신청이 들어오면 호스트 휴대폰으로 알림 (앱 아이콘 숫자)
+alter table stay_bookings add column if not exists push_sent boolean not null default false;
+create table if not exists stay_push_subs (
+  endpoint text primary key,
+  sub jsonb not null,
+  user_id uuid default auth.uid(),
+  created_at timestamptz default now()
+);
+alter table stay_push_subs enable row level security;
+drop policy if exists "stay push admin" on stay_push_subs;
+create policy "stay push admin" on stay_push_subs for all using (stay_is_admin()) with check (stay_is_admin());
+grant select, insert, update, delete on stay_push_subs to authenticated;
+grant select, insert, update, delete on stay_push_subs to service_role;
+
+create extension if not exists pg_net;
+create or replace function stay_push_trigger() returns trigger
+language plpgsql security definer set search_path = public, extensions as $$
+begin
+  begin
+    perform net.http_post(
+      url := 'https://gdjxgdwhjynmszxvlbsr.supabase.co/functions/v1/stay-push',
+      body := jsonb_build_object('id', new.id),
+      headers := '{"Content-Type":"application/json"}'::jsonb);
+  exception when others then null;
+  end;
+  return new;
+end $$;
+drop trigger if exists stay_push_on_insert on stay_bookings;
+create trigger stay_push_on_insert after insert on stay_bookings
+  for each row when (new.status = 'pending') execute function stay_push_trigger();
