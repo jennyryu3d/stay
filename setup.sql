@@ -327,3 +327,6 @@ end $$;
 drop trigger if exists stay_push_on_insert on stay_bookings;
 create trigger stay_push_on_insert after insert on stay_bookings
   for each row when (new.status = 'pending') execute function stay_push_trigger();
+
+-- 10) 예약별 실제 이용료 (할인 등, 만 원 단위 · 비어 있으면 가격표대로)
+alter table stay_bookings add column if not exists fee integer;
