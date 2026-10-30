@@ -263,7 +263,7 @@ pre.sql{max-height:220px;overflow:auto;background:var(--bg);border-radius:10px;p
 .trans-sec:first-child{margin-top:12px}
 .trans-nav{position:sticky;top:-4px;z-index:1;display:flex;flex-wrap:wrap;gap:6px;margin:0 -20px;padding:10px 20px 10px;background:var(--surface);border-bottom:1px solid var(--line)}
 .trans-nav button{border:1px solid var(--line);background:none;border-radius:999px;padding:5px 11px;font-size:.8rem;cursor:pointer;color:inherit}
-.trans-sec{scroll-margin-top:100px}
+.trans-nav button[aria-current]{background:var(--ink);color:var(--bg);border-color:transparent}
 .trans-body .callout{margin:10px 0}
 .trans-kv{display:grid;grid-template-columns:5.2em 1fr;gap:6px 10px;margin:8px 0 0}
 .trans-kv dt{color:var(--muted);font-size:.84rem}
@@ -576,7 +576,7 @@ const CONFIG = {
 <script>
 (function(){
 "use strict";
-const VERSION = "2.31.0";
+const VERSION = "2.32.0";
 const BUILD_DATE = "2026-10-30";
 const TZ = "Asia/Seoul";
 const SETUP_SQL = "-- 남위례 햇살집 · 서버 설정 SQL (Supabase → SQL Editor에 통째로 붙여넣고 Run)\n-- 여러 번 실행해도 안전합니다.\n\n-- 1) 관리자\ncreate table if not exists stay_admins (\n  user_id uuid primary key references auth.users on delete cascade,\n  created_at timestamptz default now()\n);\nalter table stay_admins enable row level security;\n\ncreate or replace function stay_is_admin() returns boolean\nlanguage sql stable security definer set search_path = public as $$\n  select exists (select 1 from stay_admins where user_id = auth.uid())\n$$;\n\n-- 처음 로그인한 한 사람만 관리자가 됩니다\ncreate or replace function stay_claim_admin() returns boolean\nlanguage plpgsql security definer set search_path = public as $$\nbegin\n  if auth.uid() is null then return false; end if;\n  if exists (select 1 from stay_admins) then\n    return exists (select 1 from stay_admins where user_id = auth.uid());\n  end if;\n  insert into stay_admins (user_id) values (auth.uid());\n  return true;\nend $$;\n\n-- 2) 공개 내용 (소개, 공지, 사진 등) — 누구나 읽기, 관리자만 수정\ncreate table if not exists stay_content (\n  id int primary key default 1 check (id = 1),\n  data jsonb not null default '{}'::jsonb,\n  updated_at timestamptz default now()\n);\ninsert into stay_content (id) values (1) on conflict do nothing;\nalter table stay_content enable row level security;\ndrop policy if exists \"stay content read\" on stay_content;\ncreate policy \"stay content read\" on stay_content for select using (true);\ndrop policy if exists \"stay content write\" on stay_content;\ncreate policy \"stay content write\" on stay_content for update using (stay_is_admin()) with check (stay_is_admin());\n\n-- 3) 예약 — 개인정보라서 관리자만 볼 수 있음. 날짜 겹침은 서버가 막음\ncreate table if not exists stay_bookings (\n  id uuid primary key default gen_random_uuid(),\n  code text unique not null,\n  name text not null,\n  phone text not null default '',\n  kakao text not null default '',\n  guests int not null default 1,\n  check_in date not null,\n  check_out date not null,\n  message text not null default '',\n  status text not null default 'pending'\n    check (status in ('pending','confirmed','declined','cancelled','blocked')),\n  admin_note text not null default '',\n  created_at timestamptz default now(),\n  updated_at timestamptz default now(),\n  check (check_out > check_in)\n);\n-- 확정·호스트 사용 날짜만 서로 겹칠 수 없음 (신청 중인 날짜는 대기 신청 가능)\nalter table stay_bookings drop constraint if exists stay_no_overlap;\nalter table stay_bookings add constraint stay_no_overlap exclude using gist (daterange(check_in, check_out) with &&)\n  where (status in ('confirmed','blocked'));\nalter table stay_bookings add column if not exists checks jsonb not null default '{}'::jsonb;\nalter table stay_bookings add column if not exists checks_at timestamptz;\n-- 앞 순위가 확정된 뒤 대기 손님의 선택 ('' = 아직, 'wait' = 계속 기다리기)\nalter table stay_bookings add column if not exists wait_choice text not null default '';\nalter table stay_bookings enable row level security;\ndrop policy if exists \"stay bookings admin\" on stay_bookings;\ncreate policy \"stay bookings admin\" on stay_bookings for all using (stay_is_admin()) with check (stay_is_admin());\n\n-- 4) 비밀 정보 (출입 비번, 와이파이, 호수) — 관리자만\ncreate table if not exists stay_secret (\n  id int primary key default 1 check (id = 1),\n  door_code text not null default '',\n  wifi_name text not null default '',\n  wifi_pw text not null default '',\n  private_guide text not null default '',\n  show_in_app boolean not null default false,\n  updated_at timestamptz default now()\n);\ninsert into stay_secret (id) values (1) on conflict do nothing;\nalter table stay_secret add column if not exists building_code text not null default '';\nalter table stay_secret add column if not exists pay jsonb not null default '{}'::jsonb;\nalter table stay_secret enable row level security;\ndrop policy if exists \"stay secret admin\" on stay_secret;\ncreate policy \"stay secret admin\" on stay_secret for all using (stay_is_admin()) with check (stay_is_admin());\n\n-- 5) 손님용 기능 (이름·연락처는 절대 내보내지 않음)\ncreate or replace function stay_busy_dates()\nreturns table (check_in date, check_out date, status text)\nlanguage sql stable security definer set search_path = public as $$\n  select b.check_in, b.check_out,\n         case when b.status = 'pending' then 'pending' else 'booked' end\n  from stay_bookings b\n  where b.status in ('pending','confirmed','blocked')\n    and b.check_out >= (now() at time zone 'Asia/Seoul')::date - 1\n$$;\n\ncreate or replace function stay_request(\n  p_name text, p_phone text, p_kakao text, p_guests int,\n  p_in date, p_out date, p_message text)\nreturns json language plpgsql security definer set search_path = public as $$\ndeclare\n  v_today date := (now() at time zone 'Asia/Seoul')::date;\n  v_max int; v_maxn int; v_minn int; v_digits text; v_code text := '';\n  v_abc text := 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; i int; v_q int;\nbegin\n  select coalesce((data->>'maxGuests')::int, 2), coalesce((data->>'maxNights')::int, 90),\n         coalesce((data->>'minNights')::int, 1)\n    into v_max, v_maxn, v_minn from stay_content where id = 1;\n  v_digits := regexp_replace(coalesce(p_phone, ''), '\\D', '', 'g');\n  if length(trim(coalesce(p_name, ''))) < 1 or length(p_name) > 40 then raise exception 'bad_name'; end if;\n  if length(v_digits) < 9 or length(v_digits) > 13 then raise exception 'bad_phone'; end if;\n  if p_in < v_today or p_out <= p_in or p_in > v_today + 400\n     or (p_out - p_in) > v_maxn or (p_out - p_in) < v_minn then raise exception 'bad_dates'; end if;\n  if p_guests < 1 or p_guests > v_max then raise exception 'bad_guests'; end if;\n  if (select count(*) from stay_bookings where phone = v_digits and status = 'pending') >= 3 then\n    raise exception 'too_many';\n  end if;\n  if exists (select 1 from stay_bookings where status in ('confirmed','blocked')\n             and daterange(check_in, check_out) && daterange(p_in, p_out)) then\n    raise exception 'overlap';\n  end if;\n  select 1 + count(*) into v_q from stay_bookings\n   where status = 'pending' and daterange(check_in, check_out) && daterange(p_in, p_out);\n  for i in 1..8 loop\n    v_code := v_code || substr(v_abc, 1 + floor(random() * length(v_abc))::int, 1);\n  end loop;\n  begin\n    insert into stay_bookings (code, name, phone, kakao, guests, check_in, check_out, message)\n    values (v_code, trim(p_name), v_digits, left(coalesce(p_kakao, ''), 40), p_guests,\n            p_in, p_out, left(coalesce(p_message, ''), 500));\n  exception when exclusion_violation then\n    raise exception 'overlap';\n  end;\n  return json_build_object('code', v_code, 'check_in', p_in, 'check_out', p_out, 'status', 'pending', 'queue', v_q);\nend $$;\n\n-- 예약코드 + 휴대폰 뒤 4자리로 조회. '앱에서 보여주기'가 켜져 있으면 확정 + 입실 전날~퇴실 날에만 비번 공개\ncreate or replace function stay_lookup(p_code text, p_last4 text)\nreturns json language plpgsql security definer set search_path = public as $$\ndeclare\n  v_today date := (now() at time zone 'Asia/Seoul')::date;\n  b stay_bookings%rowtype; s stay_secret%rowtype; r jsonb;\nbegin\n  select * into b from stay_bookings\n   where code = upper(trim(p_code)) and right(phone, 4) = trim(p_last4) and status <> 'blocked';\n  if not found then return null; end if;\n  r := jsonb_build_object('code', b.code, 'name', b.name, 'guests', b.guests,\n        'check_in', b.check_in, 'check_out', b.check_out, 'status', b.status, 'checks', b.checks);\n  if b.status = 'pending' then\n    r := r || jsonb_build_object('queue', 1 + (select count(*) from stay_bookings x\n      where x.status = 'pending' and x.id <> b.id and x.created_at < b.created_at\n        and daterange(x.check_in, x.check_out) && daterange(b.check_in, b.check_out)),\n      'ahead_confirmed', exists (select 1 from stay_bookings x\n        where x.status in ('confirmed','blocked') and daterange(x.check_in, x.check_out) && daterange(b.check_in, b.check_out)),\n      'wait_choice', b.wait_choice);\n  end if;\n  if b.status = 'confirmed' then\n    select * into s from stay_secret where id = 1;\n    if not coalesce(s.show_in_app, false) then\n      r := r || jsonb_build_object('reveal_by_host', true);\n    elsif v_today between b.check_in - 1 and b.check_out then\n      r := r || jsonb_build_object('door_code', s.door_code, 'building_code', s.building_code, 'wifi_name', s.wifi_name,\n             'wifi_pw', s.wifi_pw, 'private_guide', s.private_guide);\n    end if;\n  end if;\n  return r::json;\nend $$;\n\ncreate or replace function stay_cancel(p_code text, p_last4 text)\nreturns boolean language plpgsql security definer set search_path = public as $$\ndeclare v_today date := (now() at time zone 'Asia/Seoul')::date; n int;\nbegin\n  update stay_bookings set status = 'cancelled', updated_at = now()\n   where code = upper(trim(p_code)) and right(phone, 4) = trim(p_last4)\n     and status in ('pending','confirmed') and check_in > v_today;\n  get diagnostics n = row_count;\n  return n > 0;\nend $$;\n\n-- 앞 순위 확정 후 '계속 기다리기' 선택 (신청 중인 본인 예약만)\ncreate or replace function stay_choose_wait(p_code text, p_last4 text)\nreturns boolean language plpgsql security definer set search_path = public as $$\ndeclare n int;\nbegin\n  update stay_bookings set wait_choice = 'wait', updated_at = now()\n   where code = upper(trim(p_code)) and right(phone, 4) = trim(p_last4) and status = 'pending';\n  get diagnostics n = row_count;\n  return n > 0;\nend $$;\n\n-- 퇴실 체크리스트 저장 (확정된 본인 예약만)\ncreate or replace function stay_save_checks(p_code text, p_last4 text, p_checks jsonb)\nreturns boolean language plpgsql security definer set search_path = public as $$\ndeclare n int;\nbegin\n  if pg_column_size(p_checks) > 2000 then return false; end if;\n  update stay_bookings set checks = coalesce(p_checks, '{}'::jsonb), checks_at = now()\n   where code = upper(trim(p_code)) and right(phone, 4) = trim(p_last4) and status = 'confirmed';\n  get diagnostics n = row_count;\n  return n > 0;\nend $$;\n\ngrant execute on function stay_save_checks(text,text,jsonb) to anon, authenticated;\ngrant execute on function stay_choose_wait(text,text) to anon, authenticated;\ngrant execute on function stay_busy_dates() to anon, authenticated;\ngrant execute on function stay_request(text,text,text,int,date,date,text) to anon, authenticated;\ngrant execute on function stay_lookup(text,text) to anon, authenticated;\ngrant execute on function stay_cancel(text,text) to anon, authenticated;\ngrant execute on function stay_claim_admin() to authenticated;\ngrant execute on function stay_is_admin() to anon, authenticated;\n\n-- 6) 사진 저장소 (누구나 보기, 관리자만 올리기/지우기)\ninsert into storage.buckets (id, name, public) values ('stay-photos', 'stay-photos', true)\non conflict (id) do nothing;\ndrop policy if exists \"stay photos insert\" on storage.objects;\ncreate policy \"stay photos insert\" on storage.objects for insert to authenticated\n  with check (bucket_id = 'stay-photos' and public.stay_is_admin());\ndrop policy if exists \"stay photos update\" on storage.objects;\ncreate policy \"stay photos update\" on storage.objects for update to authenticated\n  using (bucket_id = 'stay-photos' and public.stay_is_admin());\ndrop policy if exists \"stay photos delete\" on storage.objects;\ncreate policy \"stay photos delete\" on storage.objects for delete to authenticated\n  using (bucket_id = 'stay-photos' and public.stay_is_admin());\n\n-- 7) 자동 백업 — 매일 새벽 3시(한국 시간)에 내용과 예약을 복사해 30일 보관 (비밀번호 정보는 제외)\ncreate table if not exists stay_backups (\n  id bigint generated always as identity primary key,\n  created_at timestamptz default now(),\n  data jsonb not null\n);\nalter table stay_backups enable row level security;\ndrop policy if exists \"stay backups admin\" on stay_backups;\ncreate policy \"stay backups admin\" on stay_backups for select using (stay_is_admin());\n\ncreate or replace function stay_backup_now() returns bigint\nlanguage plpgsql security definer set search_path = public as $$\ndeclare v_id bigint;\nbegin\n  if auth.uid() is not null and not stay_is_admin() then raise exception 'not_admin'; end if;\n  insert into stay_backups (data)\n  select jsonb_build_object(\n    'content', (select data from stay_content where id = 1),\n    'bookings', coalesce((select jsonb_agg(to_jsonb(b) order by b.check_in) from stay_bookings b), '[]'::jsonb))\n  returning id into v_id;\n  delete from stay_backups where created_at < now() - interval '30 days';\n  return v_id;\nend $$;\nrevoke execute on function stay_backup_now() from public, anon;\ngrant execute on function stay_backup_now() to authenticated;\n\ndo $$\nbegin\n  create extension if not exists pg_cron;\n  perform cron.unschedule('stay-daily-backup') where exists (select 1 from cron.job where jobname = 'stay-daily-backup');\n  perform cron.schedule('stay-daily-backup', '0 18 * * *', 'select public.stay_backup_now()');\nexception when others then\n  raise notice '자동 백업 예약을 건너뜀 (pg_cron 사용 불가). 앱의 \"지금 백업\" 버튼은 그대로 쓸 수 있어요.';\nend $$;\n\n-- 8) 호스트 여러 명 — 호스트가 다른 사람의 이메일을 호스트로 추가/삭제\ncreate or replace function stay_add_admin(p_email text) returns boolean\nlanguage plpgsql security definer set search_path = public, auth as $$\ndeclare v uuid;\nbegin\n  if not stay_is_admin() then raise exception 'not_admin'; end if;\n  select id into v from auth.users where lower(email) = lower(trim(p_email));\n  if v is null then raise exception 'no_user'; end if;\n  insert into stay_admins (user_id) values (v) on conflict do nothing;\n  return true;\nend $$;\n\ncreate or replace function stay_list_admins() returns table (email text, me boolean)\nlanguage sql stable security definer set search_path = public, auth as $$\n  select u.email::text, u.id = auth.uid()\n  from stay_admins a join auth.users u on u.id = a.user_id\n  where stay_is_admin()\n  order by a.created_at\n$$;\n\ncreate or replace function stay_remove_admin(p_email text) returns boolean\nlanguage plpgsql security definer set search_path = public, auth as $$\ndeclare v uuid;\nbegin\n  if not stay_is_admin() then raise exception 'not_admin'; end if;\n  select id into v from auth.users where lower(email) = lower(trim(p_email));\n  if v is null or v = auth.uid() then raise exception 'cannot_remove'; end if;\n  delete from stay_admins where user_id = v;\n  return true;\nend $$;\n\nrevoke execute on function stay_add_admin(text) from public, anon;\nrevoke execute on function stay_list_admins() from public, anon;\nrevoke execute on function stay_remove_admin(text) from public, anon;\ngrant execute on function stay_add_admin(text) to authenticated;\ngrant execute on function stay_list_admins() to authenticated;\ngrant execute on function stay_remove_admin(text) to authenticated;\n\n-- 9) 휴대폰 알림 — 새 신청이 들어오면 호스트 휴대폰으로 알림 (앱 아이콘 숫자)\nalter table stay_bookings add column if not exists push_sent boolean not null default false;\ncreate table if not exists stay_push_subs (\n  endpoint text primary key,\n  sub jsonb not null,\n  user_id uuid default auth.uid(),\n  created_at timestamptz default now()\n);\nalter table stay_push_subs enable row level security;\ndrop policy if exists \"stay push admin\" on stay_push_subs;\ncreate policy \"stay push admin\" on stay_push_subs for all using (stay_is_admin()) with check (stay_is_admin());\ngrant select, insert, update, delete on stay_push_subs to authenticated;\ngrant select, insert, update, delete on stay_push_subs to service_role;\n\ncreate extension if not exists pg_net;\ncreate or replace function stay_push_trigger() returns trigger\nlanguage plpgsql security definer set search_path = public, extensions as $$\nbegin\n  begin\n    perform net.http_post(\n      url := 'https://gdjxgdwhjynmszxvlbsr.supabase.co/functions/v1/stay-push',\n      body := jsonb_build_object('id', new.id),\n      headers := '{\"Content-Type\":\"application/json\"}'::jsonb);\n  exception when others then null;\n  end;\n  return new;\nend $$;\ndrop trigger if exists stay_push_on_insert on stay_bookings;\ncreate trigger stay_push_on_insert after insert on stay_bookings\n  for each row when (new.status = 'pending') execute function stay_push_trigger();\n\n-- 10) 예약별 실제 이용료 (할인 등, 만 원 단위 · 비어 있으면 가격표대로)\nalter table stay_bookings add column if not exists fee integer;\n";
@@ -1636,9 +1636,8 @@ function viewGuide(){
       <button class="air-link" data-a="transOpen" data-k="parking">주차 자세히 보기 ›</button>
     </section>
     <section class="panel">${sh("Getting around","교통 안내")}
-      <p class="small">택시 부르기, 지하철 · 버스, 인천공항 가는 길, 지하철로 가볼 만한 곳을 한곳에 모았어요.</p>
-      <div class="trans-nav" style="position:static;background:none;margin:0;padding:4px 0;border:0">${TRANS_NAV.map(([id,t])=> `<button data-a="transOpen" data-s="${id}">${t}</button>`).join("")}</div>
-      <button class="air-link" data-a="transOpen">교통 안내 전체 보기 ›</button>
+      <p class="small">궁금한 교통수단을 눌러 보세요. 그 내용만 따로 볼 수 있어요.</p>
+      <div class="trans-nav" style="position:static;background:none;margin:0;padding:4px 0;border:0">${Object.entries(TRANS_TABS).map(([k,t])=> `<button data-a="transOpen" data-k="${k}">${t.label}</button>`).join("")}</div>
     </section>
     ${c.guideItems.length ? `<section>${sh("Good to know","알아두면 좋은 정보")}${c.guideItems.map(g=> `<div class="stack" style="gap:2px"><h3>${esc(g.title)}</h3><p class="small">${nl(g.body)}</p></div>`).join("")}</section>` : ""}
     <section class="panel">${sh("Neighborhood map","동네 지도")}
@@ -1685,8 +1684,8 @@ function viewInfo(){
   return `<div class="sections">
     <section>${sh("Notice","공지사항")}${notices.length ? notices.map(n=> `<div class="notice"><div class="row"><b class="grow">${esc(n.title)}</b><span class="small muted">${n.date?esc(n.date.replace(/-/g,".")):""}</span></div><p class="small">${nl(n.body)}</p></div>`).join("") : `<p class="muted small">아직 공지가 없어요.</p>`}</section>
     <section class="panel">${sh("Location","위치와 교통")}${kv((c.location||[]).concat([{label:"공항까지 거리", value:"차량 약 60~80분 (인천공항)"}]))}
-      <button class="air-link" data-a="transOpen" data-s="tr-airport">인천공항 교통 상세 이용 안내 ›</button>
-      <button class="air-link" data-a="transOpen">택시 · 지하철 · 버스 · 가볼 만한 곳 ›</button>
+      <button class="air-link" data-a="transOpen" data-k="airport">인천공항 교통 상세 이용 안내 ›</button>
+      <button class="air-link" data-a="transOpen" data-k="taxi">택시 · 지하철 · 버스 안내 ›</button>
       <div class="row map-btns"><a class="btn sm" href="https://map.naver.com/p/search/${q}" target="_blank" rel="noopener">${icon("map")}네이버 지도</a><a class="btn sm" href="https://map.kakao.com/?q=${q}" target="_blank" rel="noopener">${icon("map")}카카오맵</a><a class="btn sm" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">${icon("map")}구글 지도</a></div>
       <p class="small muted">정확한 호수는 확정 후 카톡으로 알려 드려요.</p>
     </section>
@@ -2234,44 +2233,35 @@ function hostSettings(){
 
 /* ---------- overlays ---------- */
 const DISCLAIMER = `<p class="trans-note">※ 교통 안내는 제 개인적인 의견이니 참고만 하시고, 미리 확인해서 불편함 없이 이용하시길 바라요.</p>`;
-const AIRPORT = [
-  {key:"both", title:"인천공항 ↔ 위례 햇살집", html:`
-<h3 class="trans-sec" id="tr-airport">✈️ 인천공항 ↔ 햇살집</h3>
-<h4>🚗 택시 · 자차 <small class="muted">가장 편안함</small></h4>
-<p>공항에서 위례 오피스텔까지 바로 가요. 공항 택시 승강장에서 타거나, 미국에서 쓰시던 Uber 앱으로 부르셔도 돼요.</p>
-<dl class="trans-kv"><dt>소요 시간</dt><dd>약 60~80분 (출퇴근 정체 제외)</dd><dt>택시 요금</dt><dd>통행료 포함 약 65,000~75,000원 (낮 기준)<br><small>출퇴근 시간이나 심야 할증(밤 10시~새벽 4시) 시간에는 8~9만 원 이상 나올 수 있어요.</small></dd></dl>
-
-<h4>🚌 공항버스 <small class="muted">짐이 많을 때 추천</small></h4>
-<p>6600번(위례 직행)과 6300번(가락시장역 경유) 중에서 고르면 돼요. 성인 편도 17,000원.</p>
+const ADDR_CARD = `<div class="trans-opt"><b>택시 기사님께 보여 주세요</b>
+<p>경기도 성남시 수정구 위례서일로 46 엘포트 한라비발디<br><small class="muted">(남위례역 3번 출구 근처 · Elport Halla Vivaldi, near Namwirye Station)</small></p></div>`;
+const MAP_TIP = `<div class="trans-opt"><b>길찾기는 네이버 지도나 카카오맵이 편해요.</b><p>실시간 안내를 가장 정확하게 확인할 수 있고, 영어로도 볼 수 있어요.</p></div>`;
+const AIR_TAXI = `<dl class="trans-kv"><dt>소요 시간</dt><dd>약 60~80분 (출퇴근 정체 제외)</dd><dt>택시 요금</dt><dd>통행료 포함 약 65,000~75,000원 (낮 기준)<br><small>출퇴근 시간이나 심야 할증(밤 10시~새벽 4시) 시간에는 8~9만 원 이상 나올 수 있어요.</small></dd></dl>`;
+const AIR_BUS = `<p>6600번(위례 직행)과 6300번(가락시장역 경유) 중에서 고르면 돼요. 성인 편도 17,000원.</p>
 <div class="trans-opt"><b>① 6600번 직행 · 환승 없음</b>
 <p>위례동주민센터 또는 장지역 2번 출구에서 내려 택시로 기본요금 거리예요. 하루 9회만 다녀서 시간표를 꼭 미리 확인하세요.</p></div>
 <div class="trans-opt"><b>② 6300번 + 택시 · 자주 다님</b>
 <p>가락시장역 하차(약 70~80분) → 택시 약 10분, 5,000원 내외. 공항 가실 땐 반대로, 15~60분 간격이에요.</p></div>
 <p class="trans-note">6200번은 가락시장역에 서지 않아서 이용할 수 없어요.</p>
-<div class="callout small">운행 시간과 노선은 변경될 수 있으니, 타시기 전에 <b>서울공항리무진 시간표</b>를 미리 확인해 주세요.</div>
-
-<h4>🚇 지하철 <small class="muted">시간이 정확하고 저렴함</small></h4>
-<dl class="trans-kv"><dt>소요 시간</dt><dd>약 1시간 30~40분 · 2번 갈아타요</dd><dt>경로</dt><dd>인천공항역 → <b>공항철도</b> → 김포공항역 → <b>9호선 급행</b> → 석촌역 → <b>8호선</b> (모란 방면) → 남위례역<br><small>공항 가실 때는 반대 순서로</small></dd><dt>참고</dt><dd>9호선 급행은 출퇴근 시간(아침 7~9시, 저녁 6~8시)에 많이 붐벼요. 짐이 많으면 이 시간은 피하시거나 택시 · 공항버스를 추천해요.</dd><dt>역에서 집</dt><dd>남위례역 3번 출구 → 육교·터널 따라 직진 약 250m (도보 4분) → 엘포트 한라비발디 정문</dd><dt>실시간 확인</dt><dd>출발 전에 카카오맵이나 네이버 지도로 실시간 최적 경로를 확인해 보세요.</dd></dl>
-<div class="trans-opt"><b>택시 기사님께 보여 주세요</b>
-<p>경기도 성남시 수정구 위례서일로 46 엘포트 한라비발디<br><small class="muted">(남위례역 3번 출구 근처 · Elport Halla Vivaldi, near Namwirye Station)</small></p></div>`}
-];
-const LOCAL_HTML = `
-<h3 class="trans-sec" id="tr-taxi">🚕 택시 부르기 <span>한국 택시 앱이 없어도 괜찮아요</span></h3>
+<div class="callout small">운행 시간과 노선은 변경될 수 있으니, 타시기 전에 <b>서울공항리무진 시간표</b>를 미리 확인해 주세요.</div>`;
+const AIR_SUB = `<dl class="trans-kv"><dt>소요 시간</dt><dd>약 1시간 30~40분 · 2번 갈아타요</dd><dt>경로</dt><dd>인천공항역 → <b>공항철도</b> → 김포공항역 → <b>9호선 급행</b> → 석촌역 → <b>8호선</b> (모란 방면) → 남위례역<br><small>공항 가실 때는 반대 순서로</small></dd><dt>참고</dt><dd>9호선 급행은 출퇴근 시간(아침 7~9시, 저녁 6~8시)에 많이 붐벼요. 짐이 많으면 이 시간은 피하시거나 택시 · 공항버스를 추천해요.</dd><dt>역에서 집</dt><dd>남위례역 3번 출구 → 육교·터널 따라 직진 약 250m (도보 4분) → 엘포트 한라비발디 정문</dd></dl>`;
+const TRANS_TABS = {
+taxi:{label:"택시", html:`
+<h3 class="trans-sec">🚕 택시 부르기 <span>한국 택시 앱이 없어도 괜찮아요</span></h3>
 <div class="trans-opt"><b>Uber 앱</b><p>미국에서 쓰시던 Uber 앱과 카드 그대로 쓸 수 있어요. 한국 일반 택시가 와요.</p></div>
 <div class="trans-opt"><b>성남시 개인택시 (전화)</b> · <a href="tel:0317554000"><b>031-755-4000</b></a>
 <p>전화하시면 안내원이 가까운 개인택시를 바로 불러 드려요. 호출 서비스는 무료이고, 한국에서 통화되는 전화만 있으면 돼요. 예약은 안 되고 바로 부르는 것만 가능하니, Uber처럼 외출 준비를 마친 뒤 전화해 주세요.</p></div>
 <p class="trans-note">밤 10시~새벽 4시에는 심야 할증이 붙어요. 남위례역 앞에서 지나가는 택시를 잡으셔도 돼요.</p>
-
-<h3 class="trans-sec" id="tr-subway">🚇 지하철 <span>8호선 남위례역</span></h3>
-<p>남위례역(8호선) 3번 출구에서 집까지 걸어서 4분이에요. 강남까지 약 25~30분, 판교까지 약 25분. 교통카드(티머니)는 건물 안 편의점에서 사서 현금으로 충전할 수 있어요.</p>
-
-<h3 class="trans-sec" id="tr-bus">🚌 버스 <span>강남 방향은 지하철이 훨씬 빠르고 편리해요</span></h3>
-<div class="trans-opt"><b>① 9200번 (광역직행) · 명동 · 남대문 · 서울역 방향</b>
-<dl class="trans-kv"><dt>주요 경유지</dt><dd>남위례역 인근 → 세곡동 → 순천향대학병원 → 서울백병원(명동 인근) → 을지로2가 → 서울역버스환승센터</dd><dt>배차 간격</dt><dd>평일 20~30분 · 휴일 30~40분</dd><dt>타는 곳</dt><dd>창곡교차로 대로변 정류소 (ID 05118)<br><small>3번 출구로 나와 큰길 방향으로 약 200m (도보 3분)</small></dd><dt>예상 시간</dt><dd>버스 약 45~50분<br><small>지하철로 가실 땐 지도 앱에서 최적 경로를 확인해 주세요.</small></dd></dl></div>
-<div class="trans-opt"><b>② 53번 (주말 · 공휴일 전용) · 남한산성 (정상 로터리) 방향</b>
-<dl class="trans-kv"><dt>주요 경유지</dt><dd>남위례역 → 위례포레스트부영 → 산성역 → 한국폴리텍대학 → 웃논골 → 남문매표소 → 남한산성로터리 (종점)</dd><dt>배차 간격</dt><dd>주말 · 공휴일에만 운행 · 약 30~70분 간격 (하루 24회)</dd><dt>타는 곳</dt><dd>남위례역 3번 출구 바로 앞 광장 정류소 (ID 5166)</dd><dt>예상 시간</dt><dd>약 25~30분<br><small>로터리에서 식당거리 도보 1~3분, 성곽 입구 도보 5~15분</small></dd><dt>평일에는</dt><dd>8호선 남위례역 → 산성역 (1정거장) → 2번 출구에서 9번 버스 환승 · 약 25분<br><small>지하철만으로는 정상까지 갈 수 없어요</small></dd></dl></div>
-
-<h3 class="trans-sec" id="tr-places">📍 지하철로 가볼 만한 곳</h3>
+<h3 class="trans-sec">✈️ 택시로 인천공항 <span>가장 편안함</span></h3>
+<p>공항에서 위례 오피스텔까지 바로 가요. 공항 택시 승강장에서 타거나 Uber 앱으로 부르셔도 돼요.</p>
+${AIR_TAXI}
+${ADDR_CARD}`},
+subway:{label:"지하철", html:`
+<h3 class="trans-sec">🚇 남위례역 <span>8호선 · 3번 출구에서 걸어서 4분</span></h3>
+<p>강남까지 약 25~30분, 판교까지 약 25분이에요. 교통카드(티머니)는 건물 안 편의점에서 사서 현금으로 충전할 수 있어요.</p>
+<h3 class="trans-sec">✈️ 지하철로 인천공항 <span>시간이 정확하고 저렴함</span></h3>
+${AIR_SUB}
+<h3 class="trans-sec">📍 지하철로 가볼 만한 곳</h3>
 <div class="trans-opt"><b>1. 서울숲</b>
 <p>넓은 잔디밭과 숲길이 있는 서울의 대표 공원이에요. 근처 성수동 카페거리도 함께 둘러보기 좋아요.</p>
 <dl class="trans-kv"><dt>경로</dt><dd><b>8호선</b> 남위례역 → 별내 방면 1정거장 → 복정역 환승<br><b>수인분당선</b> 복정역 → 왕십리 방면 11개 역 → 서울숲역</dd><dt>소요</dt><dd>약 30분 · 환승 1회 · 교통카드 1,750원<br><small>빠른 환승 3-4, 4-2</small></dd></dl></div>
@@ -2279,9 +2269,28 @@ const LOCAL_HTML = `
 <p>쇼핑몰과 식당가가 모여 있고, 지하에 대형 이마트(가든파이브점)가 있어서 장보기에도 좋아요.</p>
 <dl class="trans-kv"><dt>경로</dt><dd><b>8호선</b> 남위례역 → 별내 방면 2정거장 → 장지역 (환승 없음)<br><small>장지역 4번 출구로 나오면 지하상가를 따라 가든파이브 쇼핑몰과 이마트까지 이어져 있어요.</small></dd><dt>소요</dt><dd>약 15분 · 이마트는 가든파이브 툴관 지하 1층</dd></dl></div>
 <div class="callout small"><b>장 보러 가실 때</b> 필요하시면 개인용 카트를 가지고 가세요. 카트는 현관 입구 쪽 수납장에 있어요.</div>
-
-<div class="trans-opt"><b>길찾기는 네이버 지도나 카카오맵이 편해요.</b><p>실시간 안내를 가장 정확하게 확인할 수 있고, 영어로도 볼 수 있어요.</p></div>`;
-const TRANS_NAV = [["tr-taxi","택시"],["tr-subway","지하철"],["tr-bus","버스"],["tr-airport","인천공항"],["tr-places","가볼 만한 곳"]];
+${MAP_TIP}`},
+bus:{label:"버스", html:`
+<h3 class="trans-sec">🚌 동네 버스 <span>강남 방향은 지하철이 훨씬 빠르고 편리해요</span></h3>
+<div class="trans-opt"><b>① 9200번 (광역직행) · 명동 · 남대문 · 서울역 방향</b>
+<dl class="trans-kv"><dt>주요 경유지</dt><dd>남위례역 인근 → 세곡동 → 순천향대학병원 → 서울백병원(명동 인근) → 을지로2가 → 서울역버스환승센터</dd><dt>배차 간격</dt><dd>평일 20~30분 · 휴일 30~40분</dd><dt>타는 곳</dt><dd>창곡교차로 대로변 정류소 (ID 05118)<br><small>3번 출구로 나와 큰길 방향으로 약 200m (도보 3분)</small></dd><dt>예상 시간</dt><dd>약 45~50분</dd></dl></div>
+<div class="trans-opt"><b>② 53번 (주말 · 공휴일 전용) · 남한산성 (정상 로터리) 방향</b>
+<dl class="trans-kv"><dt>주요 경유지</dt><dd>남위례역 → 위례포레스트부영 → 산성역 → 한국폴리텍대학 → 웃논골 → 남문매표소 → 남한산성로터리 (종점)</dd><dt>배차 간격</dt><dd>주말 · 공휴일에만 운행 · 약 30~70분 간격 (하루 24회)</dd><dt>타는 곳</dt><dd>남위례역 3번 출구 바로 앞 광장 정류소 (ID 5166)</dd><dt>예상 시간</dt><dd>약 25~30분<br><small>로터리에서 식당거리 도보 1~3분, 성곽 입구 도보 5~15분</small></dd><dt>평일에는</dt><dd>8호선 남위례역 → 산성역 (1정거장) → 2번 출구에서 9번 버스 환승 · 약 25분</dd></dl></div>
+<h3 class="trans-sec">✈️ 공항버스로 인천공항 <span>짐이 많을 때 추천</span></h3>
+${AIR_BUS}
+${MAP_TIP}`},
+airport:{label:"인천공항", html:`
+<p>인천공항 ↔ 햇살집, 세 가지 방법을 비교해 보세요.</p>
+<h3 class="trans-sec">🚗 택시 <span>가장 편안함</span></h3>
+<p>공항에서 위례 오피스텔까지 바로 가요. 공항 택시 승강장에서 타거나, 미국에서 쓰시던 Uber 앱으로 부르셔도 돼요.</p>
+${AIR_TAXI}
+<h3 class="trans-sec">🚌 공항버스 <span>짐이 많을 때 추천</span></h3>
+${AIR_BUS}
+<h3 class="trans-sec">🚇 지하철 <span>시간이 정확하고 저렴함</span></h3>
+${AIR_SUB}
+<p class="trans-note">출발 전에 카카오맵이나 네이버 지도로 실시간 최적 경로를 확인해 보세요.</p>
+${ADDR_CARD}`}
+};
 const PARKING_HTML = `
 <h3 class="trans-sec">🚗 머무시는 분 차량 <span>1대 무료</span></h3>
 <p>머무시는 동안 차량 1대를 무료로 주차하실 수 있어요. <b>렌터카를 이용할 계획이 있고 주차가 필요하시면 미리 알려 주세요.</b></p>
@@ -2291,10 +2300,10 @@ const PARKING_HTML = `
 <p>그래서 무료 주차는 <b>머무시는 분 차량 1대</b>로만 지원하고, 방문 차량 주차는 지원이 어려워요. 양해 부탁드려요.</p>`;
 function viewTrans(){
   const park = S.trans === "parking";
-  const body = park ? PARKING_HTML : `<nav class="trans-nav">${TRANS_NAV.map(([id,t])=> `<button data-a="transJump" data-s="${id}">${t}</button>`).join("")}</nav>`
-    + LOCAL_HTML.replace('<h3 class="trans-sec" id="tr-places">', AIRPORT.map(a=>a.html).join("") + '<h3 class="trans-sec" id="tr-places">') + DISCLAIMER;
+  const tab = TRANS_TABS[S.trans] ? S.trans : "taxi";
+  const body = park ? PARKING_HTML : `<nav class="trans-nav">${Object.entries(TRANS_TABS).map(([k,t])=> `<button data-a="transOpen" data-k="${k}" ${k===tab?'aria-current="true"':""}>${t.label}</button>`).join("")}</nav>` + TRANS_TABS[tab].html + DISCLAIMER;
   return `<div class="overlay trans-ov" data-a="transBg"><div class="dialog trans-dlg" role="dialog" aria-modal="true">
-    <div class="trans-head"><h3>${park ? "주차 안내" : "교통 안내"}</h3><button class="trans-x" data-a="transClose" aria-label="닫기">✕</button></div>
+    <div class="trans-head"><h3>${park ? "주차 안내" : "교통 안내 · " + TRANS_TABS[tab].label}</h3><button class="trans-x" data-a="transClose" aria-label="닫기">✕</button></div>
     <div class="trans-body">${body}</div></div></div>`;
 }
 // 달력에서 고를 수 없는 날을 눌렀을 때: 화면 가운데 팝업으로 바로 보이게
@@ -2631,8 +2640,7 @@ const A = {
   copy: el => copy(el.dataset.t),
   lightbox: el => { S.lightbox = Number(el.dataset.i); render(); },
   mapOpen: () => { S.mapOpen = true; render(); },
-  transOpen: el => { S.trans = (el && el.dataset.k) || true; render(); const id = el && el.dataset.s; if(id) setTimeout(()=>{ const t = document.getElementById(id); if(t) t.scrollIntoView({block:"start"}); }, 0); },
-  transJump: el => { const t = document.getElementById(el.dataset.s); if(t) t.scrollIntoView({block:"start", behavior:"smooth"}); },
+  transOpen: el => { S.trans = (el && el.dataset.k) || "taxi"; render(); const b = document.querySelector(".trans-body"); if(b) b.scrollTop = 0; },
   transClose: () => { S.trans = null; render(); },
   transBg: (el,e) => { if(e.target === el){ S.trans = null; render(); } },
   mapClose: (el,e) => { if(e.target.closest("img,a")) return; S.mapOpen = false; render(); },
